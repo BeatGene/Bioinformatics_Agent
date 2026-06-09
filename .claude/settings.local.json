@@ -25,7 +25,11 @@
       "Bash(dir \"C:\\\\Users\\\\49586\\\\Desktop\\\\Learning\\\\AI\\\\Bioinformatics_Agent\\\\.venv\\\\Scripts\\\\python.exe\")",
       "Bash(npx vite *)",
       "Read(//c/Users/49586/Desktop/**)",
-      "Read(//c/Users/49586/Desktop/Learning/**)"
+      "Read(//c/Users/49586/Desktop/Learning/**)",
+      "Bash(\"C:\\\\Users\\\\49586\\\\anaconda3\\\\envs\\\\BioAgent\\\\python.exe\" -c \"import pymed; print\\('pymed version:', pymed.__version__\\)\")",
+      "Bash(\"C:\\\\Users\\\\49586\\\\anaconda3\\\\envs\\\\BioAgent\\\\python.exe\" -c \"import pip; pip.main\\(['show', 'pymed']\\)\")",
+      "Bash(\"C:\\\\Users\\\\49586\\\\anaconda3\\\\envs\\\\BioAgent\\\\python.exe\" -m pip show pymed)",
+      "Bash(C:\\\\Users\\\\49586\\\\anaconda3\\\\envs\\\\BioAgent\\\\python.exe *)"
     ]
   }
 }

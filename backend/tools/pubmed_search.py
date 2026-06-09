@@ -20,25 +20,59 @@ class PubMedSearch:
         self._pubmed = PubMed(**kwargs)
 
     @staticmethod
-    def _format_article(article: Any) -> dict[str, Any]:
+    def _safe_get(article: Any, attr: str, default: str = "") -> str:
+        """安全获取属性，pymed 不同版本属性名可能不同"""
+        try:
+            val = getattr(article, attr, None)
+            if val is None:
+                return default
+            return str(val)
+        except Exception:
+            return default
+
+    def _format_article(self, article: Any) -> dict[str, Any]:
         """将 pymed 的 Article 对象转为统一 dict 格式"""
-        pubmed_id = (
-            article.pubmed_id.split("\n")[0] if article.pubmed_id else "N/A"
-        )
+        pubmed_id = self._safe_get(article, "article_id", "N/A").split("\n")[0]
+
+        # DOI 可能不存在，尝试从 XML 提取
+        doi = self._safe_get(article, "doi")
+        if not doi:
+            doi = self._extract_doi_from_xml(article)
+
         return {
             "pubmed_id": pubmed_id,
-            "title": article.title or "N/A",
-            "abstract": article.abstract or "",
+            "title": self._safe_get(article, "title", "N/A"),
+            "abstract": self._safe_get(article, "abstract"),
             "authors": [
                 f"{a.get('lastname', '')} {a.get('firstname', '')}"
-                for a in (article.authors or [])
+                for a in (getattr(article, "authors", None) or [])
                 if a.get("lastname")
             ],
-            "journal": article.journal or "",
-            "doi": article.doi or "",
-            "publication_date": str(article.publication_date or ""),
+            "journal": self._safe_get(article, "journal"),
+            "doi": doi,
+            "publication_date": self._safe_get(article, "publication_date"),
             "url": f"https://pubmed.ncbi.nlm.nih.gov/{pubmed_id}/",
         }
+
+    @staticmethod
+    def _extract_doi_from_xml(article: Any) -> str:
+        """尝试从 XML 原始数据中提取 DOI"""
+        try:
+            xml = getattr(article, "_xml", None) or getattr(article, "xml", None)
+            if xml is None:
+                return ""
+            # 在 XML 文本中查找 DOI
+            import re
+            match = re.search(r'IdType="doi"[^>]*>([^<]+)', str(xml))
+            if match:
+                return match.group(1).strip()
+            # 备用：查找 10.xxxx/ 格式的 DOI
+            match = re.search(r'(10\.\d{4,}/[^\s<"]+)', str(xml))
+            if match:
+                return match.group(1).strip()
+        except Exception:
+            pass
+        return ""
 
     def search(self, query: str, max_results: int = 10) -> list[dict[str, Any]]:
         """按关键词检索 PubMed 文献。
