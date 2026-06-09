@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import type { ResearchSnapshot, SubTask, PaperDetail } from "../types/research";
 import { streamResearch } from "../lib/api";
 
@@ -34,30 +34,42 @@ const initialState: ResearchState = {
 
 export function useResearch() {
   const [state, setState] = useState<ResearchState>(initialState);
+  const abortRef = useRef<AbortController | null>(null);
+
   const start = useCallback((query: string, maxPapers: number) => {
-    // Reset state
+    // 中断上一个流
+    abortRef.current?.abort();
     setState({ ...initialState, loading: true });
 
-    streamResearch(
+    abortRef.current = streamResearch(
       query,
       maxPapers,
       (snapshot: ResearchSnapshot) => {
-        setState((prev) => ({
-          ...prev,
-          currentStep: snapshot.current_step,
-          planSummary: snapshot.plan_summary,
-          subTasks: snapshot.sub_tasks,
-          executionLog: snapshot.execution_log,
-          comparisonReport: snapshot.comparison_report,
-          finalReport: snapshot.final_report,
-          errors: snapshot.errors,
-          papers: snapshot.papers || [],
-          stats: {
-            searchResults: snapshot.search_results_count,
-            selectedPapers: snapshot.selected_papers_count,
-            parsedPapers: snapshot.parsed_papers_count,
-          },
-        }));
+        setState((prev) => {
+          // 增量追加 execution_log（只追加新条目）
+          const prevLogLen = prev.executionLog.length;
+          const newLogEntries = snapshot.execution_log.slice(prevLogLen);
+
+          return {
+            ...prev,
+            currentStep: snapshot.current_step,
+            planSummary: snapshot.plan_summary,
+            subTasks: snapshot.sub_tasks,
+            executionLog:
+              newLogEntries.length > 0
+                ? [...prev.executionLog, ...newLogEntries]
+                : prev.executionLog,
+            comparisonReport: snapshot.comparison_report,
+            finalReport: snapshot.final_report,
+            errors: snapshot.errors,
+            papers: snapshot.papers || [],
+            stats: {
+              searchResults: snapshot.search_results_count,
+              selectedPapers: snapshot.selected_papers_count,
+              parsedPapers: snapshot.parsed_papers_count,
+            },
+          };
+        });
       },
       (error: string) => {
         setState((prev) => ({
@@ -66,14 +78,24 @@ export function useResearch() {
           errors: [...prev.errors, error],
           currentStep: "执行出错",
         }));
+        abortRef.current = null;
       },
       () => {
         setState((prev) => ({ ...prev, loading: false, currentStep: "完成" }));
+        abortRef.current = null;
       },
     );
   }, []);
 
+  const abort = useCallback(() => {
+    abortRef.current?.abort();
+    abortRef.current = null;
+    setState((prev) => ({ ...prev, loading: false, currentStep: "已中止" }));
+  }, []);
+
   const reset = useCallback(() => {
+    abortRef.current?.abort();
+    abortRef.current = null;
     setState(initialState);
   }, []);
 
@@ -82,5 +104,5 @@ export function useResearch() {
     [state.papers],
   );
 
-  return { ...state, start, reset, getPaperByPmid };
+  return { ...state, start, abort, reset, getPaperByPmid };
 }

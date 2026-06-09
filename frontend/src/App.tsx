@@ -1,124 +1,193 @@
-import { useState, useCallback } from "react";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
-import DAGFlow from "./components/DAGFlow";
-import ReportView from "./components/ReportView";
-import CompareTable from "./components/CompareTable";
+import { useState, useEffect, useCallback, useRef } from "react";
+import ChatSidebar from "./components/chat/ChatSidebar";
+import ChatView from "./components/chat/ChatView";
 import DetailPanel from "./components/DetailPanel";
+import { useChat } from "./hooks/useChat";
 import { useResearch } from "./hooks/useResearch";
+import type { ChatMessage } from "./types/chat";
 
-type Tab = "report" | "compare" | "dag";
+function genMsgId(): string {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
 
 export default function App() {
-  const [query, setQuery] = useState("");
-  const [maxPapers, setMaxPapers] = useState(5);
-  const [activeTab, setActiveTab] = useState<Tab>("report");
+  const {
+    activeConversation,
+    activeId,
+    summaries,
+    createConversation,
+    selectConversation,
+    deleteConversation,
+    addMessage,
+    updateLastAssistantMessage,
+    finalizeConversation,
+  } = useChat();
+
+  const research = useResearch();
   const [selectedPmid, setSelectedPmid] = useState<string | null>(null);
 
-  const {
-    loading,
-    currentStep,
-    subTasks,
-    comparisonReport,
-    finalReport,
-    errors,
-    stats,
-    start,
-    getPaperByPmid,
-  } = useResearch();
+  // 用 ref 追踪当前活跃对话 ID（解决 useEffect 闭包问题）
+  const activeIdRef = useRef<string | null>(activeId);
+  activeIdRef.current = activeId;
 
-  const handleSubmit = useCallback(() => {
-    if (!query.trim() || loading) return;
-    setSelectedPmid(null);
-    start(query, maxPapers);
-  }, [query, maxPapers, loading, start]);
+  // 追踪是否正在流式输出
+  const isStreamingRef = useRef(false);
+
+  // 将 research 状态同步到聊天消息
+  useEffect(() => {
+    const convId = activeIdRef.current;
+    if (!convId) return;
+    if (!research.loading && !research.finalReport && research.executionLog.length === 0) return;
+
+    const wasStreaming = isStreamingRef.current;
+    isStreamingRef.current = research.loading;
+
+    updateLastAssistantMessage(
+      {
+        thinkingSteps: research.executionLog,
+        content: research.finalReport,
+        papers: research.papers,
+        errors: research.errors,
+        isStreaming: research.loading,
+      },
+      convId,
+    );
+
+    // 流式结束时保存对话
+    if (wasStreaming && !research.loading) {
+      finalizeConversation(convId);
+    }
+  }, [
+    research.loading,
+    research.executionLog,
+    research.finalReport,
+    research.errors,
+    research.papers,
+    updateLastAssistantMessage,
+    finalizeConversation,
+  ]);
+
+  const handleSend = useCallback(
+    (query: string, maxPapers: number) => {
+      // 如果没有活跃对话，先创建一个
+      let convId = activeId;
+      if (!convId) {
+        convId = createConversation();
+        activeIdRef.current = convId;
+      }
+
+      // 添加用户消息
+      const userMsg: ChatMessage = {
+        id: genMsgId(),
+        role: "user",
+        content: query,
+        timestamp: Date.now(),
+      };
+      addMessage(userMsg, convId);
+
+      // 添加空的助手消息占位
+      const assistantMsg: ChatMessage = {
+        id: genMsgId(),
+        role: "assistant",
+        content: "",
+        timestamp: Date.now(),
+        thinkingSteps: [],
+        papers: [],
+        errors: [],
+        isStreaming: true,
+      };
+      addMessage(assistantMsg, convId);
+
+      // 关闭详情面板
+      setSelectedPmid(null);
+
+      // 启动研究
+      isStreamingRef.current = true;
+      research.start(query, maxPapers);
+    },
+    [activeId, createConversation, addMessage, research],
+  );
+
+  const handleAbort = useCallback(() => {
+    research.abort();
+    isStreamingRef.current = false;
+    finalizeConversation();
+  }, [research, finalizeConversation]);
+
+  const handleNew = useCallback(() => {
+    // 如果正在流式中，先中止
+    if (research.loading) {
+      research.abort();
+      isStreamingRef.current = false;
+      finalizeConversation();
+    }
+    createConversation();
+  }, [research, createConversation, finalizeConversation]);
+
+  const handleSelect = useCallback(
+    (id: string) => {
+      // 如果正在流式中，先中止
+      if (research.loading) {
+        research.abort();
+        isStreamingRef.current = false;
+        finalizeConversation();
+      }
+      selectConversation(id);
+      setSelectedPmid(null);
+    },
+    [research, selectConversation, finalizeConversation],
+  );
+
+  const handleDelete = useCallback(
+    (id: string) => {
+      // 如果删除的是当前正在流式的对话，先中止
+      if (id === activeId && research.loading) {
+        research.abort();
+        isStreamingRef.current = false;
+      }
+      deleteConversation(id);
+    },
+    [activeId, research, deleteConversation],
+  );
+
+  const handlePromptClick = useCallback(
+    (prompt: string) => {
+      handleSend(prompt, 5);
+    },
+    [handleSend],
+  );
 
   const handlePmidClick = useCallback((pmid: string) => {
     setSelectedPmid((prev) => (prev === pmid ? null : pmid));
   }, []);
 
-  const tabs: { id: Tab; label: string }[] = [
-    { id: "report", label: "最终报告" },
-    { id: "compare", label: "对比分析" },
-    { id: "dag", label: "任务流程" },
-  ];
+  const messages = activeConversation?.messages ?? [];
 
   return (
-    <div className="h-screen flex flex-col bg-slate-50">
-      <Header />
+    <div className="h-screen flex bg-white">
+      <ChatSidebar
+        summaries={summaries}
+        activeId={activeId}
+        onSelect={handleSelect}
+        onNew={handleNew}
+        onDelete={handleDelete}
+      />
 
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar
-          query={query}
-          onQueryChange={setQuery}
-          maxPapers={maxPapers}
-          onMaxPapersChange={setMaxPapers}
-          onSubmit={handleSubmit}
-          loading={loading}
-          stats={stats}
+      <ChatView
+        messages={messages}
+        isStreaming={research.loading}
+        onSend={handleSend}
+        onAbort={handleAbort}
+        onPromptClick={handlePromptClick}
+        onPmidClick={handlePmidClick}
+      />
+
+      {selectedPmid && (
+        <DetailPanel
+          paper={research.getPaperByPmid(selectedPmid)}
+          onClose={() => setSelectedPmid(null)}
         />
-
-        <main className="flex-1 flex flex-col min-w-0">
-          {/* Tab 栏 */}
-          <div className="flex items-center gap-0 px-6 pt-4 pb-0 border-b border-slate-100 bg-white">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2.5 text-sm font-medium border-b-2 -mb-[1px] transition-colors ${
-                  activeTab === tab.id
-                    ? "border-blue-600 text-blue-600"
-                    : "border-transparent text-slate-400 hover:text-slate-600"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-
-            {loading && (
-              <div className="ml-auto flex items-center gap-2 pr-4">
-                <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                <span className="text-xs text-slate-500">{currentStep}</span>
-              </div>
-            )}
-            {errors.length > 0 && !loading && (
-              <div className="ml-auto flex items-center gap-2 pr-4">
-                <span className="w-2 h-2 bg-red-500 rounded-full" />
-                <span className="text-xs text-red-500">{errors[0]}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Tab 内容 */}
-          <div className="flex-1 overflow-y-auto px-8 py-6">
-            {activeTab === "report" && (
-              <ReportView
-                report={finalReport}
-                loading={loading}
-                onPmidClick={handlePmidClick}
-              />
-            )}
-            {activeTab === "compare" && (
-              <CompareTable report={comparisonReport} />
-            )}
-            {activeTab === "dag" && (
-              <div className="max-w-2xl mx-auto">
-                <h2 className="text-lg font-semibold text-slate-800 mb-4">
-                  任务执行流程
-                </h2>
-                <DAGFlow subTasks={subTasks} />
-              </div>
-            )}
-          </div>
-        </main>
-
-        {selectedPmid && (
-          <DetailPanel
-            paper={getPaperByPmid(selectedPmid)}
-            onClose={() => setSelectedPmid(null)}
-          />
-        )}
-      </div>
+      )}
     </div>
   );
 }

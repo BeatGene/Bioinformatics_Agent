@@ -3,9 +3,6 @@
 /* Katex 公式样式 */
 @import "katex/dist/katex.min.css";
 
-/* React Flow 样式 */
-@import "reactflow/dist/style.css";
-
 /* 自定义基础样式 */
 body {
   margin: 0;
@@ -14,7 +11,59 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 报告 Markdown 渲染样式 */
+/* === 思考过程区域 === */
+.thinking-section {
+  @apply border border-purple-200/60 rounded-xl overflow-hidden;
+  background: linear-gradient(to bottom, #faf5ff, #fdf4ff);
+}
+
+.thinking-header {
+  @apply flex items-center gap-2 px-4 py-3 cursor-pointer select-none;
+}
+
+.thinking-step {
+  @apply flex items-start gap-2 px-4 py-1.5 text-sm;
+  animation: thinking-step-in 0.3s ease-out;
+}
+
+@keyframes thinking-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === 消息气泡 === */
+.message-user {
+  @apply bg-blue-50 border border-blue-100 rounded-2xl rounded-tl-sm
+         px-5 py-3.5 max-w-2xl;
+}
+
+.message-assistant {
+  @apply max-w-3xl w-full;
+}
+
+/* === 输入栏 textarea === */
+.chat-textarea {
+  @apply w-full resize-none text-sm text-slate-700 placeholder:text-slate-400
+         bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3
+         focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300
+         transition-all;
+  max-height: 200px;
+  field-sizing: content;
+}
+
+/* === 消息列表平滑滚动 === */
+.message-list {
+  @apply overflow-y-auto scroll-smooth;
+  scrollbar-gutter: stable;
+}
+
+/* === 报告 Markdown 渲染样式 === */
 .report-content h1 { @apply text-2xl font-bold text-slate-900 mt-8 mb-4; }
 .report-content h2 { @apply text-xl font-semibold text-slate-800 mt-6 mb-3; }
 .report-content h3 { @apply text-lg font-medium text-slate-700 mt-4 mb-2; }
@@ -46,3 +95,7 @@ body {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* 侧边栏滚动条（深色） */
+aside::-webkit-scrollbar-thumb { background: #475569; }
+aside::-webkit-scrollbar-thumb:hover { background: #64748b; }

@@ -16,7 +16,14 @@
       "Bash(md5sum llm_client.py)",
       "Bash(certutil -hashfile llm_client.py MD5)",
       "Bash(python -c ' *)",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(git remote *)",
+      "Bash(python -m py_compile backend\\\\main.py)",
+      "Bash(where py *)",
+      "Bash(dir \"C:\\\\Users\\\\49586\\\\Desktop\\\\Learning\\\\AI\\\\Bioinformatics_Agent\\\\.venv\\\\Scripts\")",
+      "Bash(dir \"C:\\\\Users\\\\49586\\\\Desktop\\\\Learning\\\\AI\\\\Bioinformatics_Agent\" /b)",
+      "Bash(dir \"C:\\\\Users\\\\49586\\\\Desktop\\\\Learning\\\\AI\\\\Bioinformatics_Agent\\\\.venv\\\\Scripts\\\\python.exe\")",
+      "Bash(npx vite *)"
     ]
   }
 }

@@ -18,12 +18,12 @@ function MarkdownRenderer({
   content: string;
   onPmidClick?: (pmid: string) => void;
 }) {
-  // 预处理：将 [PMID:xxxxx] 替换为可点击的 HTML
+  // 预处理：将 [PMID:xxxxx] 替换为 Markdown 链接（由自定义 a 组件渲染为可点击标签）
   const processed = useMemo(() => {
     return content.replace(
       /\[PMID:(\d+)\]/g,
       (_match, pmid: string) =>
-        `<a class="pmid-tag" data-pmid="${pmid}" href="https://pubmed.ncbi.nlm.nih.gov/${pmid}/" target="_blank" rel="noopener">PMID: ${pmid}</a>`,
+        `[PMID: ${pmid}](https://pubmed.ncbi.nlm.nih.gov/${pmid}/)`,
     );
   }, [content]);
 
