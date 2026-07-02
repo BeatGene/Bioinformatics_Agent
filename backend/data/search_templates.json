@@ -1,0 +1,88 @@
+{
+  "_instructions": "医学生填写：针对常见生物医学研究问题类型预设 PubMed 检索模板。每类问题填一个模板，slot 用 {slot_name} 表示占位符。",
+  "templates": [
+    {
+      "id": "target_clinical_trial",
+      "trigger_keywords": ["靶点", "临床", "试验", "靶向"],
+      "description": "某靶点的临床试验进展",
+      "pubmed_template": "({target}[MeSH Terms] OR {target}[Title/Abstract]) AND (clinical trial[Publication Type] OR clinical trial[Title/Abstract] OR phase[Title/Abstract])",
+      "slots": {
+        "target": "靶点名称，如 EGFR, PD-L1, HER2"
+      },
+      "filters": "近5年, 英文文献, 有摘要"
+    },
+    {
+      "id": "disease_biomarker",
+      "trigger_keywords": ["生物标志物", "标志物", "biomarker", "诊断", "预后"],
+      "description": "某疾病的生物标志物研究",
+      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND (biomarker[Title/Abstract] OR biomarker[MeSH Terms] OR diagnostic[Title/Abstract] OR prognostic[Title/Abstract])",
+      "slots": {
+        "disease": "疾病名称，如 lung cancer, Alzheimer"
+      },
+      "filters": "近5年, 英文文献, 有摘要"
+    },
+    {
+      "id": "treatment_comparison",
+      "trigger_keywords": ["对比", "比较", "vs", "versus", "孰优", "方案", "治疗"],
+      "description": "两种治疗方案的比较",
+      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND ({treatment_a}[Title/Abstract]) AND ({treatment_b}[Title/Abstract]) AND (comparative study[Publication Type] OR comparative[Title/Abstract] OR versus[Title/Abstract])",
+      "slots": {
+        "disease": "疾病名称",
+        "treatment_a": "治疗方案A",
+        "treatment_b": "治疗方案B"
+      },
+      "filters": "近10年, 英文文献, 有摘要"
+    },
+    {
+      "id": "drug_mechanism",
+      "trigger_keywords": ["机制", "机理", "通路", "mechanism", "pathway", "信号"],
+      "description": "某药物的作用机制研究",
+      "pubmed_template": "({drug}[Title/Abstract]) AND (mechanism[Title/Abstract] OR pathway[Title/Abstract] OR signaling[Title/Abstract] OR target[Title/Abstract])",
+      "slots": {
+        "drug": "药物名称，如 osimertinib, bevacizumab"
+      },
+      "filters": "不限年份, 英文文献, 有摘要"
+    },
+    {
+      "id": "mutation_landscape",
+      "trigger_keywords": ["突变", "突变图谱", "基因变异", "mutation", "genomic", "genetic alteration"],
+      "description": "某疾病的基因突变图谱/基因组学研究",
+      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND (mutation[Title/Abstract] OR genomic[Title/Abstract] OR sequencing[Title/Abstract] OR mutational landscape[Title/Abstract])",
+      "slots": {
+        "disease": "疾病名称，如 non-small cell lung cancer"
+      },
+      "filters": "近5年, 英文文献, 有摘要"
+    },
+    {
+      "id": "model_system_study",
+      "trigger_keywords": ["模型", "小鼠", "细胞系", "类器官", "动物模型", "xenograft", "organoid"],
+      "description": "某疾病的实验模型研究",
+      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND ({model_type}[Title/Abstract])",
+      "slots": {
+        "disease": "疾病名称",
+        "model_type": "模型类型，如 xenograft, organoid, cell line, mouse model"
+      },
+      "filters": "近10年, 英文文献, 有摘要"
+    },
+    {
+      "id": "rct_only",
+      "trigger_keywords": ["随机对照", "RCT", "randomized", "clinical evidence", "临床证据"],
+      "description": "某疾病的随机对照试验证据",
+      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND (randomized controlled trial[Publication Type] OR random*[Title/Abstract])",
+      "slots": {
+        "disease": "疾病名称"
+      },
+      "filters": "近10年, 英文文献, 有摘要, Meta-Analysis优先"
+    },
+    {
+      "id": "meta_review",
+      "trigger_keywords": ["Meta", "荟萃", "系统评价", "综述", "证据汇总"],
+      "description": "某领域的系统评价与Meta分析",
+      "pubmed_template": "({topic}[MeSH Terms] OR {topic}[Title/Abstract]) AND (systematic review[Publication Type] OR meta-analysis[Publication Type] OR meta-analysis[Title/Abstract])",
+      "slots": {
+        "topic": "研究主题"
+      },
+      "filters": "近5年, 英文文献"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "_instructions": "医学生填写：按类别整理生物医学研究中常用的实验模型系统。patterns 用于从 method/model_system 字段中自动识别模型类型。",
+  "cell_lines": {
+    "cancer_cell_lines": {
+      "names": ["HeLa", "HEK293", "HEK293T", "A549", "MCF-7", "MDA-MB-231", "HCT116", "HT-29", "HepG2", "U2OS", "PC-3", "LNCaP", "Jurkat", "K562", "THP-1", "U87", "U251", "SH-SY5Y"],
+      "patterns": ["cell line", "细胞系", "cells?$"]
+    },
+    "normal_cell_lines": {
+      "names": ["HMEC", "HUVEC", "NHDF", "WI-38", "MRC-5", "3T3", "CHO"],
+      "patterns": ["normal.*cell", "primary.*cell", "原代.*细胞"]
+    }
+  },
+  "animal_models": {
+    "mouse_models": {
+      "subtypes": {
+        "xenograft": {
+          "description": "异种移植模型（人源肿瘤植入免疫缺陷鼠）",
+          "patterns": ["xenograft", "异种移植", "CDX", "PDX", "patient.?derived xenograft", "cell.?derived xenograft"],
+          "strains": ["BALB/c nude", "NOD/SCID", "NSG", "NOG"]
+        },
+        "knockout": {
+          "description": "基因敲除小鼠",
+          "patterns": ["knockout", "knock.?out", "KO", "基因敲除", "conditional knockout", "cKO", "floxed", "Cre-Lox"],
+          "note": "请补充常见基因敲除品系，如 ApoE-/-, db/db 等"
+        },
+        "knockin": {
+          "description": "基因敲入/转基因小鼠",
+          "patterns": ["knock.?in", "knockin", "KI", "transgenic", "转基因"],
+          "examples": ["EGFR L858R transgenic", "Rosa26-CreERT2"]
+        },
+        "syngeneic": {
+          "description": "同系移植模型（鼠源肿瘤植入同品系鼠）",
+          "patterns": ["syngeneic", "同系"],
+          "examples": ["B16-F10", "CT26", "MC38", "LLC", "4T1"]
+        }
+      }
+    },
+    "rat_models": {
+      "patterns": ["rat", "大鼠", "Sprague.?Dawley", "Wistar"],
+      "examples": ["请补充常见大鼠模型"]
+    },
+    "non_human_primate": {
+      "patterns": ["primate", "macaque", "cynomolgus", "rhesus", "灵长类", "猕猴"],
+      "examples": ["请补充"]
+    },
+    "zebrafish": {
+      "patterns": ["zebrafish", "danio", "斑马鱼"],
+      "examples": ["请补充"]
+    }
+  },
+  "in_vitro_models": {
+    "organoid": {
+      "description": "类器官",
+      "patterns": ["organoid", "类器官", "3D.*culture"],
+      "examples": ["请补充"]
+    },
+    "spheroid": {
+      "description": "三维球体培养",
+      "patterns": ["spheroid", "球体.*培养", "3D.*spheroid"],
+      "examples": ["请补充"]
+    },
+    "co_culture": {
+      "description": "共培养系统",
+      "patterns": ["co.?culture", "共培养"],
+      "examples": ["请补充"]
+    }
+  }
+}

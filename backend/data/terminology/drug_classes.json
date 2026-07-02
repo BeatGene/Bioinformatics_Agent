@@ -1,0 +1,61 @@
+{
+  "_instructions": "医学生填写：按分类整理药物类型、代表性药物名称。",
+  "small_molecule_inhibitors": {
+    "TKI": {
+      "description": "酪氨酸激酶抑制剂",
+      "patterns": ["TKI", "tyrosine kinase inhibitor", "酪氨酸激酶抑制剂"],
+      "drugs": ["imatinib", "gefitinib", "erlotinib", "afatinib", "osimertinib", "crizotinib", "alectinib", "lorlatinib", "lapatinib", "neratinib", "sunitinib", "sorafenib", "regorafenib", "lenvatinib"]
+    },
+    "CDK_inhibitor": {
+      "description": "CDK抑制剂",
+      "patterns": ["CDK.*inhibitor", "CDK.*抑制剂"],
+      "drugs": ["palbociclib", "ribociclib", "abemaciclib"]
+    },
+    "PARP_inhibitor": {
+      "description": "PARP抑制剂",
+      "patterns": ["PARP.*inhibitor", "PARP.*抑制剂"],
+      "drugs": ["olaparib", "niraparib", "rucaparib", "talazoparib"]
+    },
+    "其他小分子抑制剂": {
+      "description": "请补充其他类别，如 MEK inhibitor, PI3K inhibitor 等",
+      "patterns": [],
+      "drugs": []
+    }
+  },
+  "monoclonal_antibodies": {
+    "mAb": {
+      "description": "单克隆抗体（命名以 -mab 结尾）",
+      "patterns": ["monoclonal antibody", "单克隆抗体", "单抗", "mAb", "\\w+mab\\b"],
+      "drugs": ["trastuzumab", "bevacizumab", "rituximab", "cetuximab", "pertuzumab", "nivolumab", "pembrolizumab", "atezolizumab", "durvalumab", "avelumab", "ipilimumab", "denosumab"]
+    },
+    "ADC": {
+      "description": "抗体药物偶联物",
+      "patterns": ["ADC", "antibody.?drug conjugate", "抗体.*偶联"],
+      "drugs": ["trastuzumab deruxtecan", "trastuzumab emtansine", "sacituzumab govitecan", "enfortumab vedotin"]
+    },
+    "bispecific": {
+      "description": "双特异性抗体",
+      "patterns": ["bispecific", "双特异性", "双抗", "BiTE"],
+      "drugs": ["blinatumomab", "teclistamab"]
+    }
+  },
+  "cell_therapy": {
+    "CAR_T": {
+      "description": "嵌合抗原受体T细胞疗法",
+      "patterns": ["CAR.?T", "CAR.?NK", "chimeric antigen receptor", "嵌合抗原受体"],
+      "drugs": ["tisagenlecleucel", "axicabtagene ciloleucel", "brexucabtagene autoleucel"]
+    }
+  },
+  "other_therapies": {
+    "gene_therapy": {
+      "description": "基因治疗",
+      "patterns": ["gene therapy", "基因治疗", "gene editing", "CRISPR"],
+      "examples": ["请补充代表性基因治疗药物"]
+    },
+    "RNA_therapy": {
+      "description": "RNA疗法（siRNA, ASO, mRNA等）",
+      "patterns": ["siRNA", "ASO", "antisense oligonucleotide", "mRNA", "RNAi", "反义寡核苷酸"],
+      "drugs": ["patisiran", "nusinersen", "inotersen", "mRNA-1273"]
+    }
+  }
+}

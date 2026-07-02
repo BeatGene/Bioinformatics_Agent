@@ -1,0 +1,25 @@
+{
+  "_instructions": "医学生填写。设计20个覆盖不同研究类型和难度的测试查询，用于系统评测。",
+  "test_queries": [
+    {
+      "query_id": "T001",
+      "query_text": "",
+      "query_type": "",
+      "difficulty": "easy/medium/hard",
+      "expected_pubmed_ids": [],
+      "_query_type_options": "靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"
+    }
+  ],
+  "_query_design_principles": {
+    "coverage": "确保覆盖所有 search_templates.json 中的模板类型",
+    "difficulty_mix": "easy(单靶点+单疾病) 6个, medium(多条件组合) 8个, hard(宽泛或跨领域) 6个",
+    "realistic": "这些应该是生物医学研究者真实会问的问题",
+    "examples": [
+      "EGFR突变非小细胞肺癌的靶向治疗最新临床试验进展",
+      "PD-L1作为三阴性乳腺癌预后生物标志物的研究",
+      "CAR-T疗法 vs 双特异性抗体治疗复发难治B细胞淋巴瘤的疗效对比",
+      "奥希替尼耐药机制的研究进展",
+      "结直肠癌的基因突变图谱与分子分型"
+    ]
+  }
+}

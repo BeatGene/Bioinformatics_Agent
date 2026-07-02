@@ -1,0 +1,66 @@
+{
+  "_instructions": "医学生填写：整理突变类型及其命名变体。patterns 是正则表达式片段，用于在文本中匹配。",
+  "point_mutations": {
+    "missense": {
+      "description": "错义突变：单个碱基改变导致氨基酸替换",
+      "patterns": ["missense", "错义"],
+      "examples": ["BRAF V600E", "EGFR T790M", "KRAS G12D"]
+    },
+    "nonsense": {
+      "description": "无义突变：提前引入终止密码子",
+      "patterns": ["nonsense", "无义", "stop.?gain"],
+      "examples": ["TP53 R213*"]
+    },
+    "silent": {
+      "description": "同义突变：不改变氨基酸序列",
+      "patterns": ["silent", "synonymous", "同义"],
+      "examples": []
+    }
+  },
+  "indels": {
+    "frameshift": {
+      "description": "移码突变：插入或删除导致读码框偏移",
+      "patterns": ["frameshift", "移码", "fs"],
+      "examples": ["EGFR exon 19 deletion"]
+    },
+    "inframe_deletion": {
+      "description": "框内缺失：缺失3的整数倍碱基",
+      "patterns": ["in.?frame deletion", "框内缺失"],
+      "examples": ["EGFR exon 19 del"]
+    },
+    "inframe_insertion": {
+      "description": "框内插入",
+      "patterns": ["in.?frame insertion", "框内插入"],
+      "examples": ["EGFR exon 20 insertion"]
+    }
+  },
+  "structural_variants": {
+    "fusion": {
+      "description": "基因融合",
+      "patterns": ["fusion", "融合", "rearrangement", "重排"],
+      "examples": ["BCR-ABL", "EML4-ALK", "TMPRSS2-ERG"]
+    },
+    "amplification": {
+      "description": "基因扩增：拷贝数增加",
+      "patterns": ["amplification", "扩增", "copy.?number gain", "CNV"],
+      "examples": ["HER2 amplification", "EGFR amplification"]
+    },
+    "deletion_cnv": {
+      "description": "基因缺失：拷贝数丢失",
+      "patterns": ["deletion", "copy.?number loss", "LOH", "loss of heterozygosity", "缺失"],
+      "examples": ["PTEN deletion"]
+    }
+  },
+  "epigenetic_alterations": {
+    "methylation": {
+      "description": "DNA甲基化",
+      "patterns": ["methylation", "hypermethylation", "hypomethylation", "甲基化"],
+      "examples": ["MGMT promoter methylation"]
+    },
+    "acetylation": {
+      "description": "组蛋白乙酰化",
+      "patterns": ["acetylation", "乙酰化"],
+      "examples": []
+    }
+  }
+}

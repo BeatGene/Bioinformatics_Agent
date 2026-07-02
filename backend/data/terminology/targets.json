@@ -1,0 +1,38 @@
+{
+  "_instructions": "医学生填写：按分类整理靶点名称、标准名称和别名。aliases 里的每个别名都应该能映射到标准名。",
+  "kinase_targets": {
+    "names": ["EGFR", "HER2", "ALK", "ROS1", "BRAF", "MEK", "MET", "RET", "NTRK", "FGFR", "KIT", "PDGFRA"],
+    "aliases": {
+      "EGFR": ["epidermal growth factor receptor", "ErbB1", "HER1"],
+      "HER2": ["ERBB2", "ErbB2", "HER2/neu", "CD340"],
+      "ALK": ["anaplastic lymphoma kinase", "CD246"],
+      "BRAF": ["B-Raf", "v-raf murine sarcoma viral oncogene homolog B1"]
+    }
+  },
+  "immune_checkpoints": {
+    "names": ["PD-1", "PD-L1", "CTLA-4", "LAG-3", "TIM-3", "TIGIT", "B7-H3", "VISTA"],
+    "aliases": {
+      "PD-1": ["programmed cell death protein 1", "CD279"],
+      "PD-L1": ["programmed death-ligand 1", "CD274", "B7-H1"],
+      "CTLA-4": ["cytotoxic T-lymphocyte-associated protein 4", "CD152"]
+    }
+  },
+  "cell_signaling": {
+    "names": ["PI3K", "AKT", "mTOR", "RAS", "KRAS", "NRAS", "HRAS", "JAK", "STAT", "NF-κB", "Wnt", "Notch", "Hedgehog"],
+    "aliases": {
+      "KRAS": ["Kirsten rat sarcoma virus", "KRAS2"],
+      "mTOR": ["mammalian target of rapamycin", "FRAP1"]
+    }
+  },
+  "tumor_suppressors": {
+    "names": ["TP53", "PTEN", "RB1", "BRCA1", "BRCA2", "APC", "CDKN2A", "SMAD4", "VHL"],
+    "aliases": {
+      "TP53": ["p53", "tumor protein p53"],
+      "PTEN": ["phosphatase and tensin homolog"]
+    }
+  },
+  "other_targets": {
+    "names": [],
+    "description": "在此补充其他靶点类别"
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "_instructions": "医学生填写：为每个字段定义校验规则。这是 LLM 提取后做质量检查的依据。",
+  "field_rules": {
+    "target": {
+      "description": "研究靶点/基因/蛋白质",
+      "rules": [
+        {
+          "name": "known_target_check",
+          "type": "dictionary_lookup",
+          "description": "提取的靶点名称是否在 targets.json 词典中存在（含别名匹配）",
+          "action_on_fail": "标记为 [待核实] ，在报告中提示用户该靶点名称不在已知词典中"
+        },
+        {
+          "name": "format_check",
+          "type": "regex",
+          "pattern": "^[A-Z0-9][A-Za-z0-9\\-]+$",
+          "description": "基因/蛋白质名称应符合标准命名格式（大写字母开头，可含数字和连字符）",
+          "action_on_fail": "light_warn"
+        }
+      ]
+    },
+    "biomarker": {
+      "description": "生物标志物",
+      "rules": [
+        {
+          "name": "non_empty_check",
+          "type": "semantic",
+          "description": "如果文献类型是诊断/预后研究，biomarker 字段不应为空",
+          "action_on_fail": "标记提醒"
+        },
+        {
+          "name": "format_check",
+          "type": "regex",
+          "pattern": "^(基因|蛋白质|代谢物|miRNA|lncRNA|circulating|serum|plasma|urinary|tissue)",
+          "description": "生物标志物应有明确的分子类型或样本来源提示",
+          "action_on_fail": "soft_warn"
+        }
+      ]
+    },
+    "sample_size": {
+      "description": "样本量",
+      "rules": [
+        {
+          "name": "numeric_check",
+          "type": "regex",
+          "pattern": "\\d+",
+          "description": "样本量字段应包含数字",
+          "action_on_fail": "标记为 [未提取到数值]"
+        },
+        {
+          "name": "realistic_check",
+          "type": "numeric_range",
+          "min": 1,
+          "max": 10000000,
+          "description": "样本量应在合理范围内",
+          "action_on_fail": "标记为 [异常值，请核实]"
+        }
+      ]
+    },
+    "method": {
+      "description": "实验方法",
+      "rules": [
+        {
+          "name": "method_type_detection",
+          "type": "regex_list",
+          "source": "study_designs.json 中的所有 patterns",
+          "description": "从 method 字段中识别实验设计类型",
+          "action_on_fail": "标记为 [方法类型未识别]"
+        }
+      ]
+    },
+    "model_system": {
+      "description": "模型系统",
+      "rules": [
+        {
+          "name": "model_type_detection",
+          "type": "regex_list",
+          "source": "model_systems.json 中的所有 patterns",
+          "description": "从 model_system 字段中识别模型类型",
+          "action_on_fail": "标记为 [模型类型未识别]"
+        }
+      ]
+    },
+    "result_value": {
+      "description": "关键数值结果",
+      "rules": [
+        {
+          "name": "statistical_indicator_check",
+          "type": "regex",
+          "pattern": "(p\\s*[<=>]|HR\\s*=|OR\\s*=|RR\\s*=|CI\\s*=|95%.*CI|hazard ratio|odds ratio|relative risk|\\d+%|HR\\s*\\d|\\(95%|p\\s*=\\s*0)",
+          "description": "result_value 应包含统计指标（p值、HR、OR、RR、CI 等）",
+          "action_on_fail": "标记为 [缺少统计指标，可能为定性描述]"
+        }
+      ]
+    },
+    "conclusion": {
+      "description": "结论",
+      "rules": [
+        {
+          "name": "length_check",
+          "type": "length",
+          "min_chars": 20,
+          "max_chars": 500,
+          "description": "结论不应过短或过长",
+          "action_on_fail": "标记"
+        }
+      ]
+    }
+  }
+}

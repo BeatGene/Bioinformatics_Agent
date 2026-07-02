@@ -17,6 +17,9 @@ pymed>=0.8.0
 PyMuPDF>=1.23.0
 magic-pdf>=1.0.0
 
+# 数据库
+sqlalchemy>=2.0.0
+
 # 配置管理
 python-dotenv>=1.0.0
 

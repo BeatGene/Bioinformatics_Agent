@@ -1,0 +1,54 @@
+{
+  "_instructions": "医学生填写：研究设计类型的层级和识别模式。evidence_level 数值越小=证据等级越高。patterns 用于从文献中自动识别研究类型。",
+  "hierarchy": {
+    "meta_analysis": {
+      "evidence_level": 1,
+      "description": "系统评价与Meta分析",
+      "patterns": ["meta.?analysis", "systematic review", "荟萃分析", "系统评价", "systematic literature review"],
+      "score": 5
+    },
+    "rct": {
+      "evidence_level": 2,
+      "description": "随机对照试验",
+      "patterns": ["randomi[sz]ed controlled trial", "RCT", "随机对照", "double.?blind", "single.?blind", "open.?label"],
+      "subtypes": ["phase I", "phase II", "phase III", "phase IV", "pilot study"],
+      "score": 5
+    },
+    "cohort": {
+      "evidence_level": 3,
+      "description": "队列研究",
+      "patterns": ["cohort", "队列", "prospective", "retrospective", "前瞻性", "回顾性"],
+      "score": 4
+    },
+    "case_control": {
+      "evidence_level": 3,
+      "description": "病例对照研究",
+      "patterns": ["case.?control", "病例对照", "matched.*control"],
+      "score": 3
+    },
+    "cross_sectional": {
+      "evidence_level": 4,
+      "description": "横断面研究",
+      "patterns": ["cross.?sectional", "横断面", "prevalence study", "survey"],
+      "score": 2
+    },
+    "case_series": {
+      "evidence_level": 4,
+      "description": "病例系列/病例报告",
+      "patterns": ["case series", "case report", "病例系列", "病例报告"],
+      "score": 1
+    },
+    "in_vitro": {
+      "evidence_level": 5,
+      "description": "体外实验研究",
+      "patterns": ["in vitro", "cell line", "细胞.*实验", "mechanism study"],
+      "score": 1
+    },
+    "in_vivo": {
+      "evidence_level": 5,
+      "description": "动物实验研究",
+      "patterns": ["in vivo", "mouse model", "animal model", "小鼠模型", "动物实验"],
+      "score": 2
+    }
+  }
+}

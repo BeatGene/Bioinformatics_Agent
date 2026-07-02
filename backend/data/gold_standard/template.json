@@ -1,0 +1,42 @@
+{
+  "_instructions": "医学生填写。这是50篇文献的人工标注标准答案，用于评估Agent提取准确率。为每篇文献填写17个字段的标准答案。",
+  "_usage": "选择50篇PubMed文献（覆盖不同研究类型：RCT、队列研究、病例对照、基础研究等），逐篇填写gold_fields。不需要填的字段留空字符串。",
+  "papers": [
+    {
+      "pubmed_id": "PMID_GOES_HERE",
+      "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/PMID_GOES_HERE/",
+      "gold_fields": {
+        "objective": "",
+        "method": "",
+        "target": "",
+        "biomarker": "",
+        "sample_size": "",
+        "model_system": "",
+        "key_findings": "",
+        "result_value": "",
+        "conclusion": "",
+        "figures_summary": "",
+        "limitations": "",
+        "study_design_type": "",
+        "drug_class": "",
+        "mutation_types": ""
+      }
+    }
+  ],
+  "_annotation_guidelines": {
+    "objective": "一句话概述研究目的。直接从摘要中提取，不要自己概括。例：To evaluate the efficacy of osimertinib as first-line treatment for EGFR-mutated NSCLC.",
+    "method": "列出核心实验方法。例：RCT, phase III, double-blind. NGS sequencing, IHC staining, qPCR.",
+    "target": "研究的靶点/基因/蛋白质。标准化命名。例：EGFR (不是epidermal growth factor receptor)",
+    "biomarker": "生物标志物全称。例：circulating tumor DNA (ctDNA)，无则留空",
+    "sample_size": "样本量数字。例：556 patients (osimertinib: 279, control: 277)",
+    "model_system": "实验使用的模型。例：BALB/c nude mice xenograft, PDX model, 无则留空",
+    "key_findings": "核心发现，包含具体数值。例：Median PFS 18.9 months vs 10.2 months (HR 0.46, 95% CI 0.37-0.57, p<0.001)",
+    "result_value": "仅数值结果，一行。例：HR=0.46, p<0.001, ORR=80%",
+    "conclusion": "作者原文conclusion。从摘要conclusion部分直接摘录。1-2句话。",
+    "figures_summary": "图表描述。例：Figure 1: CONSORT diagram; Figure 2: Kaplan-Meier PFS curve; 无图表则留空",
+    "limitations": "作者自己提到的局限性。例：single-center, small sample size, retrospective design; 未提及则留空",
+    "study_design_type": "研究类型。从以下选一：meta_analysis / rct / cohort / case_control / cross_sectional / case_series / in_vivo / in_vitro",
+    "drug_class": "涉及的药物类型。从 drug_classes.json 中选择：TKI / mAb / ADC / CAR-T / siRNA / ASO 等，多个用逗号分隔",
+    "mutation_types": "涉及的突变类型。从 mutations.json 中选择：missense / nonsense / frameshift / fusion / amplification 等，多个用逗号分隔"
+  }
+}
