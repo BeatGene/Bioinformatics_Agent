@@ -5,6 +5,7 @@ v2.0: 支持多轮对话、人工干预（HITL）、对话持久化。
 import json
 import asyncio
 import logging
+from contextlib import asynccontextmanager
 from typing import AsyncGenerator, Optional
 
 from fastapi import FastAPI, Request, Depends, HTTPException
@@ -21,12 +22,24 @@ from backend.db.models import Conversation, Message, ResearchRecord
 
 logger = logging.getLogger(__name__)
 
+# ── Lifespan ──
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    config.ensure_dirs()
+    init_db()
+    logger.info("Database and directories initialized")
+    yield
+
+
 # ── FastAPI App ──
 
 app = FastAPI(
     title="Bioinformatics Agent API",
     description="AI 驱动的生物医学文献智能分析系统 v2.0",
     version="2.0.0",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -36,13 +49,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.on_event("startup")
-def on_startup():
-    config.ensure_dirs()
-    init_db()
-    logger.info("Database and directories initialized")
 
 
 # ── 请求/响应模型 ──
