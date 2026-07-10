@@ -29,7 +29,29 @@
       "Bash(\"C:\\\\Users\\\\49586\\\\anaconda3\\\\envs\\\\BioAgent\\\\python.exe\" -c \"import pymed; print\\('pymed version:', pymed.__version__\\)\")",
       "Bash(\"C:\\\\Users\\\\49586\\\\anaconda3\\\\envs\\\\BioAgent\\\\python.exe\" -c \"import pip; pip.main\\(['show', 'pymed']\\)\")",
       "Bash(\"C:\\\\Users\\\\49586\\\\anaconda3\\\\envs\\\\BioAgent\\\\python.exe\" -m pip show pymed)",
-      "Bash(C:\\\\Users\\\\49586\\\\anaconda3\\\\envs\\\\BioAgent\\\\python.exe *)"
+      "Bash(C:\\\\Users\\\\49586\\\\anaconda3\\\\envs\\\\BioAgent\\\\python.exe *)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(curl *)",
+      "Bash(pipx --version)",
+      "Bash(py -3 --version)",
+      "Bash(py --version)",
+      "Bash(conda --version)",
+      "Bash(/c/Users/49586/anaconda3/Scripts/conda.exe *)",
+      "Bash(export PYTHONIOENCODING=utf-8)",
+      "Bash(export PYTHONUTF8=1)",
+      "Bash(/c/Users/49586/anaconda3/envs/agent-reach/python -m agent_reach install --env=auto)",
+      "Bash(/c/Users/49586/anaconda3/envs/agent-reach/Scripts/agent-reach.exe install *)",
+      "Bash(/c/Users/49586/anaconda3/envs/agent-reach/Scripts/agent-reach.exe doctor *)",
+      "Bash(/c/Users/49586/anaconda3/envs/agent-reach/Scripts/yt-dlp.exe --version)",
+      "Bash(gh --version)",
+      "Bash(scoop install *)",
+      "Bash(unzip -o /tmp/gh.zip -d /tmp/gh_extract)",
+      "Read(//tmp/**)",
+      "Bash(cp /tmp/gh_extract/bin/gh.exe /c/Users/49586/.local/bin/)",
+      "Bash(/c/Users/49586/.local/bin/gh.exe --version)",
+      "Bash(export PATH=\"/c/Users/49586/.local/bin:/c/Users/49586/anaconda3/envs/agent-reach/Scripts:$PATH\")",
+      "Bash(mkdir -p \"/c/Users/49586/AppData/Roaming/yt-dlp\")",
+      "Bash(echo \"--js-runtimes node\")"
     ]
   }
 }
