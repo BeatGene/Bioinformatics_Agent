@@ -11,13 +11,15 @@ LangGraph StateGraph 定义 —— Bioinformatics Agent 的核心编排引擎。
 - 多轮对话（通过 thread_id 关联 checkpoint）
 - 人工干预（review_search / review_results 两个中断点）
 - 流式输出（astream 逐节点推送状态快照）
+- checkpoint 持久化（SqliteSaver，服务重启不丢状态）
 """
 import uuid
 from typing import Any, AsyncGenerator
 
 from langgraph.graph import StateGraph, START, END
-from langgraph.checkpoint.memory import MemorySaver
+from langgraph.checkpoint.sqlite import SqliteSaver
 
+from backend.config import config
 from backend.agent.state import ResearchState
 from backend.agent.nodes import (
     planner_node,
@@ -51,11 +53,9 @@ def _route_after_parse(state: ResearchState) -> str:
 
 
 def _route_after_search_review(state: ResearchState) -> str:
-    """检索审核后的路由：用户调整→重新搜索，批准→继续解析"""
-    user_feedback = state.get("user_feedback", "")
-    user_adjusted = state.get("user_adjusted_query", "")
-    if user_feedback or user_adjusted:
-        return "search"
+    """检索审核后的路由：完全依赖 review_search_node 设置的 next_node，
+    不再重复检查 user_feedback / user_adjusted_query，避免路由逻辑分散。
+    """
     return state.get("next_node", "parse")
 
 
@@ -113,10 +113,11 @@ def build_graph() -> StateGraph:
 
 # ── 全局编译实例 ──
 
-_memory_saver = MemorySaver()
+_sqlite_saver_ctx = SqliteSaver.from_conn_string(str(config.DATA_DIR / "checkpoints.db"))
+_sqlite_saver = _sqlite_saver_ctx.__enter__()
 
 _compiled_graph = build_graph().compile(
-    checkpointer=_memory_saver,
+    checkpointer=_sqlite_saver,
     interrupt_before=["review_search", "review_results"],
 )
 
@@ -126,9 +127,9 @@ def get_graph():
     return _compiled_graph
 
 
-def get_memory_saver() -> MemorySaver:
-    """获取 MemorySaver 实例（用于查询和管理 checkpoint）"""
-    return _memory_saver
+def get_checkpointer() -> SqliteSaver:
+    """获取 SqliteSaver 实例（用于查询和管理 checkpoint）"""
+    return _sqlite_saver
 
 
 # ── 高层 API ──
@@ -166,6 +167,7 @@ async def run_research(
         "plan_summary": "",
         "search_results": [],
         "selected_papers": [],
+        "user_action": "",
         "user_approved_search": False,
         "user_selected_ids": [],
         "user_feedback": "",
@@ -247,20 +249,15 @@ async def resume_research(
         }
         return
 
-    # 根据用户动作更新 state
-    update_values: dict[str, Any] = {}
+    # 根据用户动作更新 state —— user_action 是唯一的路由决策来源
+    update_values: dict[str, Any] = {"user_action": user_action}
 
     if user_action == "retry":
         update_values["user_feedback"] = feedback
         update_values["user_adjusted_query"] = adjusted_query
-        update_values["next_node"] = "search"
     elif user_action == "select":
         update_values["user_selected_ids"] = selected_ids or []
-        update_values["next_node"] = "parse"
-    else:  # approve
-        update_values["user_feedback"] = ""
-        update_values["user_adjusted_query"] = ""
-        update_values["next_node"] = "parse"
+    # approve 不需要额外字段
 
     # 更新 checkpoint
     graph.update_state(config, update_values)

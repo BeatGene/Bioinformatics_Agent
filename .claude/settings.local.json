@@ -57,7 +57,19 @@
       "Bash(python *)",
       "Bash(conda run *)",
       "Bash(/c/Users/49586/miniconda3/Scripts/conda.exe run *)",
-      "Bash(/c/Users/49586/anaconda3/python.exe *)"
+      "Bash(/c/Users/49586/anaconda3/python.exe *)",
+      "Bash(pip list *)",
+      "Bash(conda list *)",
+      "Read(//usr/**)",
+      "Bash(conda info *)",
+      "Read(//c/Users/49586/anaconda3/**)",
+      "Read(//c/Users/49586/miniconda3/**)",
+      "Read(//c/Users/49586/AppData/Local/anaconda3/**)",
+      "Read(//c/ProgramData/anaconda3/**)",
+      "Read(//c/Users/49586/**)",
+      "Bash(/c/Users/49586/anaconda3/envs/BioAgent/python.exe -m pytest backend/tests/ -v --tb=short)",
+      "Bash(/c/Users/49586/anaconda3/envs/BioAgent/python.exe -m pip install langgraph-checkpoint-sqlite)",
+      "Bash(/c/Users/49586/anaconda3/envs/BioAgent/python.exe -m pip install \"langgraph-checkpoint-sqlite>=2.0.10,<3.0\")"
     ]
   }
 }

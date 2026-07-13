@@ -1,13 +1,13 @@
 # Web 框架
 fastapi>=0.115.0
 uvicorn[standard]>=0.30.0
-sse-starlette>=2.0.0
 
 # LLM 调用（DeepSeek 兼容 OpenAI SDK）
 openai>=1.0.0
 
 # Agent 编排
-langgraph>=0.2.0
+langgraph>=0.3.0
+langgraph-checkpoint-sqlite>=2.0.10,<3.0
 langchain-core>=0.3.0
 
 # 文献检索
@@ -23,5 +23,6 @@ sqlalchemy>=2.0.0
 # 配置管理
 python-dotenv>=1.0.0
 
-# 异步支持
+# 异步支持 + 测试
 httpx>=0.27.0
+pytest>=8.0
