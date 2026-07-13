@@ -1,68 +1,608 @@
 {
-  "_instructions": "医学生填写：按类别整理生物医学研究中常用的实验模型系统。patterns 用于从 method/model_system 字段中自动识别模型类型。",
-  "cell_lines": {
+  "_instructions": "Biomedical Model System Ontology。按检索层级组织实验模型。统一采用 description、synonyms、priority_patterns、patterns、examples、related_terms 字段，兼容 PubMed、PMC、ClinicalTrials、GEO、SRA 等数据库。",
+
+  "cell_models": {
+
     "cancer_cell_lines": {
-      "names": ["HeLa", "HEK293", "HEK293T", "A549", "MCF-7", "MDA-MB-231", "HCT116", "HT-29", "HepG2", "U2OS", "PC-3", "LNCaP", "Jurkat", "K562", "THP-1", "U87", "U251", "SH-SY5Y"],
-      "patterns": ["cell line", "细胞系", "cells?$"]
+      "description": "Established human cancer cell lines",
+
+      "synonyms": [
+        "tumor cell line",
+        "cancer cell line",
+        "immortalized cancer cell"
+      ],
+
+      "priority_patterns": [
+        "cell\\s*line",
+        "human\\s*cancer\\s*cell"
+      ],
+
+      "patterns": [
+        "cell.?line",
+        "tumou?r.?cell",
+        "细胞系"
+      ],
+
+      "examples": [
+        "A549",
+        "H1975",
+        "HCC827",
+        "PC9",
+        "H1299",
+        "MCF7",
+        "T47D",
+        "MDA-MB-231",
+        "SKBR3",
+        "BT474",
+        "HCT116",
+        "HT29",
+        "SW480",
+        "SW620",
+        "LoVo",
+        "DLD1",
+        "AGS",
+        "MKN45",
+        "NCI-N87",
+        "HepG2",
+        "Huh7",
+        "PLC/PRF/5",
+        "PANC-1",
+        "BxPC-3",
+        "MIA PaCa-2",
+        "OVCAR3",
+        "SKOV3",
+        "786-O",
+        "ACHN",
+        "Caki-1",
+        "U87MG",
+        "U251",
+        "LN229",
+        "T98G",
+        "K562",
+        "Jurkat",
+        "THP-1",
+        "HL60",
+        "MV4-11",
+        "MOLM-13"
+      ],
+
+      "related_terms": [
+        "ATCC",
+        "CCLE",
+        "DepMap"
+      ]
     },
+
+    "primary_cells": {
+      "description": "Primary cells",
+
+      "synonyms": [
+        "primary cell",
+        "primary culture"
+      ],
+
+      "priority_patterns": [
+        "primary\\s*cell"
+      ],
+
+      "patterns": [
+        "primary.*cell",
+        "原代.*细胞"
+      ],
+
+      "examples": [
+        "Primary hepatocyte",
+        "Primary fibroblast",
+        "Primary T cell"
+      ],
+
+      "related_terms": [
+        "fresh isolate"
+      ]
+    },
+
     "normal_cell_lines": {
-      "names": ["HMEC", "HUVEC", "NHDF", "WI-38", "MRC-5", "3T3", "CHO"],
-      "patterns": ["normal.*cell", "primary.*cell", "原代.*细胞"]
+      "description": "Normal immortalized cell lines",
+
+      "synonyms": [
+        "normal cell line"
+      ],
+
+      "priority_patterns": [
+        "normal\\s*cell"
+      ],
+
+      "patterns": [
+        "normal.*cell"
+      ],
+
+      "examples": [
+        "HEK293",
+        "HEK293T",
+        "HUVEC",
+        "HMEC",
+        "NHDF",
+        "WI-38",
+        "MRC-5",
+        "NIH3T3",
+        "CHO"
+      ],
+
+      "related_terms": [
+        "control cell"
+      ]
+    },
+
+    "stem_cells": {
+      "description": "Stem cell models",
+
+      "synonyms": [
+        "ESC",
+        "embryonic stem cell",
+        "iPSC",
+        "induced pluripotent stem cell",
+        "mesenchymal stem cell",
+        "MSC"
+      ],
+
+      "priority_patterns": [
+        "iPSC",
+        "ESC"
+      ],
+
+      "patterns": [
+        "stem.?cell",
+        "pluripotent",
+        "干细胞"
+      ],
+
+      "examples": [
+        "Human iPSC",
+        "Mouse ESC",
+        "MSC"
+      ],
+
+      "related_terms": [
+        "differentiation"
+      ]
     }
   },
+
   "animal_models": {
-    "mouse_models": {
-      "subtypes": {
-        "xenograft": {
-          "description": "异种移植模型（人源肿瘤植入免疫缺陷鼠）",
-          "patterns": ["xenograft", "异种移植", "CDX", "PDX", "patient.?derived xenograft", "cell.?derived xenograft"],
-          "strains": ["BALB/c nude", "NOD/SCID", "NSG", "NOG"]
-        },
-        "knockout": {
-          "description": "基因敲除小鼠",
-          "patterns": ["knockout", "knock.?out", "KO", "基因敲除", "conditional knockout", "cKO", "floxed", "Cre-Lox"],
-          "note": "请补充常见基因敲除品系，如 ApoE-/-, db/db 等"
-        },
-        "knockin": {
-          "description": "基因敲入/转基因小鼠",
-          "patterns": ["knock.?in", "knockin", "KI", "transgenic", "转基因"],
-          "examples": ["EGFR L858R transgenic", "Rosa26-CreERT2"]
-        },
-        "syngeneic": {
-          "description": "同系移植模型（鼠源肿瘤植入同品系鼠）",
-          "patterns": ["syngeneic", "同系"],
-          "examples": ["B16-F10", "CT26", "MC38", "LLC", "4T1"]
-        }
-      }
+
+    "mouse": {
+
+      "description": "Mouse models",
+
+      "synonyms": [
+        "murine model",
+        "mouse model",
+        "mice"
+      ],
+
+      "priority_patterns": [
+        "mouse",
+        "murine"
+      ],
+
+      "patterns": [
+        "mouse",
+        "mice",
+        "murine",
+        "小鼠"
+      ],
+
+      "strains": [
+        "C57BL/6",
+        "BALB/c",
+        "BALB/c nude",
+        "NOD/SCID",
+        "NSG",
+        "NOG",
+        "SCID Beige",
+        "Rag1-/-",
+        "Rag2-/-"
+      ],
+
+      "related_terms": [
+        "in vivo"
+      ]
     },
-    "rat_models": {
-      "patterns": ["rat", "大鼠", "Sprague.?Dawley", "Wistar"],
-      "examples": ["请补充常见大鼠模型"]
+
+    "rat": {
+
+      "description": "Rat models",
+
+      "synonyms": [
+        "rat model"
+      ],
+
+      "priority_patterns": [
+        "Sprague.?Dawley",
+        "Wistar"
+      ],
+
+      "patterns": [
+        "rat",
+        "大鼠"
+      ],
+
+      "examples": [
+        "Sprague-Dawley",
+        "Wistar"
+      ],
+
+      "related_terms": [
+        "toxicology"
+      ]
     },
-    "non_human_primate": {
-      "patterns": ["primate", "macaque", "cynomolgus", "rhesus", "灵长类", "猕猴"],
-      "examples": ["请补充"]
-    },
+
     "zebrafish": {
-      "patterns": ["zebrafish", "danio", "斑马鱼"],
-      "examples": ["请补充"]
+
+      "description": "Zebrafish models",
+
+      "synonyms": [
+        "Danio rerio"
+      ],
+
+      "priority_patterns": [
+        "Danio rerio"
+      ],
+
+      "patterns": [
+        "zebrafish",
+        "Danio",
+        "斑马鱼"
+      ],
+
+      "examples": [
+        "Tg(fli1:EGFP)"
+      ],
+
+      "related_terms": [
+        "development"
+      ]
+    },
+
+    "non_human_primate": {
+
+      "description": "Non-human primate",
+
+      "synonyms": [
+        "NHP",
+        "macaque"
+      ],
+
+      "priority_patterns": [
+        "cynomolgus",
+        "rhesus"
+      ],
+
+      "patterns": [
+        "macaque",
+        "cynomolgus",
+        "rhesus",
+        "猕猴"
+      ],
+
+      "examples": [
+        "Cynomolgus monkey",
+        "Rhesus macaque"
+      ],
+
+      "related_terms": [
+        "preclinical"
+      ]
     }
   },
-  "in_vitro_models": {
-    "organoid": {
-      "description": "类器官",
-      "patterns": ["organoid", "类器官", "3D.*culture"],
-      "examples": ["请补充"]
+
+  "tumor_models": {
+
+    "cdx": {
+
+      "description": "Cell-derived xenograft",
+
+      "synonyms": [
+        "CDX",
+        "cell-derived xenograft"
+      ],
+
+      "priority_patterns": [
+        "CDX"
+      ],
+
+      "patterns": [
+        "cell.?derived xenograft",
+        "xenograft"
+      ],
+
+      "examples": [
+        "H1975 CDX"
+      ],
+
+      "related_terms": [
+        "NSG",
+        "NOD/SCID"
+      ]
     },
-    "spheroid": {
-      "description": "三维球体培养",
-      "patterns": ["spheroid", "球体.*培养", "3D.*spheroid"],
-      "examples": ["请补充"]
+
+    "pdx": {
+
+      "description": "Patient-derived xenograft",
+
+      "synonyms": [
+        "PDX",
+        "patient-derived xenograft"
+      ],
+
+      "priority_patterns": [
+        "PDX"
+      ],
+
+      "patterns": [
+        "patient.?derived xenograft"
+      ],
+
+      "examples": [
+        "Lung cancer PDX"
+      ],
+
+      "related_terms": [
+        "precision medicine"
+      ]
     },
-    "co_culture": {
-      "description": "共培养系统",
-      "patterns": ["co.?culture", "共培养"],
-      "examples": ["请补充"]
+
+    "syngeneic": {
+
+      "description": "Syngeneic mouse model",
+
+      "synonyms": [
+        "syngeneic"
+      ],
+
+      "priority_patterns": [
+        "syngeneic"
+      ],
+
+      "patterns": [
+        "syngeneic",
+        "同系"
+      ],
+
+      "examples": [
+        "MC38",
+        "CT26",
+        "4T1",
+        "B16-F10",
+        "LLC"
+      ],
+
+      "related_terms": [
+        "immunotherapy"
+      ]
+    },
+
+    "gemm": {
+
+      "description": "Genetically engineered mouse model",
+
+      "synonyms": [
+        "GEMM",
+        "transgenic",
+        "knockout",
+        "knockin"
+      ],
+
+      "priority_patterns": [
+        "Cre-Lox",
+        "Rosa26",
+        "LSL"
+      ],
+
+      "patterns": [
+        "transgenic",
+        "knock.?out",
+        "knock.?in",
+        "Cre",
+        "flox",
+        "conditional knockout"
+      ],
+
+      "examples": [
+        "KrasG12D",
+        "LSL-Kras",
+        "Rosa26-CreERT2"
+      ],
+
+      "related_terms": [
+        "tamoxifen",
+        "Tet-On",
+        "Tet-Off"
+      ]
+    },
+
+    "humanized_mouse": {
+
+      "description": "Humanized mouse model",
+
+      "synonyms": [
+        "humanized mouse",
+        "immune humanized"
+      ],
+
+      "priority_patterns": [
+        "huPBMC",
+        "huCD34"
+      ],
+
+      "patterns": [
+        "humanized",
+        "HSC-engrafted"
+      ],
+
+      "examples": [
+        "huPBMC-NSG",
+        "huCD34 mouse"
+      ],
+
+      "related_terms": [
+        "checkpoint inhibitor"
+      ]
     }
+  },
+
+  "in_vitro_models": {
+
+    "organoid": {
+
+      "description": "Organoid model",
+
+      "synonyms": [
+        "PDO",
+        "PDTO",
+        "patient-derived organoid",
+        "tumor organoid",
+        "cancer organoid"
+      ],
+
+      "priority_patterns": [
+        "PDO",
+        "patient.?derived organoid"
+      ],
+
+      "patterns": [
+        "organoid",
+        "3D organoid",
+        "类器官"
+      ],
+
+      "examples": [
+        "Colorectal PDO",
+        "Lung cancer organoid"
+      ],
+
+      "related_terms": [
+        "3D culture"
+      ]
+    },
+
+    "spheroid": {
+
+      "description": "Tumor spheroid",
+
+      "synonyms": [
+        "3D spheroid"
+      ],
+
+      "priority_patterns": [
+        "spheroid"
+      ],
+
+      "patterns": [
+        "spheroid",
+        "tumor sphere",
+        "球体培养"
+      ],
+
+      "examples": [
+        "Multicellular spheroid"
+      ],
+
+      "related_terms": [
+        "3D culture"
+      ]
+    },
+
+    "co_culture": {
+
+      "description": "Co-culture system",
+
+      "synonyms": [
+        "co-culture",
+        "coculture"
+      ],
+
+      "priority_patterns": [
+        "co-culture"
+      ],
+
+      "patterns": [
+        "co.?culture",
+        "共培养"
+      ],
+
+      "examples": [
+        "Tumor-T cell co-culture"
+      ],
+
+      "related_terms": [
+        "immune microenvironment"
+      ]
+    },
+
+    "organ_on_chip": {
+
+      "description": "Organ-on-a-chip",
+
+      "synonyms": [
+        "microphysiological system"
+      ],
+
+      "priority_patterns": [
+        "organ-on-a-chip"
+      ],
+
+      "patterns": [
+        "organ.?on.?chip",
+        "microfluidic"
+      ],
+
+      "examples": [
+        "Lung-on-chip"
+      ],
+
+      "related_terms": [
+        "microfluidics"
+      ]
+    }
+  },
+
+  "clinical_samples": {
+
+    "description": "Clinical biospecimens",
+
+    "synonyms": [
+      "clinical sample",
+      "biospecimen"
+    ],
+
+    "priority_patterns": [
+      "FFPE",
+      "PBMC"
+    ],
+
+    "patterns": [
+      "FFPE",
+      "fresh frozen",
+      "PBMC",
+      "plasma",
+      "serum",
+      "whole blood",
+      "biopsy",
+      "tumou?r tissue",
+      "adjacent normal tissue"
+    ],
+
+    "examples": [
+      "FFPE tissue",
+      "PBMC",
+      "Fresh frozen tumor",
+      "Core needle biopsy"
+    ],
+
+    "related_terms": [
+      "patient sample",
+      "clinical cohort"
+    ]
   }
 }

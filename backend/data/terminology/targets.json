@@ -1,38 +1,350 @@
 {
-  "_instructions": "医学生填写：按分类整理靶点名称、标准名称和别名。aliases 里的每个别名都应该能映射到标准名。",
-  "kinase_targets": {
-    "names": ["EGFR", "HER2", "ALK", "ROS1", "BRAF", "MEK", "MET", "RET", "NTRK", "FGFR", "KIT", "PDGFRA"],
+  "_instructions": "标准名称(name)统一采用 HGNC Gene Symbol 或临床主流名称；aliases 收录全文名称、历史名称、蛋白名称、CD编号及常见写法，用于文献检索标准化。",
+
+  "receptor_tyrosine_kinases": {
+    "names": [
+      "EGFR",
+      "ERBB2",
+      "ERBB3",
+      "ERBB4",
+      "ALK",
+      "ROS1",
+      "MET",
+      "RET",
+      "NTRK1",
+      "NTRK2",
+      "NTRK3",
+      "FGFR1",
+      "FGFR2",
+      "FGFR3",
+      "FGFR4",
+      "KIT",
+      "PDGFRA",
+      "PDGFRB",
+      "FLT3",
+      "VEGFR1",
+      "VEGFR2",
+      "VEGFR3"
+    ],
     "aliases": {
-      "EGFR": ["epidermal growth factor receptor", "ErbB1", "HER1"],
-      "HER2": ["ERBB2", "ErbB2", "HER2/neu", "CD340"],
-      "ALK": ["anaplastic lymphoma kinase", "CD246"],
-      "BRAF": ["B-Raf", "v-raf murine sarcoma viral oncogene homolog B1"]
+      "EGFR": [
+        "HER1",
+        "ErbB1",
+        "epidermal growth factor receptor"
+      ],
+      "ERBB2": [
+        "HER2",
+        "HER2/neu",
+        "ErbB2",
+        "CD340"
+      ],
+      "ERBB3": [
+        "HER3",
+        "ErbB3"
+      ],
+      "ERBB4": [
+        "HER4",
+        "ErbB4"
+      ],
+      "ALK": [
+        "anaplastic lymphoma kinase",
+        "CD246"
+      ],
+      "ROS1": [
+        "ROS proto-oncogene 1"
+      ],
+      "MET": [
+        "c-MET",
+        "HGFR",
+        "hepatocyte growth factor receptor"
+      ],
+      "RET": [
+        "RET proto-oncogene"
+      ],
+      "NTRK1": [
+        "TRKA",
+        "neurotrophic receptor tyrosine kinase 1"
+      ],
+      "NTRK2": [
+        "TRKB"
+      ],
+      "NTRK3": [
+        "TRKC"
+      ],
+      "FGFR1": [
+        "fibroblast growth factor receptor 1"
+      ],
+      "FGFR2": [
+        "fibroblast growth factor receptor 2"
+      ],
+      "FGFR3": [
+        "fibroblast growth factor receptor 3"
+      ],
+      "FGFR4": [
+        "fibroblast growth factor receptor 4"
+      ],
+      "KIT": [
+        "c-KIT",
+        "CD117",
+        "stem cell factor receptor"
+      ],
+      "PDGFRA": [
+        "platelet-derived growth factor receptor alpha"
+      ],
+      "PDGFRB": [
+        "platelet-derived growth factor receptor beta"
+      ],
+      "FLT3": [
+        "CD135",
+        "FMS-like tyrosine kinase 3"
+      ],
+      "VEGFR1": [
+        "FLT1"
+      ],
+      "VEGFR2": [
+        "KDR",
+        "FLK1"
+      ],
+      "VEGFR3": [
+        "FLT4"
+      ]
     }
   },
+
+  "intracellular_signaling": {
+    "names": [
+      "BRAF",
+      "RAF1",
+      "MAP2K1",
+      "MAP2K2",
+      "MAPK1",
+      "MAPK3",
+      "KRAS",
+      "NRAS",
+      "HRAS",
+      "PIK3CA",
+      "AKT1",
+      "AKT2",
+      "AKT3",
+      "MTOR",
+      "JAK1",
+      "JAK2",
+      "JAK3",
+      "TYK2",
+      "STAT3",
+      "STAT5A",
+      "STAT5B"
+    ],
+    "aliases": {
+      "BRAF": [
+        "B-Raf",
+        "v-raf murine sarcoma viral oncogene homolog B1"
+      ],
+      "MAP2K1": [
+        "MEK1"
+      ],
+      "MAP2K2": [
+        "MEK2"
+      ],
+      "MAPK1": [
+        "ERK2"
+      ],
+      "MAPK3": [
+        "ERK1"
+      ],
+      "PIK3CA": [
+        "PI3K",
+        "phosphatidylinositol 3-kinase catalytic alpha"
+      ],
+      "MTOR": [
+        "mTOR",
+        "FRAP1"
+      ],
+      "KRAS": [
+        "K-Ras",
+        "KRAS2"
+      ],
+      "NRAS": [
+        "N-Ras"
+      ],
+      "HRAS": [
+        "H-Ras"
+      ]
+    }
+  },
+
   "immune_checkpoints": {
-    "names": ["PD-1", "PD-L1", "CTLA-4", "LAG-3", "TIM-3", "TIGIT", "B7-H3", "VISTA"],
+    "names": [
+      "PDCD1",
+      "CD274",
+      "PDCD1LG2",
+      "CTLA4",
+      "LAG3",
+      "HAVCR2",
+      "TIGIT",
+      "VSIR",
+      "CD276"
+    ],
     "aliases": {
-      "PD-1": ["programmed cell death protein 1", "CD279"],
-      "PD-L1": ["programmed death-ligand 1", "CD274", "B7-H1"],
-      "CTLA-4": ["cytotoxic T-lymphocyte-associated protein 4", "CD152"]
+      "PDCD1": [
+        "PD-1",
+        "programmed cell death protein 1",
+        "CD279"
+      ],
+      "CD274": [
+        "PD-L1",
+        "B7-H1"
+      ],
+      "PDCD1LG2": [
+        "PD-L2",
+        "B7-DC"
+      ],
+      "CTLA4": [
+        "CTLA-4",
+        "CD152"
+      ],
+      "LAG3": [
+        "LAG-3"
+      ],
+      "HAVCR2": [
+        "TIM-3"
+      ],
+      "VSIR": [
+        "VISTA"
+      ],
+      "CD276": [
+        "B7-H3"
+      ]
     }
   },
-  "cell_signaling": {
-    "names": ["PI3K", "AKT", "mTOR", "RAS", "KRAS", "NRAS", "HRAS", "JAK", "STAT", "NF-κB", "Wnt", "Notch", "Hedgehog"],
+
+  "dna_repair": {
+    "names": [
+      "BRCA1",
+      "BRCA2",
+      "PARP1",
+      "PARP2",
+      "ATM",
+      "ATR",
+      "CHEK1",
+      "CHEK2"
+    ],
     "aliases": {
-      "KRAS": ["Kirsten rat sarcoma virus", "KRAS2"],
-      "mTOR": ["mammalian target of rapamycin", "FRAP1"]
+      "PARP1": [
+        "PARP",
+        "poly(ADP-ribose) polymerase 1"
+      ],
+      "ATM": [
+        "ataxia telangiectasia mutated"
+      ],
+      "ATR": [
+        "ATR serine/threonine kinase"
+      ]
     }
   },
+
+  "cell_cycle": {
+    "names": [
+      "CDK4",
+      "CDK6",
+      "CCND1",
+      "RB1",
+      "CDKN2A"
+    ],
+    "aliases": {
+      "CDKN2A": [
+        "p16",
+        "INK4A"
+      ],
+      "CCND1": [
+        "Cyclin D1"
+      ]
+    }
+  },
+
   "tumor_suppressors": {
-    "names": ["TP53", "PTEN", "RB1", "BRCA1", "BRCA2", "APC", "CDKN2A", "SMAD4", "VHL"],
+    "names": [
+      "TP53",
+      "PTEN",
+      "APC",
+      "SMAD4",
+      "VHL",
+      "NF1",
+      "NF2",
+      "STK11",
+      "KEAP1"
+    ],
     "aliases": {
-      "TP53": ["p53", "tumor protein p53"],
-      "PTEN": ["phosphatase and tensin homolog"]
+      "TP53": [
+        "p53",
+        "tumor protein p53"
+      ],
+      "PTEN": [
+        "phosphatase and tensin homolog"
+      ],
+      "STK11": [
+        "LKB1"
+      ]
     }
   },
-  "other_targets": {
-    "names": [],
-    "description": "在此补充其他靶点类别"
+
+  "hormone_receptors": {
+    "names": [
+      "ESR1",
+      "PGR",
+      "AR"
+    ],
+    "aliases": {
+      "ESR1": [
+        "ER",
+        "estrogen receptor alpha"
+      ],
+      "PGR": [
+        "PR",
+        "progesterone receptor"
+      ],
+      "AR": [
+        "androgen receptor"
+      ]
+    }
+  },
+
+  "epigenetic_targets": {
+    "names": [
+      "EZH2",
+      "DNMT1",
+      "HDAC1",
+      "HDAC2",
+      "IDH1",
+      "IDH2"
+    ],
+    "aliases": {
+      "EZH2": [
+        "enhancer of zeste homolog 2"
+      ],
+      "IDH1": [
+        "isocitrate dehydrogenase 1"
+      ],
+      "IDH2": [
+        "isocitrate dehydrogenase 2"
+      ]
+    }
+  },
+
+  "apoptosis_targets": {
+    "names": [
+      "BCL2",
+      "MCL1",
+      "BAX",
+      "MDM2"
+    ],
+    "aliases": {
+      "BCL2": [
+        "B-cell lymphoma 2"
+      ],
+      "MDM2": [
+        "mouse double minute 2 homolog"
+      ]
+    }
   }
 }

@@ -1,61 +1,1753 @@
 {
-  "_instructions": "医学生填写：按分类整理药物类型、代表性药物名称。",
-  "small_molecule_inhibitors": {
-    "TKI": {
-      "description": "酪氨酸激酶抑制剂",
-      "patterns": ["TKI", "tyrosine kinase inhibitor", "酪氨酸激酶抑制剂"],
-      "drugs": ["imatinib", "gefitinib", "erlotinib", "afatinib", "osimertinib", "crizotinib", "alectinib", "lorlatinib", "lapatinib", "neratinib", "sunitinib", "sorafenib", "regorafenib", "lenvatinib"]
+  "_instructions": "Therapy Ontology - Small Molecule Targeted Therapies. Organize by pharmacological class and molecular target. Compatible with PubMed, ClinicalTrials.gov, DrugBank, OpenTargets, OncoKB, ChEMBL and FDA labels.",
+
+  "small_molecule": {
+
+    "egfr_inhibitor": {
+      "description": "EGFR tyrosine kinase inhibitors",
+      "targets": ["EGFR"],
+      "mechanism_of_action": "Reversible or irreversible inhibition of EGFR tyrosine kinase.",
+      "synonyms": [
+        "EGFR inhibitor",
+        "EGFR-TKI",
+        "epidermal growth factor receptor inhibitor"
+      ],
+      "priority_patterns": [
+        "EGFR.?TKI",
+        "EGFR.?inhibitor"
+      ],
+      "patterns": [
+        "tyrosine kinase inhibitor",
+        "TKI"
+      ],
+      "representative_drugs": [
+        "gefitinib",
+        "erlotinib",
+        "afatinib",
+        "dacomitinib",
+        "osimertinib",
+        "lazertinib",
+        "furmonertinib"
+      ],
+      "drug_aliases": {
+        "gefitinib":["Iressa","ZD1839"],
+        "erlotinib":["Tarceva","OSI-774"],
+        "afatinib":["Gilotrif","Giotrif","BIBW2992"],
+        "osimertinib":["Tagrisso","AZD9291"],
+        "lazertinib":["Leclaza","YH25448"],
+        "furmonertinib":["AST2818"]
+      },
+      "related_terms":[
+        "first-generation",
+        "second-generation",
+        "third-generation",
+        "EGFR mutation",
+        "T790M"
+      ]
     },
-    "CDK_inhibitor": {
-      "description": "CDK抑制剂",
-      "patterns": ["CDK.*inhibitor", "CDK.*抑制剂"],
-      "drugs": ["palbociclib", "ribociclib", "abemaciclib"]
+
+    "her2_inhibitor":{
+      "description":"HER2 targeted tyrosine kinase inhibitors",
+      "targets":["ERBB2"],
+      "mechanism_of_action":"Selective inhibition of HER2 signaling.",
+      "synonyms":[
+        "HER2 inhibitor",
+        "ERBB2 inhibitor"
+      ],
+      "priority_patterns":[
+        "HER2.?inhibitor",
+        "ERBB2.?inhibitor"
+      ],
+      "patterns":[
+        "HER2",
+        "ERBB2"
+      ],
+      "representative_drugs":[
+        "lapatinib",
+        "neratinib",
+        "tucatinib",
+        "pyrotinib"
+      ],
+      "drug_aliases":{
+        "lapatinib":["Tykerb","Tyverb"],
+        "neratinib":["Nerlynx"],
+        "tucatinib":["Tukysa"],
+        "pyrotinib":["Irene"]
+      },
+      "related_terms":[
+        "HER2-positive"
+      ]
     },
-    "PARP_inhibitor": {
-      "description": "PARP抑制剂",
-      "patterns": ["PARP.*inhibitor", "PARP.*抑制剂"],
-      "drugs": ["olaparib", "niraparib", "rucaparib", "talazoparib"]
+
+    "alk_inhibitor":{
+      "description":"ALK tyrosine kinase inhibitors",
+      "targets":["ALK"],
+      "mechanism_of_action":"Inhibition of ALK fusion proteins.",
+      "synonyms":["ALK inhibitor"],
+      "priority_patterns":["ALK.?inhibitor"],
+      "patterns":["ALK"],
+      "representative_drugs":[
+        "crizotinib",
+        "ceritinib",
+        "alectinib",
+        "brigatinib",
+        "lorlatinib",
+        "ensartinib"
+      ],
+      "drug_aliases":{
+        "crizotinib":["Xalkori","PF-02341066"],
+        "ceritinib":["Zykadia"],
+        "alectinib":["Alecensa"],
+        "brigatinib":["Alunbrig"],
+        "lorlatinib":["Lorbrena","Lorviqua"],
+        "ensartinib":["X-396"]
+      },
+      "related_terms":[
+        "EML4-ALK"
+      ]
     },
-    "其他小分子抑制剂": {
-      "description": "请补充其他类别，如 MEK inhibitor, PI3K inhibitor 等",
-      "patterns": [],
-      "drugs": []
+
+    "ros1_inhibitor":{
+      "description":"ROS1 inhibitors",
+      "targets":["ROS1"],
+      "mechanism_of_action":"ROS1 kinase inhibition.",
+      "synonyms":["ROS1 inhibitor"],
+      "priority_patterns":["ROS1.?inhibitor"],
+      "patterns":["ROS1"],
+      "representative_drugs":[
+        "crizotinib",
+        "entrectinib",
+        "repotrectinib",
+        "taletrectinib"
+      ],
+      "drug_aliases":{
+        "entrectinib":["Rozlytrek"],
+        "repotrectinib":["Augtyro"]
+      },
+      "related_terms":[
+        "ROS1 fusion"
+      ]
+    },
+
+    "met_inhibitor":{
+      "description":"MET inhibitors",
+      "targets":["MET"],
+      "mechanism_of_action":"MET kinase inhibition.",
+      "synonyms":["c-MET inhibitor"],
+      "priority_patterns":["MET.?inhibitor"],
+      "patterns":["MET"],
+      "representative_drugs":[
+        "capmatinib",
+        "tepotinib",
+        "savolitinib",
+        "crizotinib"
+      ],
+      "drug_aliases":{
+        "capmatinib":["Tabrecta"],
+        "tepotinib":["Tepmetko"],
+        "savolitinib":["Orpathys","AZD6094"]
+      },
+      "related_terms":[
+        "MET exon 14 skipping"
+      ]
+    },
+
+    "ret_inhibitor":{
+      "description":"RET inhibitors",
+      "targets":["RET"],
+      "representative_drugs":[
+        "selpercatinib",
+        "pralsetinib"
+      ],
+      "drug_aliases":{
+        "selpercatinib":["Retevmo","LOXO-292"],
+        "pralsetinib":["Gavreto","BLU-667"]
+      },
+      "synonyms":["RET inhibitor"],
+      "priority_patterns":["RET.?inhibitor"],
+      "patterns":["RET"],
+      "mechanism_of_action":"Selective RET inhibition.",
+      "related_terms":[
+        "RET fusion"
+      ]
+    },
+
+    "ntrk_inhibitor":{
+      "description":"TRK inhibitors",
+      "targets":["NTRK1","NTRK2","NTRK3"],
+      "mechanism_of_action":"Pan-TRK inhibition.",
+      "synonyms":["TRK inhibitor","NTRK inhibitor"],
+      "priority_patterns":["NTRK.?inhibitor"],
+      "patterns":["TRK"],
+      "representative_drugs":[
+        "larotrectinib",
+        "entrectinib"
+      ],
+      "drug_aliases":{
+        "larotrectinib":["Vitrakvi"],
+        "entrectinib":["Rozlytrek"]
+      },
+      "related_terms":[
+        "NTRK fusion"
+      ]
+    },
+
+    "fgfr_inhibitor":{
+      "description":"FGFR inhibitors",
+      "targets":["FGFR1","FGFR2","FGFR3","FGFR4"],
+      "mechanism_of_action":"FGFR kinase inhibition.",
+      "synonyms":["FGFR inhibitor"],
+      "priority_patterns":["FGFR.?inhibitor"],
+      "patterns":["FGFR"],
+      "representative_drugs":[
+        "erdafitinib",
+        "pemigatinib",
+        "futibatinib",
+        "infigratinib"
+      ],
+      "drug_aliases":{
+        "erdafitinib":["Balversa"],
+        "pemigatinib":["Pemazyre"],
+        "futibatinib":["Lytgobi"]
+      },
+      "related_terms":[
+        "FGFR fusion"
+      ]
+    },
+
+    "vegfr_inhibitor":{
+      "description":"VEGFR inhibitors",
+      "targets":["VEGFR1","VEGFR2","VEGFR3"],
+      "mechanism_of_action":"Anti-angiogenic kinase inhibition.",
+      "synonyms":["VEGFR inhibitor","antiangiogenic TKI"],
+      "priority_patterns":["VEGFR.?inhibitor"],
+      "patterns":["VEGFR"],
+      "representative_drugs":[
+        "axitinib",
+        "cabozantinib",
+        "lenvatinib",
+        "sorafenib",
+        "sunitinib",
+        "regorafenib",
+        "pazopanib"
+      ],
+      "drug_aliases":{},
+      "related_terms":[
+        "angiogenesis"
+      ]
+    },
+
+    "kit_inhibitor":{
+      "description":"KIT inhibitors",
+      "targets":["KIT"],
+      "mechanism_of_action":"KIT kinase inhibition.",
+      "synonyms":["KIT inhibitor","c-KIT inhibitor"],
+      "priority_patterns":["KIT.?inhibitor"],
+      "patterns":["KIT"],
+      "representative_drugs":[
+        "imatinib",
+        "ripretinib",
+        "avapritinib"
+      ],
+      "drug_aliases":{
+        "imatinib":["Gleevec","Glivec"]
+      },
+      "related_terms":[
+        "GIST"
+      ]
+    },
+
+    "braf_inhibitor":{
+      "description":"BRAF inhibitors",
+      "targets":["BRAF"],
+      "mechanism_of_action":"Selective inhibition of mutant BRAF.",
+      "synonyms":["BRAF inhibitor"],
+      "priority_patterns":["BRAF.?inhibitor"],
+      "patterns":["BRAF"],
+      "representative_drugs":[
+        "vemurafenib",
+        "dabrafenib",
+        "encorafenib"
+      ],
+      "drug_aliases":{
+        "vemurafenib":["Zelboraf"],
+        "dabrafenib":["Tafinlar"],
+        "encorafenib":["Braftovi"]
+      },
+      "related_terms":[
+        "V600E"
+      ]
+    },
+
+    "mek_inhibitor":{
+      "description":"MEK inhibitors",
+      "targets":["MAP2K1","MAP2K2"],
+      "mechanism_of_action":"MEK1/2 inhibition.",
+      "synonyms":["MEK inhibitor"],
+      "priority_patterns":["MEK.?inhibitor"],
+      "patterns":["MEK"],
+      "representative_drugs":[
+        "trametinib",
+        "cobimetinib",
+        "binimetinib",
+        "selumetinib"
+      ],
+      "drug_aliases":{},
+      "related_terms":[
+        "MAPK pathway"
+      ]
+    },
+
+    "erk_inhibitor":{
+      "description":"ERK inhibitors",
+      "targets":["MAPK1","MAPK3"],
+      "mechanism_of_action":"ERK pathway inhibition.",
+      "synonyms":["ERK inhibitor"],
+      "priority_patterns":["ERK.?inhibitor"],
+      "patterns":["ERK"],
+      "representative_drugs":[
+        "ulixertinib"
+      ],
+      "drug_aliases":{},
+      "related_terms":[
+        "MAPK pathway"
+      ]
+    },
+
+    "pi3k_inhibitor":{
+      "description":"PI3K inhibitors",
+      "targets":["PIK3CA"],
+      "mechanism_of_action":"PI3K inhibition.",
+      "synonyms":["PI3K inhibitor"],
+      "priority_patterns":["PI3K.?inhibitor"],
+      "patterns":["PI3K"],
+      "representative_drugs":[
+        "alpelisib",
+        "idelalisib",
+        "copanlisib",
+        "duvelisib"
+      ],
+      "drug_aliases":{},
+      "related_terms":[
+        "PI3K/AKT pathway"
+      ]
+    },
+
+    "akt_inhibitor":{
+      "description":"AKT inhibitors",
+      "targets":["AKT1","AKT2","AKT3"],
+      "mechanism_of_action":"AKT inhibition.",
+      "synonyms":["AKT inhibitor"],
+      "priority_patterns":["AKT.?inhibitor"],
+      "patterns":["AKT"],
+      "representative_drugs":[
+        "capivasertib",
+        "ipatasertib"
+      ],
+      "drug_aliases":{},
+      "related_terms":[
+        "PI3K pathway"
+      ]
+    },
+
+    "mtor_inhibitor":{
+      "description":"mTOR inhibitors",
+      "targets":["MTOR"],
+      "mechanism_of_action":"mTOR inhibition.",
+      "synonyms":["mTOR inhibitor"],
+      "priority_patterns":["mTOR.?inhibitor"],
+      "patterns":["mTOR"],
+      "representative_drugs":[
+        "everolimus",
+        "temsirolimus"
+      ],
+      "drug_aliases":{},
+      "related_terms":[
+        "PI3K/AKT/mTOR"
+      ]
+    },
+
+    "kras_inhibitor":{
+      "description":"KRAS G12C inhibitors",
+      "targets":["KRAS"],
+      "mechanism_of_action":"Selective inhibition of KRAS G12C.",
+      "synonyms":["KRAS inhibitor"],
+      "priority_patterns":["KRAS.?inhibitor"],
+      "patterns":["KRAS"],
+      "representative_drugs":[
+        "sotorasib",
+        "adagrasib"
+      ],
+      "drug_aliases":{
+        "sotorasib":["Lumakras","Lumykras","AMG510"],
+        "adagrasib":["Krazati","MRTX849"]
+      },
+      "related_terms":[
+        "KRAS G12C"
+      ]
+    },
+
+    "shp2_inhibitor":{
+      "description":"SHP2 inhibitors",
+      "targets":["PTPN11"],
+      "mechanism_of_action":"SHP2 phosphatase inhibition.",
+      "synonyms":["SHP2 inhibitor"],
+      "priority_patterns":["SHP2.?inhibitor"],
+      "patterns":["SHP2"],
+      "representative_drugs":[
+        "tno155",
+        "RMC-4630"
+      ],
+      "drug_aliases":{},
+      "related_terms":[
+        "RAS signaling"
+      ]
+    },
+
+    "parp_inhibitor":{
+      "description":"PARP inhibitors",
+      "targets":["PARP1","PARP2"],
+      "mechanism_of_action":"PARP inhibition causing synthetic lethality.",
+      "synonyms":["PARP inhibitor"],
+      "priority_patterns":["PARP.?inhibitor"],
+      "patterns":["PARP"],
+      "representative_drugs":[
+        "olaparib",
+        "niraparib",
+        "rucaparib",
+        "talazoparib"
+      ],
+      "drug_aliases":{
+        "olaparib":["Lynparza"],
+        "niraparib":["Zejula"],
+        "rucaparib":["Rubraca"],
+        "talazoparib":["Talzenna"]
+      },
+      "related_terms":[
+        "BRCA1",
+        "BRCA2",
+        "HRD"
+      ]
+    },
+
+    "atr_inhibitor":{
+      "description":"ATR inhibitors",
+      "targets":["ATR"],
+      "mechanism_of_action":"ATR kinase inhibition.",
+      "synonyms":["ATR inhibitor"],
+      "priority_patterns":["ATR.?inhibitor"],
+      "patterns":["ATR"],
+      "representative_drugs":[
+        "ceralasertib",
+        "camonsertib"
+      ],
+      "drug_aliases":{
+        "ceralasertib":["AZD6738"],
+        "camonsertib":["RP-3500"]
+      },
+      "related_terms":[
+        "DNA damage response"
+      ]
+    },
+
+    "atm_inhibitor":{
+      "description":"ATM inhibitors",
+      "targets":["ATM"],
+      "mechanism_of_action":"ATM kinase inhibition.",
+      "synonyms":["ATM inhibitor"],
+      "priority_patterns":["ATM.?inhibitor"],
+      "patterns":["ATM"],
+      "representative_drugs":[
+        "AZD0156"
+      ],
+      "drug_aliases":{},
+      "related_terms":[
+        "DDR"
+      ]
+    },
+
+    "wee1_inhibitor":{
+      "description":"WEE1 inhibitors",
+      "targets":["WEE1"],
+      "mechanism_of_action":"WEE1 kinase inhibition.",
+      "synonyms":["WEE1 inhibitor"],
+      "priority_patterns":["WEE1.?inhibitor"],
+      "patterns":["WEE1"],
+      "representative_drugs":[
+        "adavosertib"
+      ],
+      "drug_aliases":{
+        "adavosertib":["AZD1775","MK-1775"]
+      },
+      "related_terms":[
+        "cell cycle checkpoint"
+      ]
+    },
+
+    "cdk46_inhibitor": {
+      "description": "Cyclin-dependent kinase 4/6 inhibitors",
+      "targets": [
+        "CDK4",
+        "CDK6"
+      ],
+      "mechanism_of_action": "Block CDK4/6-mediated RB phosphorylation and induce cell cycle arrest at G1 phase.",
+      "synonyms": [
+        "CDK4/6 inhibitor",
+        "CDK6 inhibitor",
+        "cell cycle inhibitor"
+      ],
+      "priority_patterns": [
+        "CDK.?4.?6.?inhibitor",
+        "CDK4/6"
+      ],
+      "patterns": [
+        "CDK",
+        "cyclin-dependent kinase"
+      ],
+      "representative_drugs": [
+        "palbociclib",
+        "ribociclib",
+        "abemaciclib"
+      ],
+      "drug_aliases": {
+        "palbociclib": [
+          "Ibrance",
+          "PD-0332991"
+        ],
+        "ribociclib": [
+          "Kisqali",
+          "LEE011"
+        ],
+        "abemaciclib": [
+          "Verzenio",
+          "LY2835219"
+        ]
+      },
+      "related_terms": [
+        "RB1",
+        "cell cycle",
+        "HR-positive breast cancer"
+      ]
+    },
+
+
+    "btk_inhibitor": {
+      "description": "Bruton tyrosine kinase inhibitors",
+      "targets": [
+        "BTK"
+      ],
+      "mechanism_of_action": "Inhibit B-cell receptor signaling through BTK blockade.",
+      "synonyms": [
+        "BTK inhibitor",
+        "Bruton kinase inhibitor"
+      ],
+      "priority_patterns": [
+        "BTK.?inhibitor"
+      ],
+      "patterns": [
+        "BTK"
+      ],
+      "representative_drugs": [
+        "ibrutinib",
+        "acalabrutinib",
+        "zanubrutinib",
+        "pirtobrutinib"
+      ],
+      "drug_aliases": {
+        "ibrutinib": [
+          "Imbruvica",
+          "PCI-32765"
+        ],
+        "acalabrutinib": [
+          "Calquence",
+          "ACP-196"
+        ],
+        "zanubrutinib": [
+          "Brukinsa",
+          "BGB-3111"
+        ],
+        "pirtobrutinib": [
+          "Jaypirca",
+          "LOXO-305"
+        ]
+      },
+      "related_terms": [
+        "B-cell malignancy",
+        "CLL",
+        "MCL"
+      ]
+    },
+
+
+    "bcl2_inhibitor": {
+      "description": "BCL-2 family inhibitors",
+      "targets": [
+        "BCL2"
+      ],
+      "mechanism_of_action": "Induce apoptosis by inhibiting anti-apoptotic BCL-2 proteins.",
+      "synonyms": [
+        "BCL2 inhibitor",
+        "BCL-2 inhibitor",
+        "BH3 mimetic"
+      ],
+      "priority_patterns": [
+        "BCL.?2.?inhibitor"
+      ],
+      "patterns": [
+        "BCL2",
+        "BH3"
+      ],
+      "representative_drugs": [
+        "venetoclax"
+      ],
+      "drug_aliases": {
+        "venetoclax": [
+          "Venclexta",
+          "Venclyxto",
+          "ABT-199"
+        ]
+      },
+      "related_terms": [
+        "apoptosis",
+        "CLL",
+        "AML"
+      ]
+    },
+
+
+    "mdm2_inhibitor": {
+      "description": "MDM2-p53 interaction inhibitors",
+      "targets": [
+        "MDM2",
+        "TP53"
+      ],
+      "mechanism_of_action": "Reactivate wild-type p53 signaling by blocking MDM2-p53 interaction.",
+      "synonyms": [
+        "MDM2 inhibitor",
+        "p53 activator"
+      ],
+      "priority_patterns": [
+        "MDM2.?inhibitor"
+      ],
+      "patterns": [
+        "MDM2",
+        "p53"
+      ],
+      "representative_drugs": [
+        "milademetan",
+        "idasanutlin",
+        "navtemadlin"
+      ],
+      "drug_aliases": {
+        "milademetan": [
+          "RAIN-32",
+          "DS-3032b"
+        ],
+        "idasanutlin": [
+          "RG7388"
+        ],
+        "navtemadlin": [
+          "KRT-232"
+        ]
+      },
+      "related_terms": [
+        "TP53 wild-type",
+        "sarcoma"
+      ]
+    },
+
+
+    "ezh2_inhibitor": {
+      "description": "EZH2 methyltransferase inhibitors",
+      "targets": [
+        "EZH2"
+      ],
+      "mechanism_of_action": "Inhibit histone methyltransferase activity of EZH2.",
+      "synonyms": [
+        "EZH2 inhibitor",
+        "PRC2 inhibitor"
+      ],
+      "priority_patterns": [
+        "EZH2.?inhibitor"
+      ],
+      "patterns": [
+        "EZH2",
+        "PRC2"
+      ],
+      "representative_drugs": [
+        "tazemetostat"
+      ],
+      "drug_aliases": {
+        "tazemetostat": [
+          "Tazverik",
+          "EPZ-6438"
+        ]
+      },
+      "related_terms": [
+        "epigenetic therapy",
+        "INI1 loss"
+      ]
+    },
+
+
+    "idh_inhibitor": {
+      "description": "Isocitrate dehydrogenase inhibitors",
+      "targets": [
+        "IDH1",
+        "IDH2"
+      ],
+      "mechanism_of_action": "Block mutant IDH-mediated production of 2-hydroxyglutarate.",
+      "synonyms": [
+        "IDH inhibitor",
+        "mutant IDH inhibitor"
+      ],
+      "priority_patterns": [
+        "IDH.?inhibitor"
+      ],
+      "patterns": [
+        "IDH1",
+        "IDH2"
+      ],
+      "representative_drugs": [
+        "ivosidenib",
+        "enasidenib",
+        "vorasidenib"
+      ],
+      "drug_aliases": {
+        "ivosidenib": [
+          "Tibsovo",
+          "AG-120"
+        ],
+        "enasidenib": [
+          "Idhifa",
+          "AG-221"
+        ],
+        "vorasidenib": [
+          "Voranigo",
+          "AG-881"
+        ]
+      },
+      "related_terms": [
+        "2-HG",
+        "glioma",
+        "AML"
+      ]
+    },
+
+
+    "hdac_inhibitor": {
+      "description": "Histone deacetylase inhibitors",
+      "targets": [
+        "HDAC1",
+        "HDAC2",
+        "HDAC3",
+        "HDAC6"
+      ],
+      "mechanism_of_action": "Regulate gene expression through histone acetylation modulation.",
+      "synonyms": [
+        "HDAC inhibitor",
+        "histone deacetylase inhibitor"
+      ],
+      "priority_patterns": [
+        "HDAC.?inhibitor"
+      ],
+      "patterns": [
+        "HDAC"
+      ],
+      "representative_drugs": [
+        "vorinostat",
+        "romidepsin",
+        "belinostat",
+        "panobinostat"
+      ],
+      "drug_aliases": {
+        "vorinostat": [
+          "Zolinza",
+          "SAHA"
+        ],
+        "romidepsin": [
+          "Istodax",
+          "FK228"
+        ],
+        "panobinostat": [
+          "Farydak",
+          "LBH589"
+        ]
+      },
+      "related_terms": [
+        "epigenetics",
+        "histone acetylation"
+      ]
+    },
+
+
+    "dnmt_inhibitor": {
+      "description": "DNA methyltransferase inhibitors",
+      "targets": [
+        "DNMT1"
+      ],
+      "mechanism_of_action": "Reduce DNA methylation by inhibiting DNMT enzymes.",
+      "synonyms": [
+        "DNMT inhibitor",
+        "DNA methyltransferase inhibitor",
+        "hypomethylating agent"
+      ],
+      "priority_patterns": [
+        "DNMT.?inhibitor"
+      ],
+      "patterns": [
+        "DNMT",
+        "hypomethylating"
+      ],
+      "representative_drugs": [
+        "azacitidine",
+        "decitabine"
+      ],
+      "drug_aliases": {
+        "azacitidine": [
+          "Vidaza",
+          "5-azacytidine"
+        ],
+        "decitabine": [
+          "Dacogen",
+          "5-aza-2'-deoxycytidine"
+        ]
+      },
+      "related_terms": [
+        "epigenetic therapy",
+        "MDS"
+      ]
+    },
+
+
+    "proteasome_inhibitor": {
+      "description": "Proteasome inhibitors",
+      "targets": [
+        "PSMB5"
+      ],
+      "mechanism_of_action": "Block proteasomal degradation and induce apoptosis.",
+      "synonyms": [
+        "proteasome inhibitor"
+      ],
+      "priority_patterns": [
+        "proteasome.?inhibitor"
+      ],
+      "patterns": [
+        "proteasome"
+      ],
+      "representative_drugs": [
+        "bortezomib",
+        "carfilzomib",
+        "ixazomib"
+      ],
+      "drug_aliases": {
+        "bortezomib": [
+          "Velcade",
+          "PS-341"
+        ],
+        "carfilzomib": [
+          "Kyprolis",
+          "PR-171"
+        ],
+        "ixazomib": [
+          "Ninlaro",
+          "MLN9708"
+        ]
+      },
+      "related_terms": [
+        "multiple myeloma"
+      ]
+    },
+
+
+    "hsp90_inhibitor": {
+      "description": "Heat shock protein 90 inhibitors",
+      "targets": [
+        "HSP90AA1"
+      ],
+      "mechanism_of_action": "Disrupt protein folding and stability of oncogenic client proteins.",
+      "synonyms": [
+        "HSP90 inhibitor"
+      ],
+      "priority_patterns": [
+        "HSP90.?inhibitor"
+      ],
+      "patterns": [
+        "HSP90"
+      ],
+      "representative_drugs": [
+        "ganetespib",
+        "luminespib"
+      ],
+      "drug_aliases": {
+        "ganetespib": [
+          "STA-9090"
+        ],
+        "luminespib": [
+          "NVP-AUY922"
+        ]
+      },
+      "related_terms": [
+        "molecular chaperone"
+      ]
+    },
+
+
+    "hormone_therapy": {
+      "description": "Endocrine therapies targeting hormone signaling",
+      "targets": [
+        "ESR1",
+        "AR"
+      ],
+      "mechanism_of_action": "Block hormone receptor signaling or hormone synthesis.",
+      "synonyms": [
+        "endocrine therapy",
+        "hormonal therapy",
+        "anti-estrogen therapy",
+        "anti-androgen therapy"
+      ],
+      "priority_patterns": [
+        "hormone.?therapy",
+        "endocrine.?therapy"
+      ],
+      "patterns": [
+        "estrogen receptor",
+        "androgen receptor"
+      ],
+      "representative_drugs": [
+        "tamoxifen",
+        "fulvestrant",
+        "anastrozole",
+        "letrozole",
+        "exemestane",
+        "enzalutamide",
+        "abiraterone"
+      ],
+      "drug_aliases": {
+        "tamoxifen":[
+          "Nolvadex"
+        ],
+        "fulvestrant":[
+          "Faslodex"
+        ],
+        "enzalutamide":[
+          "Xtandi",
+          "MDV3100"
+        ],
+        "abiraterone":[
+          "Zytiga",
+          "ABI-201"
+        ]
+      },
+      "related_terms":[
+        "ER-positive breast cancer",
+        "prostate cancer",
+        "AR signaling"
+      ]
     }
+    
   },
-  "monoclonal_antibodies": {
-    "mAb": {
-      "description": "单克隆抗体（命名以 -mab 结尾）",
-      "patterns": ["monoclonal antibody", "单克隆抗体", "单抗", "mAb", "\\w+mab\\b"],
-      "drugs": ["trastuzumab", "bevacizumab", "rituximab", "cetuximab", "pertuzumab", "nivolumab", "pembrolizumab", "atezolizumab", "durvalumab", "avelumab", "ipilimumab", "denosumab"]
+  "antibody_therapy": {
+
+    "monoclonal_antibody": {
+      "description": "Therapeutic monoclonal antibodies targeting tumor-associated antigens or signaling pathways.",
+      "targets": [],
+      "mechanism_of_action": "Binding specific extracellular targets to block signaling, induce immune-mediated killing, or modulate tumor microenvironment.",
+      "synonyms": [
+        "mAb",
+        "monoclonal antibody",
+        "therapeutic antibody",
+        "single antibody therapy"
+      ],
+      "priority_patterns": [
+        "monoclonal.?antibody",
+        "\\w+mab\\b"
+      ],
+      "patterns": [
+        "mAb",
+        "monoclonal antibody",
+        "单克隆抗体",
+        "单抗"
+      ],
+      "representative_drugs": [
+        "trastuzumab",
+        "pertuzumab",
+        "cetuximab",
+        "panitumumab",
+        "bevacizumab",
+        "rituximab",
+        "daratumumab",
+        "elotuzumab"
+      ],
+      "drug_aliases": {
+        "trastuzumab": [
+          "Herceptin"
+        ],
+        "pertuzumab": [
+          "Perjeta",
+          "2C4"
+        ],
+        "cetuximab": [
+          "Erbitux",
+          "C225"
+        ],
+        "panitumumab": [
+          "Vectibix"
+        ],
+        "bevacizumab": [
+          "Avastin"
+        ],
+        "rituximab": [
+          "Rituxan",
+          "MabThera"
+        ],
+        "daratumumab": [
+          "Darzalex"
+        ]
+      },
+      "related_terms": [
+        "Fc-mediated cytotoxicity",
+        "ADCC",
+        "immune effector function"
+      ]
     },
-    "ADC": {
-      "description": "抗体药物偶联物",
-      "patterns": ["ADC", "antibody.?drug conjugate", "抗体.*偶联"],
-      "drugs": ["trastuzumab deruxtecan", "trastuzumab emtansine", "sacituzumab govitecan", "enfortumab vedotin"]
+
+
+    "pd1_antibody": {
+      "description": "PD-1 immune checkpoint inhibitors.",
+      "targets": [
+        "PDCD1",
+        "PD-1"
+      ],
+      "mechanism_of_action": "Block PD-1 signaling to restore T-cell immune activity against tumors.",
+      "synonyms": [
+        "PD-1 inhibitor",
+        "PDCD1 antibody",
+        "anti-PD1 therapy"
+      ],
+      "priority_patterns": [
+        "PD.?1.?inhibitor",
+        "anti.?PD.?1"
+      ],
+      "patterns": [
+        "PD-1",
+        "programmed death protein 1"
+      ],
+      "representative_drugs": [
+        "nivolumab",
+        "pembrolizumab",
+        "cemiplimab",
+        "dostarlimab"
+      ],
+      "drug_aliases": {
+        "nivolumab": [
+          "Opdivo",
+          "BMS-936558"
+        ],
+        "pembrolizumab": [
+          "Keytruda",
+          "MK-3475"
+        ],
+        "cemiplimab": [
+          "Libtayo"
+        ],
+        "dostarlimab": [
+          "Jemperli",
+          "TSR-042"
+        ]
+      },
+      "related_terms": [
+        "immune checkpoint blockade",
+        "T-cell activation",
+        "MSI-H",
+        "dMMR"
+      ]
     },
-    "bispecific": {
-      "description": "双特异性抗体",
-      "patterns": ["bispecific", "双特异性", "双抗", "BiTE"],
-      "drugs": ["blinatumomab", "teclistamab"]
+
+
+    "pdl1_antibody": {
+      "description": "PD-L1 immune checkpoint inhibitors.",
+      "targets": [
+        "CD274",
+        "PD-L1"
+      ],
+      "mechanism_of_action": "Block PD-L1 interaction with PD-1 to enhance anti-tumor immunity.",
+      "synonyms": [
+        "PD-L1 inhibitor",
+        "anti-PDL1 therapy"
+      ],
+      "priority_patterns": [
+        "PD.?L1.?inhibitor",
+        "anti.?PD.?L1"
+      ],
+      "patterns": [
+        "PD-L1",
+        "CD274"
+      ],
+      "representative_drugs": [
+        "atezolizumab",
+        "durvalumab",
+        "avelumab"
+      ],
+      "drug_aliases": {
+        "atezolizumab": [
+          "Tecentriq",
+          "MPDL3280A"
+        ],
+        "durvalumab": [
+          "Imfinzi",
+          "MEDI4736"
+        ],
+        "avelumab": [
+          "Bavencio",
+          "MSB0010718C"
+        ]
+      },
+      "related_terms": [
+        "immune checkpoint inhibitor"
+      ]
+    },
+
+
+    "ctla4_antibody": {
+      "description": "CTLA-4 immune checkpoint inhibitors.",
+      "targets": [
+        "CTLA4"
+      ],
+      "mechanism_of_action": "Enhance T-cell activation by blocking CTLA-4 inhibitory signaling.",
+      "synonyms": [
+        "CTLA-4 inhibitor",
+        "anti-CTLA4"
+      ],
+      "priority_patterns": [
+        "CTLA.?4.?inhibitor"
+      ],
+      "patterns": [
+        "CTLA-4",
+        "CD152"
+      ],
+      "representative_drugs": [
+        "ipilimumab",
+        "tremelimumab"
+      ],
+      "drug_aliases": {
+        "ipilimumab": [
+          "Yervoy",
+          "MDX-010"
+        ],
+        "tremelimumab": [
+          "Imjudo",
+          "MEDI1123"
+        ]
+      },
+      "related_terms": [
+        "immune checkpoint blockade"
+      ]
+    },
+
+
+    "her2_antibody": {
+      "description": "HER2-targeted monoclonal antibodies.",
+      "targets": [
+        "ERBB2",
+        "HER2"
+      ],
+      "mechanism_of_action": "Block HER2 receptor signaling and induce antibody-dependent cytotoxicity.",
+      "synonyms": [
+        "HER2 antibody",
+        "anti-HER2 therapy"
+      ],
+      "priority_patterns": [
+        "HER2.?antibody",
+        "anti.?HER2"
+      ],
+      "patterns": [
+        "HER2",
+        "ERBB2"
+      ],
+      "representative_drugs": [
+        "trastuzumab",
+        "pertuzumab",
+        "margetuximab"
+      ],
+      "drug_aliases": {
+        "margetuximab": [
+          "Margenza",
+          "MGAH22"
+        ]
+      },
+      "related_terms": [
+        "HER2-positive breast cancer"
+      ]
+    },
+
+
+    "vegf_antibody": {
+      "description": "VEGF pathway monoclonal antibodies.",
+      "targets": [
+        "VEGFA"
+      ],
+      "mechanism_of_action": "Neutralize VEGF signaling and inhibit tumor angiogenesis.",
+      "synonyms": [
+        "anti-VEGF antibody",
+        "angiogenesis inhibitor"
+      ],
+      "priority_patterns": [
+        "VEGF.?antibody",
+        "anti.?VEGF"
+      ],
+      "patterns": [
+        "VEGF"
+      ],
+      "representative_drugs": [
+        "bevacizumab",
+        "ramucirumab"
+      ],
+      "drug_aliases": {
+        "ramucirumab": [
+          "Cyramza",
+          "IMC-1121B"
+        ]
+      },
+      "related_terms": [
+        "angiogenesis"
+      ]
+    },
+
+
+    "cd20_antibody": {
+      "description": "CD20-targeted antibodies for B-cell malignancies.",
+      "targets": [
+        "MS4A1",
+        "CD20"
+      ],
+      "mechanism_of_action": "Deplete B cells through immune-mediated mechanisms.",
+      "synonyms": [
+        "anti-CD20 antibody"
+      ],
+      "priority_patterns": [
+        "CD20.?antibody"
+      ],
+      "patterns": [
+        "CD20",
+        "MS4A1"
+      ],
+      "representative_drugs": [
+        "rituximab",
+        "obinutuzumab",
+        "ofatumumab"
+      ],
+      "drug_aliases": {
+        "obinutuzumab": [
+          "Gazyva",
+          "GA101"
+        ],
+        "ofatumumab": [
+          "Kesimpta",
+          "Arzerra"
+        ]
+      },
+      "related_terms": [
+        "lymphoma",
+        "CLL"
+      ]
     }
+
   },
+
+
+  "adc": {
+
+    "her2_adc": {
+      "description": "HER2 antibody-drug conjugates.",
+      "targets": [
+        "ERBB2"
+      ],
+      "mechanism_of_action": "Deliver cytotoxic payload selectively to HER2-expressing tumor cells.",
+      "synonyms": [
+        "HER2 ADC",
+        "anti-HER2 ADC"
+      ],
+      "priority_patterns": [
+        "HER2.?ADC"
+      ],
+      "patterns": [
+        "antibody.?drug.?conjugate",
+        "ADC"
+      ],
+      "representative_drugs": [
+        "trastuzumab emtansine",
+        "trastuzumab deruxtecan"
+      ],
+      "drug_aliases": {
+        "trastuzumab emtansine": [
+          "T-DM1",
+          "Kadcyla"
+        ],
+        "trastuzumab deruxtecan": [
+          "T-DXd",
+          "DS-8201a",
+          "Enhertu"
+        ]
+      },
+      "related_terms": [
+        "HER2-positive cancer",
+        "payload delivery"
+      ]
+    },
+
+
+    "trop2_adc": {
+      "description": "TROP2-targeted antibody-drug conjugates.",
+      "targets": [
+        "TACSTD2",
+        "TROP2"
+      ],
+      "mechanism_of_action": "Deliver topoisomerase inhibitors to TROP2-positive tumor cells.",
+      "synonyms": [
+        "TROP2 ADC"
+      ],
+      "priority_patterns": [
+        "TROP.?2.?ADC"
+      ],
+      "patterns": [
+        "TROP2"
+      ],
+      "representative_drugs": [
+        "sacituzumab govitecan",
+        "datopotamab deruxtecan"
+      ],
+      "drug_aliases": {
+        "sacituzumab govitecan": [
+          "Trodelvy",
+          "IMMU-132"
+        ],
+        "datopotamab deruxtecan": [
+          "Dato-DXd",
+          "DS-1062"
+        ]
+      },
+      "related_terms": [
+        "topoisomerase I inhibitor payload"
+      ]
+    },
+
+
+    "nectin4_adc": {
+      "description": "Nectin-4 antibody-drug conjugate.",
+      "targets": [
+        "NECTIN4"
+      ],
+      "mechanism_of_action": "Targeted delivery of cytotoxic payload to Nectin-4 expressing cells.",
+      "synonyms": [
+        "Nectin-4 ADC"
+      ],
+      "priority_patterns": [
+        "Nectin.?4.?ADC"
+      ],
+      "patterns": [
+        "NECTIN4"
+      ],
+      "representative_drugs": [
+        "enfortumab vedotin"
+      ],
+      "drug_aliases": {
+        "enfortumab vedotin": [
+          "Padcev",
+          "ASG-22CE"
+        ]
+      },
+      "related_terms": [
+        "urothelial carcinoma"
+      ]
+    }
+
+  },
+  "bispecific": {
+
+    "cd3_bispecific": {
+      "description": "CD3-engaging bispecific antibodies that redirect T cells to tumor cells.",
+      "targets": [
+        "CD3"
+      ],
+      "mechanism_of_action": "Bind CD3 on T cells and tumor-associated antigens simultaneously to activate T-cell-mediated cytotoxicity.",
+      "synonyms": [
+        "CD3 bispecific antibody",
+        "T-cell engager",
+        "T cell engager",
+        "BiTE",
+        "bispecific T-cell engager"
+      ],
+      "priority_patterns": [
+        "CD3.?bispecific",
+        "CD3.?T.?cell.?engager",
+        "BiTE"
+      ],
+      "patterns": [
+        "bispecific",
+        "双特异性抗体",
+        "T-cell engager"
+      ],
+      "representative_drugs": [
+        "blinatumomab",
+        "teclistamab",
+        "elranatamab",
+        "talquetamab"
+      ],
+      "drug_aliases": {
+        "blinatumomab": [
+          "Blincyto",
+          "AMG103"
+        ],
+        "teclistamab": [
+          "Tecvayli",
+          "JNJ-64007957"
+        ],
+        "elranatamab": [
+          "Elrexfio",
+          "PF-06863135"
+        ],
+        "talquetamab": [
+          "Talvey",
+          "JNJ-64407564"
+        ]
+      },
+      "related_terms": [
+        "T-cell activation",
+        "immune synapse",
+        "redirected cytotoxicity"
+      ]
+    },
+
+
+    "bcma_bispecific": {
+      "description": "BCMA-targeted bispecific antibodies for plasma cell malignancies.",
+      "targets": [
+        "TNFRSF17",
+        "BCMA"
+      ],
+      "mechanism_of_action": "Recruit T cells to BCMA-expressing plasma cells through CD3 engagement.",
+      "synonyms": [
+        "BCMA bispecific antibody",
+        "BCMA T-cell engager"
+      ],
+      "priority_patterns": [
+        "BCMA.?bispecific",
+        "BCMA.?T.?cell.?engager"
+      ],
+      "patterns": [
+        "BCMA",
+        "TNFRSF17"
+      ],
+      "representative_drugs": [
+        "teclistamab",
+        "elranatamab",
+        "linvoseltamab"
+      ],
+      "drug_aliases": {
+        "linvoseltamab": [
+          "REGN5458"
+        ]
+      },
+      "related_terms": [
+        "multiple myeloma",
+        "plasma cell neoplasm"
+      ]
+    },
+
+
+    "cd20_cd3_bispecific": {
+      "description": "CD20/CD3 bispecific antibodies targeting B-cell malignancies.",
+      "targets": [
+        "MS4A1",
+        "CD3"
+      ],
+      "mechanism_of_action": "Bridge CD3-positive T cells with CD20-positive B cells to induce immune killing.",
+      "synonyms": [
+        "CD20xCD3 bispecific",
+        "CD20 T-cell engager"
+      ],
+      "priority_patterns": [
+        "CD20.?CD3",
+        "CD20xCD3"
+      ],
+      "patterns": [
+        "CD20",
+        "CD3",
+        "bispecific"
+      ],
+      "representative_drugs": [
+        "mosunetuzumab",
+        "glofitamab",
+        "epcoritamab"
+      ],
+      "drug_aliases": {
+        "mosunetuzumab": [
+          "Lunsumio",
+          "RG7828"
+        ],
+        "glofitamab": [
+          "Columvi",
+          "RG6026"
+        ],
+        "epcoritamab": [
+          "Epkinly",
+          "GEN3013"
+        ]
+      },
+      "related_terms": [
+        "B-cell lymphoma",
+        "DLBCL",
+        "follicular lymphoma"
+      ]
+    },
+
+
+    "dll3_bispecific": {
+      "description": "DLL3-targeted bispecific immune therapies.",
+      "targets": [
+        "DLL3"
+      ],
+      "mechanism_of_action": "Target DLL3-expressing tumor cells and activate immune effector cells.",
+      "synonyms": [
+        "DLL3 bispecific antibody",
+        "DLL3 engager"
+      ],
+      "priority_patterns": [
+        "DLL3.?bispecific"
+      ],
+      "patterns": [
+        "DLL3"
+      ],
+      "representative_drugs": [
+        "tarlatamab"
+      ],
+      "drug_aliases": {
+        "tarlatamab": [
+          "Imdelltra",
+          "AMG757"
+        ]
+      },
+      "related_terms": [
+        "small cell lung cancer",
+        "SCLC"
+      ]
+    },
+
+
+    "egfr_met_bispecific": {
+      "description": "EGFR/MET dual-target bispecific antibodies.",
+      "targets": [
+        "EGFR",
+        "MET"
+      ],
+      "mechanism_of_action": "Block EGFR and MET signaling simultaneously to overcome resistance mechanisms.",
+      "synonyms": [
+        "EGFR MET bispecific",
+        "dual EGFR MET antibody"
+      ],
+      "priority_patterns": [
+        "EGFR.?MET.?bispecific"
+      ],
+      "patterns": [
+        "EGFR",
+        "MET",
+        "bispecific"
+      ],
+      "representative_drugs": [
+        "amivantamab"
+      ],
+      "drug_aliases": {
+        "amivantamab": [
+          "Rybrevant",
+          "JNJ-61186372"
+        ]
+      },
+      "related_terms": [
+        "EGFR exon 20 insertion",
+        "MET resistance"
+      ]
+    }
+
+  },
+
+
   "cell_therapy": {
-    "CAR_T": {
-      "description": "嵌合抗原受体T细胞疗法",
-      "patterns": ["CAR.?T", "CAR.?NK", "chimeric antigen receptor", "嵌合抗原受体"],
-      "drugs": ["tisagenlecleucel", "axicabtagene ciloleucel", "brexucabtagene autoleucel"]
-    }
-  },
-  "other_therapies": {
-    "gene_therapy": {
-      "description": "基因治疗",
-      "patterns": ["gene therapy", "基因治疗", "gene editing", "CRISPR"],
-      "examples": ["请补充代表性基因治疗药物"]
+
+    "car_t": {
+      "description": "Chimeric antigen receptor T-cell therapy.",
+      "targets": [],
+      "mechanism_of_action": "Genetically engineer patient T cells to express CAR receptors recognizing tumor antigens.",
+      "synonyms": [
+        "CAR-T",
+        "CAR T-cell therapy",
+        "chimeric antigen receptor T therapy"
+      ],
+      "priority_patterns": [
+        "CAR.?T",
+        "chimeric antigen receptor"
+      ],
+      "patterns": [
+        "CAR",
+        "T cell therapy"
+      ],
+      "representative_drugs": [
+        "tisagenlecleucel",
+        "axicabtagene ciloleucel",
+        "lisocabtagene maraleucel",
+        "idecabtagene vicleucel",
+        "ciltacabtagene autoleucel"
+      ],
+      "drug_aliases": {
+        "tisagenlecleucel": [
+          "Kymriah",
+          "CTL019"
+        ],
+        "axicabtagene ciloleucel": [
+          "Yescarta",
+          "KTE-C19"
+        ],
+        "lisocabtagene maraleucel": [
+          "Breyanzi",
+          "JCAR017"
+        ],
+        "idecabtagene vicleucel": [
+          "Abecma",
+          "ide-cel"
+        ],
+        "ciltacabtagene autoleucel": [
+          "Carvykti",
+          "cilta-cel"
+        ]
+      },
+      "related_terms": [
+        "adoptive cell transfer",
+        "CAR construct",
+        "tumor antigen recognition"
+      ]
     },
-    "RNA_therapy": {
-      "description": "RNA疗法（siRNA, ASO, mRNA等）",
-      "patterns": ["siRNA", "ASO", "antisense oligonucleotide", "mRNA", "RNAi", "反义寡核苷酸"],
-      "drugs": ["patisiran", "nusinersen", "inotersen", "mRNA-1273"]
+
+
+    "car_nk": {
+      "description": "Chimeric antigen receptor engineered natural killer cell therapy.",
+      "targets": [],
+      "mechanism_of_action": "Engineer NK cells with CAR receptors to enhance tumor recognition and killing.",
+      "synonyms": [
+        "CAR-NK",
+        "CAR engineered NK cells"
+      ],
+      "priority_patterns": [
+        "CAR.?NK"
+      ],
+      "patterns": [
+        "NK cell",
+        "natural killer"
+      ],
+      "representative_drugs": [
+        "CAR-NK CD19 therapy",
+        "FT596"
+      ],
+      "drug_aliases": {
+        "FT596": [
+          "placental-derived CAR-NK"
+        ]
+      },
+      "related_terms": [
+        "allogeneic cell therapy",
+        "off-the-shelf therapy"
+      ]
+    },
+
+
+    "tcr_t": {
+      "description": "T-cell receptor engineered T-cell therapy.",
+      "targets": [],
+      "mechanism_of_action": "Modify T cells with engineered TCRs recognizing tumor-derived peptide antigens presented by HLA molecules.",
+      "synonyms": [
+        "TCR-T",
+        "TCR engineered T cells",
+        "T-cell receptor therapy"
+      ],
+      "priority_patterns": [
+        "TCR.?T",
+        "TCR engineered"
+      ],
+      "patterns": [
+        "TCR",
+        "T-cell receptor"
+      ],
+      "representative_drugs": [
+        "afamitresgene autoleucel"
+      ],
+      "drug_aliases": {
+        "afamitresgene autoleucel": [
+          "Tecelra",
+          "afami-cel"
+        ]
+      },
+      "related_terms": [
+        "HLA presentation",
+        "tumor antigen peptide"
+      ]
+    },
+
+
+    "til": {
+      "description": "Tumor infiltrating lymphocyte therapy.",
+      "targets": [],
+      "mechanism_of_action": "Expand naturally occurring tumor-reactive lymphocytes and reinfuse them into patients.",
+      "synonyms": [
+        "TIL therapy",
+        "tumor infiltrating lymphocyte therapy"
+      ],
+      "priority_patterns": [
+        "TIL.?therapy"
+      ],
+      "patterns": [
+        "tumor infiltrating lymphocyte",
+        "TIL"
+      ],
+      "representative_drugs": [
+        "lifileucel"
+      ],
+      "drug_aliases": {
+        "lifileucel": [
+          "Amtagvi",
+          "LN-145"
+        ]
+      },
+      "related_terms": [
+        "adoptive immunotherapy",
+        "melanoma"
+      ]
+    },
+
+
+    "nk_therapy": {
+      "description": "Natural killer cell-based immunotherapy.",
+      "targets": [],
+      "mechanism_of_action": "Use NK cells to mediate innate immune tumor cell killing.",
+      "synonyms": [
+        "NK cell therapy",
+        "natural killer cell therapy"
+      ],
+      "priority_patterns": [
+        "NK.?cell.?therapy"
+      ],
+      "patterns": [
+        "natural killer",
+        "NK cell"
+      ],
+      "representative_drugs": [
+        "GDA-201",
+        "NKTR-255"
+      ],
+      "drug_aliases": {},
+      "related_terms": [
+        "innate immunity",
+        "cell-based immunotherapy"
+      ]
     }
+
   }
 }

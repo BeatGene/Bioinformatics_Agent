@@ -1,110 +1,531 @@
 {
-  "_instructions": "医学生填写：为每个字段定义校验规则。这是 LLM 提取后做质量检查的依据。",
-  "field_rules": {
-    "target": {
-      "description": "研究靶点/基因/蛋白质",
-      "rules": [
-        {
-          "name": "known_target_check",
-          "type": "dictionary_lookup",
-          "description": "提取的靶点名称是否在 targets.json 词典中存在（含别名匹配）",
-          "action_on_fail": "标记为 [待核实] ，在报告中提示用户该靶点名称不在已知词典中"
-        },
-        {
-          "name": "format_check",
-          "type": "regex",
-          "pattern": "^[A-Z0-9][A-Za-z0-9\\-]+$",
-          "description": "基因/蛋白质名称应符合标准命名格式（大写字母开头，可含数字和连字符）",
-          "action_on_fail": "light_warn"
-        }
-      ]
+  "_instructions": "Validation ontology for biomedical literature AI Agent. Used for post-extraction quality control, entity verification, evidence checking and biomedical consistency validation.",
+
+  "validation_config": {
+
+    "default_severity_levels": {
+      "critical": "阻止自动生成最终报告，需要人工审核",
+      "warning": "允许生成，但需要提示风险",
+      "info": "记录信息，不影响输出"
     },
-    "biomarker": {
-      "description": "生物标志物",
-      "rules": [
-        {
-          "name": "non_empty_check",
-          "type": "semantic",
-          "description": "如果文献类型是诊断/预后研究，biomarker 字段不应为空",
-          "action_on_fail": "标记提醒"
-        },
-        {
-          "name": "format_check",
-          "type": "regex",
-          "pattern": "^(基因|蛋白质|代谢物|miRNA|lncRNA|circulating|serum|plasma|urinary|tissue)",
-          "description": "生物标志物应有明确的分子类型或样本来源提示",
-          "action_on_fail": "soft_warn"
-        }
-      ]
+
+
+    "field_rules": {
+
+
+      "target": {
+
+        "description": "研究靶点、基因、蛋白质、通路节点",
+
+        "rules": [
+
+          {
+            "name": "target_dictionary_lookup",
+
+            "type": "ontology_lookup",
+
+            "source": "targets.json",
+
+            "parameters": {
+              "allow_alias_match": true,
+              "allow_gene_symbol": true
+            },
+
+            "description": "检查靶点是否存在于标准靶点库",
+
+            "severity": "warning",
+
+            "action_on_fail": "标记为[未知靶点，需要人工确认]"
+          },
+
+
+          {
+            "name": "target_normalization",
+
+            "type": "entity_normalization",
+
+            "description": "将别名转换为标准名称，例如 HER1→EGFR",
+
+            "severity": "critical",
+
+            "action_on_fail": "保留原始名称并标记"
+          },
+
+
+          {
+            "name": "target_format_check",
+
+            "type": "regex",
+
+            "pattern": "^[A-Za-z0-9\\-]+$",
+
+            "description": "检查靶点名称格式",
+
+            "severity": "info",
+
+            "action_on_fail": "format_warning"
+          },
+
+
+          {
+            "name": "target_evidence_check",
+
+            "type": "evidence_required",
+
+            "required_fields": [
+              "sentence",
+              "citation"
+            ],
+
+            "description": "靶点必须有文献证据支持",
+
+            "severity": "warning",
+
+            "action_on_fail": "降低可信度评分"
+          }
+
+        ]
+      },
+
+
+      "biomarker": {
+
+        "description": "诊断、预测、预后相关生物标志物",
+
+        "rules": [
+
+          {
+            "name": "biomarker_type_check",
+
+            "type": "ontology_lookup",
+
+            "source": "biomarker_dictionary.json",
+
+            "description": "检查 biomarker 类型",
+
+            "severity": "warning",
+
+            "action_on_fail": "标记未知biomarker"
+          },
+
+
+          {
+            "name": "biomarker_context_check",
+
+            "type": "semantic",
+
+            "conditions": {
+
+              "diagnostic_study": {
+                "required": true
+              },
+
+              "prognostic_study": {
+                "required": true
+              }
+
+            },
+
+            "description": "诊断和预后研究必须包含biomarker",
+
+            "severity": "warning",
+
+            "action_on_fail": "提醒"
+          },
+
+
+          {
+            "name": "sample_source_check",
+
+            "type": "regex",
+
+            "pattern": "(blood|serum|plasma|tissue|tumor|urine|CSF|circulating|组织|血清|血浆)",
+
+            "description": "检查biomarker样本来源",
+
+            "severity": "info"
+          }
+
+        ]
+      },
+
+
+      "mutation": {
+
+
+        "description": "基因突变及变异信息",
+
+        "rules":[
+
+
+          {
+            "name":"variant_dictionary_lookup",
+
+            "type":"ontology_lookup",
+
+            "source":"variant_ontology.json",
+
+            "description":"检查突变类型是否标准化",
+
+            "severity":"warning"
+          },
+
+
+          {
+            "name":"HGVS_format_check",
+
+            "type":"regex",
+
+            "pattern":"[A-Z]\\d+[A-Z\\*]|del|ins|dup|fs",
+
+            "description":"检查HGVS-like突变格式",
+
+            "severity":"info"
+          },
+
+
+          {
+            "name":"mutation_target_relation",
+
+            "type":"cross_reference",
+
+            "source":"targets.json",
+
+            "description":"检查突变是否属于对应靶点",
+
+            "severity":"critical"
+
+          }
+
+        ]
+
+      },
+
+
+      "drug": {
+
+
+        "description":"研究涉及药物或治疗方式",
+
+        "rules":[
+
+
+          {
+            "name":"drug_dictionary_lookup",
+
+            "type":"ontology_lookup",
+
+            "source":"therapy_ontology.json",
+
+            "parameters":{
+              "allow_brand_name":true,
+              "allow_development_code":true
+            },
+
+            "severity":"warning",
+
+            "action_on_fail":"未知药物"
+
+          },
+
+
+          {
+            "name":"drug_target_consistency",
+
+            "type":"cross_field_validation",
+
+            "depends_on":[
+              "drug",
+              "target"
+            ],
+
+            "description":"验证药物作用靶点",
+
+            "severity":"critical"
+
+          },
+
+
+          {
+            "name":"clinical_drug_status_check",
+
+            "type":"knowledge_lookup",
+
+            "description":"检查药物是否为批准药物或临床研究药物",
+
+            "severity":"info"
+
+          }
+
+        ]
+
+      },
+
+
+      "sample_size": {
+
+
+        "description":"研究样本量",
+
+        "rules":[
+
+
+          {
+            "name":"numeric_check",
+
+            "type":"regex",
+
+            "pattern":"\\d+",
+
+            "severity":"warning"
+
+          },
+
+
+          {
+            "name":"range_check",
+
+            "type":"numeric_range",
+
+            "min":1,
+
+            "max":10000000,
+
+            "severity":"warning"
+
+          },
+
+
+          {
+            "name":"arm_balance_check",
+
+            "type":"semantic",
+
+            "description":"随机对照研究需要检查各组样本量",
+
+            "severity":"info"
+
+          }
+
+        ]
+
+      },
+
+
+      "model_system": {
+
+
+        "description":"实验模型",
+
+        "rules":[
+
+
+          {
+            "name":"model_dictionary_lookup",
+
+            "type":"ontology_lookup",
+
+            "source":"model_systems.json",
+
+            "severity":"warning"
+
+          },
+
+
+          {
+            "name":"model_disease_match",
+
+            "type":"cross_field_validation",
+
+            "depends_on":[
+              "model_system",
+              "disease"
+            ],
+
+            "description":"检查模型是否符合研究疾病",
+
+            "severity":"warning"
+
+          }
+
+        ]
+
+      },
+
+
+      "method": {
+
+
+        "description":"实验方法和研究设计",
+
+        "rules":[
+
+
+          {
+            "name":"study_design_detection",
+
+            "type":"ontology_lookup",
+
+            "source":"study_design.json",
+
+            "severity":"warning"
+
+          },
+
+
+          {
+            "name":"method_evidence_check",
+
+            "type":"required_field",
+
+            "required":[
+              "method",
+              "measurement"
+            ],
+
+            "severity":"warning"
+
+          }
+
+        ]
+
+      },
+
+
+      "result_value": {
+
+
+        "description":"关键实验结果和统计指标",
+
+        "rules":[
+
+
+          {
+            "name":"statistics_detection",
+
+            "type":"regex",
+
+            "pattern":"(p\\s*[<=>]\\s*\\d|HR|OR|RR|CI|95%|fold|%|AUC|IC50|EC50|KD)",
+
+            "severity":"warning",
+
+            "description":"检测统计结果"
+          },
+
+
+          {
+            "name":"numeric_evidence_check",
+
+            "type":"numeric_presence",
+
+            "description":"结果字段必须包含定量信息",
+
+            "severity":"warning"
+
+          }
+
+        ]
+
+      },
+
+
+      "conclusion": {
+
+
+        "description":"研究结论",
+
+        "rules":[
+
+
+          {
+            "name":"length_check",
+
+            "type":"length",
+
+            "min_chars":30,
+
+            "max_chars":800,
+
+            "severity":"warning"
+
+          },
+
+
+          {
+            "name":"evidence_alignment",
+
+            "type":"semantic_similarity",
+
+            "depends_on":[
+              "result_value"
+            ],
+
+            "description":"检查结论是否超出实验结果支持范围",
+
+            "severity":"critical"
+
+          }
+
+        ]
+
+      }
+
+
     },
-    "sample_size": {
-      "description": "样本量",
-      "rules": [
-        {
-          "name": "numeric_check",
-          "type": "regex",
-          "pattern": "\\d+",
-          "description": "样本量字段应包含数字",
-          "action_on_fail": "标记为 [未提取到数值]"
-        },
-        {
-          "name": "realistic_check",
-          "type": "numeric_range",
-          "min": 1,
-          "max": 10000000,
-          "description": "样本量应在合理范围内",
-          "action_on_fail": "标记为 [异常值，请核实]"
-        }
-      ]
-    },
-    "method": {
-      "description": "实验方法",
-      "rules": [
-        {
-          "name": "method_type_detection",
-          "type": "regex_list",
-          "source": "study_designs.json 中的所有 patterns",
-          "description": "从 method 字段中识别实验设计类型",
-          "action_on_fail": "标记为 [方法类型未识别]"
-        }
-      ]
-    },
-    "model_system": {
-      "description": "模型系统",
-      "rules": [
-        {
-          "name": "model_type_detection",
-          "type": "regex_list",
-          "source": "model_systems.json 中的所有 patterns",
-          "description": "从 model_system 字段中识别模型类型",
-          "action_on_fail": "标记为 [模型类型未识别]"
-        }
-      ]
-    },
-    "result_value": {
-      "description": "关键数值结果",
-      "rules": [
-        {
-          "name": "statistical_indicator_check",
-          "type": "regex",
-          "pattern": "(p\\s*[<=>]|HR\\s*=|OR\\s*=|RR\\s*=|CI\\s*=|95%.*CI|hazard ratio|odds ratio|relative risk|\\d+%|HR\\s*\\d|\\(95%|p\\s*=\\s*0)",
-          "description": "result_value 应包含统计指标（p值、HR、OR、RR、CI 等）",
-          "action_on_fail": "标记为 [缺少统计指标，可能为定性描述]"
-        }
-      ]
-    },
-    "conclusion": {
-      "description": "结论",
-      "rules": [
-        {
-          "name": "length_check",
-          "type": "length",
-          "min_chars": 20,
-          "max_chars": 500,
-          "description": "结论不应过短或过长",
-          "action_on_fail": "标记"
-        }
-      ]
-    }
+
+
+    "cross_field_rules":[
+
+
+      {
+        "name":"drug_target_validation",
+
+        "fields":[
+          "drug",
+          "target"
+        ],
+
+        "description":"药物-靶点关系验证",
+
+        "source":"therapy_ontology.json",
+
+        "severity":"critical"
+
+      },
+
+
+      {
+        "name":"mutation_target_validation",
+
+        "fields":[
+          "mutation",
+          "target"
+        ],
+
+        "description":"突变-靶点关系验证",
+
+        "source":"variant_ontology.json",
+
+        "severity":"critical"
+
+      },
+
+
+      {
+        "name":"model_method_validation",
+
+        "fields":[
+          "model_system",
+          "method"
+        ],
+
+        "description":"模型与实验方法一致性检查",
+
+        "severity":"warning"
+
+      }
+
+    ]
+
   }
 }

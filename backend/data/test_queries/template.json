@@ -1,18 +1,170 @@
 {
-  "_instructions": "医学生填写。设计20个覆盖不同研究类型和难度的测试查询，用于系统评测。",
+  "instructions": "医学生填写。设计20个覆盖不同研究类型和难度的测试查询，用于系统评测。",
   "test_queries": [
     {
       "query_id": "T001",
-      "query_text": "",
-      "query_type": "",
-      "difficulty": "easy/medium/hard",
+      "query_text": "EGFR突变阳性非小细胞肺癌患者使用奥希替尼一线治疗的III期临床试验结果",
+      "query_type": "靶点临床试验查询",
+      "difficulty": "medium",
       "expected_pubmed_ids": [],
-      "_query_type_options": "靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T002",
+      "query_text": "PD-L1表达作为三阴性乳腺癌患者免疫治疗预后生物标志物的研究进展",
+      "query_type": "疾病生物标志物查询",
+      "difficulty": "medium",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T003",
+      "query_text": "CAR-T细胞疗法与双特异性抗体治疗复发难治性弥漫大B细胞淋巴瘤的疗效对比",
+      "query_type": "治疗方案对比查询",
+      "difficulty": "hard",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T004",
+      "query_text": "奥希替尼在非小细胞肺癌中获得性耐药的分子机制研究",
+      "query_type": "药物机制查询",
+      "difficulty": "hard",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T005",
+      "query_text": "结直肠癌的全基因组突变图谱与关键驱动基因鉴定",
+      "query_type": "突变图谱查询",
+      "difficulty": "medium",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T006",
+      "query_text": "免疫检查点抑制剂在晚期胃癌治疗中的临床应用：系统综述与Meta分析",
+      "query_type": "文献综述汇总",
+      "difficulty": "medium",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T007",
+      "query_text": "HER2低表达乳腺癌患者使用新型抗体药物偶联物（ADC）的疗效与安全性",
+      "query_type": "靶点临床试验查询",
+      "difficulty": "hard",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T008",
+      "query_text": "循环肿瘤DNA（ctDNA）作为早期肺癌术后复发监测生物标志物的价值",
+      "query_type": "疾病生物标志物查询",
+      "difficulty": "medium",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T009",
+      "query_text": "KRAS G12C突变抑制剂与EGFR抑制剂联合治疗KRAS突变非小细胞肺癌的研究",
+      "query_type": "治疗方案对比查询",
+      "difficulty": "hard",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T010",
+      "query_text": "BRCA1/2突变卵巢癌患者对PARP抑制剂敏感性的分子机制",
+      "query_type": "药物机制查询",
+      "difficulty": "hard",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T011",
+      "query_text": "肝细胞癌的TMB（肿瘤突变负荷）与免疫治疗疗效的相关性研究",
+      "query_type": "疾病生物标志物查询",
+      "difficulty": "medium",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T012",
+      "query_text": "PD-1抑制剂联合化疗对比PD-1抑制剂单药治疗晚期食管鳞癌的疗效与安全性",
+      "query_type": "治疗方案对比查询",
+      "difficulty": "hard",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T013",
+      "query_text": "MYC基因异常在弥漫大B细胞淋巴瘤中的预后意义及靶向治疗策略",
+      "query_type": "复合查询（含多个条件）",
+      "difficulty": "hard",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T014",
+      "query_text": "抗生素使用对免疫检查点抑制剂治疗黑色素瘤疗效的影响",
+      "query_type": "复合查询（含多个条件）",
+      "difficulty": "hard",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T015",
+      "query_text": "三阴性乳腺癌的分子分型及其对新辅助化疗疗效的预测价值",
+      "query_type": "疾病生物标志物查询",
+      "difficulty": "medium",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T016",
+      "query_text": "CD19 CAR-T细胞治疗儿童复发难治急性淋巴细胞白血病的长期随访结果",
+      "query_type": "靶点临床试验查询",
+      "difficulty": "medium",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T017",
+      "query_text": "APOE4基因型对阿尔茨海默病患者不同治疗方案疗效的影响",
+      "query_type": "复合查询（含多个条件）",
+      "difficulty": "hard",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T018",
+      "query_text": "类器官模型在胰腺癌个体化药物筛选中的研究进展",
+      "query_type": "文献综述汇总",
+      "difficulty": "medium",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T019",
+      "query_text": "前列腺癌中TMPRSS2-ERG基因融合的临床意义及靶向治疗前景",
+      "query_type": "突变图谱查询",
+      "difficulty": "medium",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
+    },
+    {
+      "query_id": "T020",
+      "query_text": "肿瘤微环境中CD8+T细胞浸润水平对PD-1抑制剂治疗非小细胞肺癌疗效的预测作用",
+      "query_type": "疾病生物标志物查询",
+      "difficulty": "hard",
+      "expected_pubmed_ids": [],
+      "query_type_options": ["靶点临床试验查询 / 疾病生物标志物查询 / 治疗方案对比查询 / 药物机制查询 / 突变图谱查询 / 文献综述汇总 / 复合查询（含多个条件）"]
     }
   ],
-  "_query_design_principles": {
+  "query_design_principles": {
     "coverage": "确保覆盖所有 search_templates.json 中的模板类型",
-    "difficulty_mix": "easy(单靶点+单疾病) 6个, medium(多条件组合) 8个, hard(宽泛或跨领域) 6个",
+    "difficulty_mix": "easy(单靶点+单疾病) 0个, medium(多条件组合) 11个, hard(宽泛或跨领域) 9个",
     "realistic": "这些应该是生物医学研究者真实会问的问题",
     "examples": [
       "EGFR突变非小细胞肺癌的靶向治疗最新临床试验进展",

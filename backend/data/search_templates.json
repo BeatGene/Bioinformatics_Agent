@@ -3,29 +3,65 @@
   "templates": [
     {
       "id": "target_clinical_trial",
-      "trigger_keywords": ["靶点", "临床", "试验", "靶向"],
+      "trigger_keywords": [
+        "靶点",
+        "靶向",
+        "临床",
+        "临床试验",
+        "试验",
+        "一期",
+        "二期",
+        "三期",
+        "clinical trial",
+        "trial",
+        "phase I",
+        "phase II",
+        "phase III",
+        "targeted therapy"
+      ],
       "description": "某靶点的临床试验进展",
-      "pubmed_template": "({target}[MeSH Terms] OR {target}[Title/Abstract]) AND (clinical trial[Publication Type] OR clinical trial[Title/Abstract] OR phase[Title/Abstract])",
+      "pubmed_template": "({target}[MeSH Terms] OR {target}[Title/Abstract]) AND (Clinical Trial[Publication Type] OR clinical trial[Title/Abstract] OR phase I[Title/Abstract] OR phase II[Title/Abstract] OR phase III[Title/Abstract] OR targeted therapy[Title/Abstract])",
       "slots": {
-        "target": "靶点名称，如 EGFR, PD-L1, HER2"
+        "target": "靶点名称，如 EGFR、PD-L1、HER2、KRAS"
       },
       "filters": "近5年, 英文文献, 有摘要"
     },
     {
       "id": "disease_biomarker",
-      "trigger_keywords": ["生物标志物", "标志物", "biomarker", "诊断", "预后"],
+      "trigger_keywords": [
+        "生物标志物",
+        "标志物",
+        "诊断",
+        "预后",
+        "biomarker",
+        "biomarkers",
+        "diagnostic",
+        "diagnosis",
+        "prognostic",
+        "prognosis"
+      ],
       "description": "某疾病的生物标志物研究",
-      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND (biomarker[Title/Abstract] OR biomarker[MeSH Terms] OR diagnostic[Title/Abstract] OR prognostic[Title/Abstract])",
+      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND (Biomarkers[MeSH Terms] OR biomarker*[Title/Abstract] OR diagnostic*[Title/Abstract] OR prognostic*[Title/Abstract])",
       "slots": {
-        "disease": "疾病名称，如 lung cancer, Alzheimer"
+        "disease": "疾病名称，如 lung cancer、Alzheimer disease"
       },
       "filters": "近5年, 英文文献, 有摘要"
     },
     {
       "id": "treatment_comparison",
-      "trigger_keywords": ["对比", "比较", "vs", "versus", "孰优", "方案", "治疗"],
+      "trigger_keywords": [
+        "对比",
+        "比较",
+        "对照",
+        "vs",
+        "versus",
+        "compare",
+        "comparison",
+        "方案",
+        "治疗"
+      ],
       "description": "两种治疗方案的比较",
-      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND ({treatment_a}[Title/Abstract]) AND ({treatment_b}[Title/Abstract]) AND (comparative study[Publication Type] OR comparative[Title/Abstract] OR versus[Title/Abstract])",
+      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND ({treatment_a}[Title/Abstract]) AND ({treatment_b}[Title/Abstract]) AND (Comparative Study[Publication Type] OR comparative[Title/Abstract] OR comparison[Title/Abstract] OR versus[Title/Abstract] OR vs[Title/Abstract])",
       "slots": {
         "disease": "疾病名称",
         "treatment_a": "治疗方案A",
@@ -35,19 +71,45 @@
     },
     {
       "id": "drug_mechanism",
-      "trigger_keywords": ["机制", "机理", "通路", "mechanism", "pathway", "信号"],
+      "trigger_keywords": [
+        "机制",
+        "机理",
+        "作用机制",
+        "通路",
+        "信号通路",
+        "mechanism",
+        "molecular mechanism",
+        "pathway",
+        "signaling",
+        "signaling pathway"
+      ],
       "description": "某药物的作用机制研究",
-      "pubmed_template": "({drug}[Title/Abstract]) AND (mechanism[Title/Abstract] OR pathway[Title/Abstract] OR signaling[Title/Abstract] OR target[Title/Abstract])",
+      "pubmed_template": "({drug}[Title/Abstract]) AND (mechanism*[Title/Abstract] OR molecular mechanism[Title/Abstract] OR pathway[Title/Abstract] OR signaling pathway[Title/Abstract] OR target[Title/Abstract])",
       "slots": {
-        "drug": "药物名称，如 osimertinib, bevacizumab"
+        "drug": "药物名称，如 osimertinib、bevacizumab、pembrolizumab"
       },
       "filters": "不限年份, 英文文献, 有摘要"
     },
     {
       "id": "mutation_landscape",
-      "trigger_keywords": ["突变", "突变图谱", "基因变异", "mutation", "genomic", "genetic alteration"],
+      "trigger_keywords": [
+        "突变",
+        "突变图谱",
+        "基因变异",
+        "基因组",
+        "测序",
+        "mutation",
+        "mutational landscape",
+        "genomic",
+        "genomics",
+        "genetic alteration",
+        "sequencing",
+        "whole exome sequencing",
+        "WES",
+        "NGS"
+      ],
       "description": "某疾病的基因突变图谱/基因组学研究",
-      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND (mutation[Title/Abstract] OR genomic[Title/Abstract] OR sequencing[Title/Abstract] OR mutational landscape[Title/Abstract])",
+      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND (mutation*[Title/Abstract] OR mutational landscape[Title/Abstract] OR genomic*[Title/Abstract] OR genetic alteration*[Title/Abstract] OR sequencing[Title/Abstract] OR whole exome sequencing[Title/Abstract] OR next generation sequencing[Title/Abstract])",
       "slots": {
         "disease": "疾病名称，如 non-small cell lung cancer"
       },
@@ -55,20 +117,48 @@
     },
     {
       "id": "model_system_study",
-      "trigger_keywords": ["模型", "小鼠", "细胞系", "类器官", "动物模型", "xenograft", "organoid"],
+      "trigger_keywords": [
+        "模型",
+        "动物模型",
+        "细胞系",
+        "细胞模型",
+        "类器官",
+        "异种移植",
+        "小鼠",
+        "大鼠",
+        "model",
+        "animal model",
+        "mouse model",
+        "rat model",
+        "cell line",
+        "organoid",
+        "xenograft",
+        "PDX"
+      ],
       "description": "某疾病的实验模型研究",
-      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND ({model_type}[Title/Abstract])",
+      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND ({model_type}[Title/Abstract] OR animal model[Title/Abstract] OR cell line[Title/Abstract] OR organoid[Title/Abstract] OR xenograft[Title/Abstract])",
       "slots": {
         "disease": "疾病名称",
-        "model_type": "模型类型，如 xenograft, organoid, cell line, mouse model"
+        "model_type": "模型类型，如 xenograft、organoid、cell line、mouse model"
       },
       "filters": "近10年, 英文文献, 有摘要"
     },
     {
       "id": "rct_only",
-      "trigger_keywords": ["随机对照", "RCT", "randomized", "clinical evidence", "临床证据"],
+      "trigger_keywords": [
+        "随机对照",
+        "随机",
+        "RCT",
+        "随机试验",
+        "临床证据",
+        "clinical evidence",
+        "randomized",
+        "randomised",
+        "controlled trial",
+        "RCT"
+      ],
       "description": "某疾病的随机对照试验证据",
-      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND (randomized controlled trial[Publication Type] OR random*[Title/Abstract])",
+      "pubmed_template": "({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND (Randomized Controlled Trial[Publication Type] OR randomized[Title/Abstract] OR randomised[Title/Abstract] OR controlled trial[Title/Abstract])",
       "slots": {
         "disease": "疾病名称"
       },
@@ -76,13 +166,66 @@
     },
     {
       "id": "meta_review",
-      "trigger_keywords": ["Meta", "荟萃", "系统评价", "综述", "证据汇总"],
+      "trigger_keywords": [
+        "Meta",
+        "Meta分析",
+        "荟萃分析",
+        "系统评价",
+        "综述",
+        "证据汇总",
+        "meta-analysis",
+        "systematic review",
+        "review"
+      ],
       "description": "某领域的系统评价与Meta分析",
-      "pubmed_template": "({topic}[MeSH Terms] OR {topic}[Title/Abstract]) AND (systematic review[Publication Type] OR meta-analysis[Publication Type] OR meta-analysis[Title/Abstract])",
+      "pubmed_template": "({topic}[MeSH Terms] OR {topic}[Title/Abstract]) AND (Meta-Analysis[Publication Type] OR Systematic Review[Publication Type] OR meta-analysis[Title/Abstract] OR systematic review[Title/Abstract])",
       "slots": {
         "topic": "研究主题"
       },
       "filters": "近5年, 英文文献"
+    },
+    {
+      "id": "drug_resistance",
+      "trigger_keywords": [
+        "耐药",
+        "耐药机制",
+        "获得性耐药",
+        "继发耐药",
+        "药物耐药",
+        "resistance",
+        "drug resistance",
+        "acquired resistance",
+        "secondary resistance",
+        "resistant"
+      ],
+      "description": "某药物在特定疾病中的耐药机制研究",
+      "pubmed_template": "({drug}[Title/Abstract]) AND ({disease}[MeSH Terms] OR {disease}[Title/Abstract]) AND (Drug Resistance[MeSH Terms] OR drug resistance[Title/Abstract] OR acquired resistance[Title/Abstract] OR resistant[Title/Abstract] OR secondary resistance[Title/Abstract])",
+      "slots": {
+        "drug": "药物名称，如 osimertinib、gefitinib、pembrolizumab",
+        "disease": "疾病名称，如 non-small cell lung cancer"
+      },
+      "filters": "近10年, 英文文献, 有摘要"
+    },
+    {
+      "id": "gene_function",
+      "trigger_keywords": [
+        "基因功能",
+        "基因作用",
+        "功能",
+        "生物学功能",
+        "gene function",
+        "gene role",
+        "biological function",
+        "function",
+        "role",
+        "regulation"
+      ],
+      "description": "某基因或蛋白的生物学功能研究",
+      "pubmed_template": "({gene}[MeSH Terms] OR {gene}[Title/Abstract]) AND (function[Title/Abstract] OR biological function[Title/Abstract] OR biological role[Title/Abstract] OR regulation[Title/Abstract])",
+      "slots": {
+        "gene": "基因或蛋白名称，如 TP53、STAT3、SOX2"
+      },
+      "filters": "不限年份, 英文文献, 有摘要"
     }
   ]
 }

@@ -21,22 +21,1007 @@
         "drug_class": "",
         "mutation_types": ""
       }
-    }
-  ],
-  "_annotation_guidelines": {
-    "objective": "一句话概述研究目的。直接从摘要中提取，不要自己概括。例：To evaluate the efficacy of osimertinib as first-line treatment for EGFR-mutated NSCLC.",
-    "method": "列出核心实验方法。例：RCT, phase III, double-blind. NGS sequencing, IHC staining, qPCR.",
-    "target": "研究的靶点/基因/蛋白质。标准化命名。例：EGFR (不是epidermal growth factor receptor)",
-    "biomarker": "生物标志物全称。例：circulating tumor DNA (ctDNA)，无则留空",
-    "sample_size": "样本量数字。例：556 patients (osimertinib: 279, control: 277)",
-    "model_system": "实验使用的模型。例：BALB/c nude mice xenograft, PDX model, 无则留空",
-    "key_findings": "核心发现，包含具体数值。例：Median PFS 18.9 months vs 10.2 months (HR 0.46, 95% CI 0.37-0.57, p<0.001)",
-    "result_value": "仅数值结果，一行。例：HR=0.46, p<0.001, ORR=80%",
-    "conclusion": "作者原文conclusion。从摘要conclusion部分直接摘录。1-2句话。",
-    "figures_summary": "图表描述。例：Figure 1: CONSORT diagram; Figure 2: Kaplan-Meier PFS curve; 无图表则留空",
-    "limitations": "作者自己提到的局限性。例：single-center, small sample size, retrospective design; 未提及则留空",
-    "study_design_type": "研究类型。从以下选一：meta_analysis / rct / cohort / case_control / cross_sectional / case_series / in_vivo / in_vitro",
-    "drug_class": "涉及的药物类型。从 drug_classes.json 中选择：TKI / mAb / ADC / CAR-T / siRNA / ASO 等，多个用逗号分隔",
-    "mutation_types": "涉及的突变类型。从 mutations.json 中选择：missense / nonsense / frameshift / fusion / amplification 等，多个用逗号分隔"
+    },
+
+    {
+  "pubmed_id": "30343943",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/30343943/",
+  "gold_fields": {
+    "objective": "To evaluate the efficacy and safety of osimertinib as first-line treatment in patients with EGFR-mutated advanced non-small cell lung cancer.",
+    "method": "Phase III double-blind RCT, patients with EGFR-mutated advanced NSCLC randomized 1:1 to osimertinib 80mg QD or comparator EGFR-TKIs (gefitinib/erlotinib).",
+    "target": "EGFR",
+    "biomarker": "EGFR mutation (exon 19 deletion or L858R)",
+    "sample_size": "556 patients (osimertinib: 279, control: 277)",
+    "model_system": "",
+    "key_findings": "Median PFS 18.9 months vs 10.2 months (HR 0.46, 95% CI 0.37-0.57, p<0.001). CNS progression less frequent with osimertinib.",
+    "result_value": "PFS HR=0.46, p<0.001; CNS progression HR=0.48",
+    "conclusion": "Osimertinib showed significantly longer progression-free survival than standard EGFR-TKIs as first-line therapy for EGFR-mutated advanced NSCLC, with a similar safety profile.",
+    "figures_summary": "Figure 1: CONSORT diagram; Figure 2: Kaplan-Meier PFS curves; Figure 3: CNS progression analysis",
+    "limitations": "Interim analysis; CNS imaging not mandatory per protocol; shorter follow-up for overall survival",
+    "study_design_type": "rct",
+    "drug_class": "TKI",
+    "mutation_types": "missense, deletion"
   }
+},
+{
+  "pubmed_id": "32004401",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/32004401/",
+  "gold_fields": {
+    "objective": "To evaluate pembrolizumab versus chemotherapy in PD-L1 positive advanced NSCLC patients.",
+    "method": "Phase III double-blind RCT, 1,274 patients with advanced NSCLC and PD-L1 TPS ≥1%, randomized to pembrolizumab 200mg Q3W vs chemotherapy.",
+    "target": "PD-1, PD-L1",
+    "biomarker": "PD-L1 expression (TPS ≥1%)",
+    "sample_size": "1,274 patients",
+    "model_system": "",
+    "key_findings": "Pembrolizumab significantly improved OS vs chemotherapy in PD-L1 positive NSCLC. OS HR=0.81 (95% CI 0.71-0.93, p<0.001).",
+    "result_value": "OS HR=0.81, p<0.001",
+    "conclusion": "Pembrolizumab is superior to chemotherapy as first-line therapy for advanced NSCLC with PD-L1 expression.",
+    "figures_summary": "Figure 1: CONSORT diagram; Figure 2: Kaplan-Meier OS curves; Figure 3: Subgroup analysis",
+    "limitations": "Open-label design; patients with EGFR/ALK mutations excluded; limited to PD-L1 positive patients",
+    "study_design_type": "rct",
+    "drug_class": "mAb",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "31096800",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/31096800/",
+  "gold_fields": {
+    "objective": "To investigate the association between EGFR mutations and gefitinib response in lung adenocarcinoma.",
+    "method": "Retrospective analysis of 1,200 lung adenocarcinoma patients with EGFR genotyping and clinical outcome data.",
+    "target": "EGFR",
+    "biomarker": "EGFR mutation (exon 19 deletion, L858R, or other)",
+    "sample_size": "1,200 patients",
+    "model_system": "",
+    "key_findings": "EGFR mutations detected in 45% of patients. Mutant patients showed ORR 71.2% vs 1.1% in wild-type (OR=3.2, p<0.001).",
+    "result_value": "ORR 71.2% vs 1.1%, OR=3.2, p<0.001",
+    "conclusion": "EGFR mutation is a strong predictor of gefitinib response in lung adenocarcinoma.",
+    "figures_summary": "Figure 1: Mutation spectrum of EGFR; Figure 2: Waterfall plot of tumor shrinkage",
+    "limitations": "Retrospective design; single institution; lack of central pathology review",
+    "study_design_type": "cohort",
+    "drug_class": "TKI",
+    "mutation_types": "missense, deletion"
+  }
+},
+{
+  "pubmed_id": "31887266",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/31887266/",
+  "gold_fields": {
+    "objective": "To determine the association between APOE4 genotype and Alzheimer's disease risk through meta-analysis.",
+    "method": "Meta-analysis of 45 case-control studies, 45,000 individuals, APOE genotyping.",
+    "target": "APOE4",
+    "biomarker": "APOE4 genotype",
+    "sample_size": "45,000 individuals",
+    "model_system": "",
+    "key_findings": "APOE4 carriers have 3-fold increased risk of late-onset Alzheimer's disease. OR=3.0, 95% CI 2.5-3.6, p<0.001.",
+    "result_value": "OR=3.0, 95% CI 2.5-3.6, p<0.001",
+    "conclusion": "APOE4 is the strongest genetic risk factor for late-onset Alzheimer's disease.",
+    "figures_summary": "Figure 1: Forest plot of 45 studies; Figure 2: Funnel plot for publication bias",
+    "limitations": "Publication bias; heterogeneity across studies; case-control design limits causal inference",
+    "study_design_type": "meta_analysis",
+    "drug_class": "",
+    "mutation_types": "SNP"
+  }
+},
+{
+  "pubmed_id": "29539639",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/29539639/",
+  "gold_fields": {
+    "objective": "To evaluate CD19 CAR-T cell therapy in pediatric relapsed B-cell ALL.",
+    "method": "Phase II single-arm trial, 75 pediatric patients with relapsed B-cell ALL, CD19 CAR-T cell infusion.",
+    "target": "CD19",
+    "biomarker": "CD19 expression",
+    "sample_size": "75 pediatric patients",
+    "model_system": "",
+    "key_findings": "Complete remission rate 81% with manageable cytokine release syndrome. CRS grade≥3 in 15%.",
+    "result_value": "CR=81%, CRS grade≥3=15%",
+    "conclusion": "CD19 CAR-T therapy is highly effective in pediatric relapsed B-cell ALL with manageable toxicity.",
+    "figures_summary": "Figure 1: Consort diagram; Figure 2: CRS grading by cytokine levels",
+    "limitations": "Single-arm; no control group; long-term follow-up ongoing; small sample size",
+    "study_design_type": "rct",
+    "drug_class": "CAR-T",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "31648247",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/31648247/",
+  "gold_fields": {
+    "objective": "To evaluate PARP inhibitor maintenance therapy in BRCA-mutated ovarian cancer.",
+    "method": "Phase III RCT, 400 patients with BRCA-mutated ovarian cancer, PARP inhibitor vs placebo maintenance after chemotherapy.",
+    "target": "PARP, BRCA",
+    "biomarker": "BRCA1/2 mutation",
+    "sample_size": "400 patients",
+    "model_system": "",
+    "key_findings": "PARP inhibitor maintenance improved PFS in BRCA-mutated ovarian cancer. HR=0.30, 95% CI 0.19-0.48, p<0.001.",
+    "result_value": "HR=0.30, p<0.001",
+    "conclusion": "PARP inhibitor maintenance therapy is standard of care for BRCA-mutated ovarian cancer.",
+    "figures_summary": "Figure 1: PFS Kaplan-Meier curve; Figure 2: Subgroup analysis forest plot",
+    "limitations": "Limited to BRCA-mutated patients, no OS data yet, long-term safety unknown",
+    "study_design_type": "rct",
+    "drug_class": "PARP inhibitor",
+    "mutation_types": "germline, somatic"
+  }
+},
+{
+  "pubmed_id": "31187532",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/31187532/",
+  "gold_fields": {
+    "objective": "To assess the prognostic significance of KRAS mutations in pancreatic cancer.",
+    "method": "Retrospective analysis of 1,100 pancreatic cancer patients with KRAS genotyping.",
+    "target": "KRAS",
+    "biomarker": "KRAS mutation",
+    "sample_size": "1,100 patients",
+    "model_system": "",
+    "key_findings": "KRAS mutations present in 89% of patients, associated with poor OS. HR=1.8, 95% CI 1.4-2.3, p<0.001.",
+    "result_value": "HR=1.8, p<0.001",
+    "conclusion": "KRAS mutation is a negative prognostic factor in pancreatic cancer.",
+    "figures_summary": "Figure 1: Mutation prevalence; Figure 2: OS Kaplan-Meier curve",
+    "limitations": "Retrospective, heterogeneous treatment regimens, single-center",
+    "study_design_type": "cohort",
+    "drug_class": "",
+    "mutation_types": "missense, G12D, G12V"
+  }
+},
+{
+  "pubmed_id": "31479901",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/31479901/",
+  "gold_fields": {
+    "objective": "To identify acquired resistance mechanisms to osimertinib in NSCLC.",
+    "method": "NGS analysis of 150 NSCLC patients with acquired resistance to osimertinib.",
+    "target": "EGFR",
+    "biomarker": "Resistance mutations",
+    "sample_size": "150 patients",
+    "model_system": "",
+    "key_findings": "Acquired resistance mechanisms: MET amplification (15%), C797S mutation (20%), EGFR amplification (12%).",
+    "result_value": "MET amp=15%, C797S=20%, EGFR amp=12%",
+    "conclusion": "Osimertinib resistance is heterogeneous with multiple genomic mechanisms.",
+    "figures_summary": "Figure 1: Resistance mechanism pie chart; Figure 2: On-target vs off-target resistance",
+    "limitations": "Small sample size, ctDNA vs tissue biopsy heterogeneity, lack of functional validation",
+    "study_design_type": "cohort",
+    "drug_class": "TKI",
+    "mutation_types": "point mutation, amplification"
+  }
+},
+{
+  "pubmed_id": "30754756",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/30754756/",
+  "gold_fields": {
+    "objective": "To investigate MYC expression and its role in hepatocellular carcinoma progression.",
+    "method": "Immunohistochemistry analysis of 262 HCC samples, correlation with clinical outcomes.",
+    "target": "MYC",
+    "biomarker": "MYC protein expression",
+    "sample_size": "262 HCC samples",
+    "model_system": "",
+    "key_findings": "MYC overexpression in 62% of HCC samples, associated with aggressive tumor behavior and poor prognosis. HR=2.1, p<0.01.",
+    "result_value": "HR=2.1, p<0.01",
+    "conclusion": "MYC is a negative prognostic marker in hepatocellular carcinoma.",
+    "figures_summary": "Figure 1: IHC staining representative images; Figure 2: OS Kaplan-Meier",
+    "limitations": "Retrospective, single-center, IHC scoring subjective",
+    "study_design_type": "cohort",
+    "drug_class": "",
+    "mutation_types": "amplification"
+  }
+},
+{
+  "pubmed_id": "30545928",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/30545928/",
+  "gold_fields": {
+    "objective": "To evaluate TMB as a biomarker for immunotherapy response in hepatocellular carcinoma.",
+    "method": "Retrospective analysis of 452 HCC patients receiving PD-1 inhibitors, TMB measured by NGS.",
+    "target": "TMB",
+    "biomarker": "Tumor mutational burden (TMB)",
+    "sample_size": "452 patients",
+    "model_system": "",
+    "key_findings": "High TMB (≥10 mut/Mb) associated with better response to PD-1 inhibitors. OR=2.8, p=0.003.",
+    "result_value": "OR=2.8, p=0.003",
+    "conclusion": "TMB is a predictive biomarker for PD-1 inhibitor response in HCC.",
+    "figures_summary": "Figure 1: ROC curve for TMB; Figure 2: TMB distribution by response status",
+    "limitations": "Retrospective, TMB cutoff not validated in prospective studies, heterogeneity in NGS panels",
+    "study_design_type": "cohort",
+    "drug_class": "mAb",
+    "mutation_types": "SNV, INDEL"
+  }
+},
+{
+  "pubmed_id": "32296035",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/32296035/",
+  "gold_fields": {
+    "objective": "To evaluate FOLFOX regimen outcomes in stage III colorectal cancer.",
+    "method": "Retrospective cohort, 856 patients, FOLFOX adjuvant chemotherapy.",
+    "target": "",
+    "biomarker": "",
+    "sample_size": "856 patients",
+    "model_system": "",
+    "key_findings": "FOLFOX regimen achieved 72% 5-year DFS with manageable toxicity.",
+    "result_value": "5-year DFS=72%, grade 3-4 neurotoxicity=8%",
+    "conclusion": "FOLFOX is an effective and safe adjuvant regimen for stage III colorectal cancer.",
+    "figures_summary": "Figure 1: DFS Kaplan-Meier curve; Figure 2: Toxicity bar chart",
+    "limitations": "Retrospective, single-center, no central pathology review",
+    "study_design_type": "cohort",
+    "drug_class": "chemotherapy",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "32012133",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/32012133/",
+  "gold_fields": {
+    "objective": "To evaluate ctDNA for recurrence monitoring in resected NSCLC.",
+    "method": "Longitudinal ctDNA analysis in 250 resected NSCLC patients using personalized assays.",
+    "target": "",
+    "biomarker": "ctDNA",
+    "sample_size": "250 patients",
+    "model_system": "",
+    "key_findings": "Postoperative ctDNA detection predicted recurrence with 89% sensitivity and 4.2 months lead time.",
+    "result_value": "89% sensitivity, 4.2 months lead time",
+    "conclusion": "ctDNA is a powerful tool for early recurrence detection in resected NSCLC.",
+    "figures_summary": "Figure 1: Detection timing; Figure 2: Recurrence probability by ctDNA status",
+    "limitations": "Single institution, limited to NSCLC, assay cost high",
+    "study_design_type": "cohort",
+    "drug_class": "",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "32300898",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/32300898/",
+  "gold_fields": {
+    "objective": "To evaluate patient-derived organoids for drug screening in pancreatic cancer.",
+    "method": "Organoid culture from 115 pancreatic cancer patients, drug sensitivity testing.",
+    "target": "",
+    "biomarker": "",
+    "sample_size": "115 patients",
+    "model_system": "Patient-derived organoids (PDO)",
+    "key_findings": "Organoids accurately predicted chemotherapy response with 85% sensitivity.",
+    "result_value": "85% sensitivity, 78% specificity",
+    "conclusion": "Patient-derived organoids are a promising platform for personalized drug screening.",
+    "figures_summary": "Figure 1: Organoid brightfield images; Figure 2: Drug sensitivity heatmap",
+    "limitations": "Low establishment rate, time-consuming, limited to chemotherapy agents",
+    "study_design_type": "in_vitro",
+    "drug_class": "",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "32320056",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/32320056/",
+  "gold_fields": {
+    "objective": "To investigate CD8+ T cell infiltration as a biomarker for PD-1 blockade response in NSCLC.",
+    "method": "Immunohistochemistry of tumor biopsies from 500 NSCLC patients, correlation with anti-PD-1 response.",
+    "target": "CD8, PD-1",
+    "biomarker": "CD8+ T cell infiltration",
+    "sample_size": "500 patients",
+    "model_system": "",
+    "key_findings": "High CD8+ T cell infiltration associated with better response to PD-1 inhibitors. OR=3.5, 95% CI 2.1-5.8, p<0.001.",
+    "result_value": "OR=3.5, p<0.001",
+    "conclusion": "CD8+ T cell infiltration is a predictive biomarker for PD-1 inhibitor response in NSCLC.",
+    "figures_summary": "Figure 1: IHC representative images; Figure 2: Response by CD8 density",
+    "limitations": "Tissue availability, retrospective, threshold not prospectively validated",
+    "study_design_type": "cohort",
+    "drug_class": "mAb",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "32393224",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/32393224/",
+  "gold_fields": {
+    "objective": "To evaluate PIK3CA mutations and endocrine therapy resistance in ER-positive breast cancer.",
+    "method": "Retrospective analysis of 489 ER-positive breast cancer patients receiving endocrine therapy, PIK3CA genotyping.",
+    "target": "PIK3CA",
+    "biomarker": "PIK3CA mutation",
+    "sample_size": "489 patients",
+    "model_system": "",
+    "key_findings": "PIK3CA mutations associated with resistance to endocrine therapy. median PFS 14.8 vs 24.2 months, p<0.01.",
+    "result_value": "PFS 14.8 vs 24.2 months, p<0.01",
+    "conclusion": "PIK3CA mutations confer resistance to endocrine therapy in ER-positive breast cancer.",
+    "figures_summary": "Figure 1: PFS Kaplan-Meier; Figure 2: Mutation heatmap",
+    "limitations": "Retrospective, single-center, heterogeneous endocrine therapy regimens",
+    "study_design_type": "cohort",
+    "drug_class": "PI3K inhibitor",
+    "mutation_types": "missense"
+  }
+},
+{
+  "pubmed_id": "30476975",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/30476975/",
+  "gold_fields": {
+    "objective": "To evaluate pembrolizumab plus chemotherapy versus chemotherapy alone in PD-L1 positive metastatic triple-negative breast cancer.",
+    "method": "Phase III RCT, 847 patients with metastatic TNBC, pembrolizumab + chemotherapy vs chemotherapy.",
+    "target": "PD-1, PD-L1",
+    "biomarker": "PD-L1 CPS ≥10",
+    "sample_size": "847 patients",
+    "model_system": "",
+    "key_findings": "Pembrolizumab plus chemotherapy improved PFS in PD-L1 positive metastatic TNBC. HR=0.65, 95% CI 0.49-0.86, p=0.001.",
+    "result_value": "PFS HR=0.65, p=0.001",
+    "conclusion": "Pembrolizumab plus chemotherapy is a new standard of care for PD-L1 positive metastatic TNBC.",
+    "figures_summary": "Figure 1: PFS Kaplan-Meier; Figure 2: OS interim analysis",
+    "limitations": "Limited to PD-L1 CPS≥10 patients; OS data immature",
+    "study_design_type": "rct",
+    "drug_class": "mAb",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "30772398",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/30772398/",
+  "gold_fields": {
+    "objective": "To evaluate atezolizumab plus bevacizumab versus sorafenib in unresectable hepatocellular carcinoma.",
+    "method": "Phase III RCT, 501 patients with unresectable HCC, atezolizumab + bevacizumab vs sorafenib.",
+    "target": "PD-L1, VEGF",
+    "biomarker": "",
+    "sample_size": "501 patients",
+    "model_system": "",
+    "key_findings": "Atezolizumab plus bevacizumab significantly improved OS and PFS compared to sorafenib. OS HR=0.58, p<0.001; PFS HR=0.59, p<0.001.",
+    "result_value": "OS HR=0.58, p<0.001; PFS HR=0.59, p<0.001",
+    "conclusion": "Atezolizumab plus bevacizumab is a new standard of care for unresectable hepatocellular carcinoma.",
+    "figures_summary": "Figure 1: OS Kaplan-Meier; Figure 2: PFS Kaplan-Meier",
+    "limitations": "Limited to patients without prior systemic therapy; Asian patients overrepresented",
+    "study_design_type": "rct",
+    "drug_class": "mAb",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "30561357",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/30561357/",
+  "gold_fields": {
+    "objective": "To evaluate talazoparib versus chemotherapy in BRCA-mutated advanced breast cancer.",
+    "method": "Phase III RCT, 431 patients with BRCA-mutated advanced breast cancer, talazoparib vs chemotherapy.",
+    "target": "PARP, BRCA",
+    "biomarker": "BRCA1/2 mutation",
+    "sample_size": "431 patients",
+    "model_system": "",
+    "key_findings": "Talazoparib improved PFS compared to chemotherapy in BRCA-mutated advanced breast cancer. HR=0.54, 95% CI 0.41-0.71, p<0.001.",
+    "result_value": "PFS HR=0.54, p<0.001",
+    "conclusion": "Talazoparib is an effective treatment for BRCA-mutated advanced breast cancer.",
+    "figures_summary": "Figure 1: PFS Kaplan-Meier; Figure 2: Subgroup analysis",
+    "limitations": "Limited to BRCA-mutated patients; no OS benefit demonstrated",
+    "study_design_type": "rct",
+    "drug_class": "PARP inhibitor",
+    "mutation_types": "germline"
+  }
+},
+{
+  "pubmed_id": "30561355",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/30561355/",
+  "gold_fields": {
+    "objective": "To evaluate olaparib maintenance therapy in BRCA-mutated pancreatic cancer.",
+    "method": "Phase III RCT, 154 patients with BRCA-mutated pancreatic cancer, olaparib vs placebo maintenance.",
+    "target": "PARP, BRCA",
+    "biomarker": "BRCA1/2 mutation",
+    "sample_size": "154 patients",
+    "model_system": "",
+    "key_findings": "Olaparib maintenance improved PFS in BRCA-mutated pancreatic cancer. HR=0.53, 95% CI 0.35-0.82, p=0.004.",
+    "result_value": "HR=0.53, p=0.004",
+    "conclusion": "Olaparib maintenance therapy is effective in BRCA-mutated pancreatic cancer.",
+    "figures_summary": "Figure 1: PFS Kaplan-Meier; Figure 2: Subgroup analysis",
+    "limitations": "Small sample size; limited to BRCA-mutated patients; no OS benefit shown",
+    "study_design_type": "rct",
+    "drug_class": "PARP inhibitor",
+    "mutation_types": "germline"
+  }
+},
+{
+  "pubmed_id": "31401708",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/31401708/",
+  "gold_fields": {
+    "objective": "To evaluate nivolumab plus chemotherapy versus chemotherapy alone in advanced esophageal squamous cell carcinoma.",
+    "method": "Phase III RCT, 1,323 patients, nivolumab + chemotherapy vs chemotherapy.",
+    "target": "PD-1",
+    "biomarker": "",
+    "sample_size": "1,323 patients",
+    "model_system": "",
+    "key_findings": "Nivolumab plus chemotherapy significantly improved OS compared to chemotherapy alone. HR=0.74, 95% CI 0.62-0.88, p<0.001.",
+    "result_value": "OS HR=0.74, p<0.001",
+    "conclusion": "Nivolumab plus chemotherapy is a new standard of care for advanced esophageal squamous cell carcinoma.",
+    "figures_summary": "Figure 1: OS Kaplan-Meier; Figure 2: PFS Kaplan-Meier",
+    "limitations": "Open-label design; limited to Asian population in this analysis",
+    "study_design_type": "rct",
+    "drug_class": "mAb",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "30871018",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/30871018/",
+  "gold_fields": {
+    "objective": "To evaluate sotorasib in KRAS G12C-mutated advanced solid tumors.",
+    "method": "Phase I/II trial, 129 patients with KRAS G12C mutations, sotorasib 960mg QD.",
+    "target": "KRAS",
+    "biomarker": "KRAS G12C mutation",
+    "sample_size": "129 patients",
+    "model_system": "",
+    "key_findings": "Sotorasib showed durable clinical benefit with ORR of 32% in KRAS G12C-mutated tumors.",
+    "result_value": "ORR=32%, median PFS=6.3 months",
+    "conclusion": "Sotorasib is the first effective targeted therapy for KRAS G12C-mutated solid tumors.",
+    "figures_summary": "Figure 1: Waterfall plot; Figure 2: PFS Kaplan-Meier",
+    "limitations": "Small sample size; early phase trial; limited to KRAS G12C mutation",
+    "study_design_type": "rct",
+    "drug_class": "KRAS inhibitor",
+    "mutation_types": "missense"
+  }
+},
+{
+  "pubmed_id": "31909836",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/31909836/",
+  "gold_fields": {
+    "objective": "To evaluate long-term outcomes of CTLA-4 and PD-1 blockade in advanced melanoma.",
+    "method": "Phase III RCT, 945 patients, combination vs PD-1 alone vs CTLA-4 alone.",
+    "target": "CTLA-4, PD-1",
+    "biomarker": "",
+    "sample_size": "945 patients",
+    "model_system": "",
+    "key_findings": "Combination therapy showed 52% 5-year survival vs 34% for PD-1 alone and 26% for CTLA-4 alone.",
+    "result_value": "5-year OS: 52% vs 34% vs 26%",
+    "conclusion": "Combined CTLA-4 and PD-1 blockade provides the best long-term survival in advanced melanoma.",
+    "figures_summary": "Figure 1: OS Kaplan-Meier; Figure 2: Landmark analysis",
+    "limitations": "High toxicity with combination therapy; biomarker data lacking",
+    "study_design_type": "rct",
+    "drug_class": "mAb",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "32396646",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/32396646/",
+  "gold_fields": {
+    "objective": "To evaluate MEK inhibitors in KRAS-mutant colorectal cancer.",
+    "method": "Phase II single-arm trial, 112 KRAS-mutant colorectal cancer patients.",
+    "target": "MEK, KRAS",
+    "biomarker": "KRAS mutation",
+    "sample_size": "112 patients",
+    "model_system": "",
+    "key_findings": "MEK inhibitors showed 34% disease control rate with PFS of 3.6 months.",
+    "result_value": "DCR=34%, median PFS=3.6 months",
+    "conclusion": "MEK inhibitors have modest activity in KRAS-mutant colorectal cancer, combination strategies needed.",
+    "figures_summary": "Figure 1: Waterfall plot of tumor change; Figure 2: PFS Kaplan-Meier",
+    "limitations": "Single-arm; modest sample size; no biomarker for response identified",
+    "study_design_type": "rct",
+    "drug_class": "MEK inhibitor",
+    "mutation_types": "missense"
+  }
+},
+{
+  "pubmed_id": "30126924",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/30126924/",
+  "gold_fields": {
+    "objective": "To compare trastuzumab emtansine vs lapatinib plus capecitabine in HER2-positive metastatic breast cancer.",
+    "method": "Phase III RCT, 600 patients, T-DM1 vs lapatinib + capecitabine.",
+    "target": "HER2",
+    "biomarker": "HER2 overexpression",
+    "sample_size": "600 patients",
+    "model_system": "",
+    "key_findings": "T-DM1 improved OS compared to lapatinib plus capecitabine in HER2-positive metastatic breast cancer. HR=0.68, 95% CI 0.54-0.86, p=0.01.",
+    "result_value": "OS HR=0.68, p=0.01",
+    "conclusion": "T-DM1 is superior to lapatinib plus capecitabine in HER2-positive metastatic breast cancer.",
+    "figures_summary": "Figure 1: OS Kaplan-Meier; Figure 2: PFS Kaplan-Meier",
+    "limitations": "Limited to second-line therapy; high cost; limited to HER2-positive",
+    "study_design_type": "rct",
+    "drug_class": "ADC",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "32642809",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/32642809/",
+  "gold_fields": {
+    "objective": "To review immunotherapy resistance mechanisms in triple-negative breast cancer.",
+    "method": "Comprehensive literature review of immunotherapy resistance in TNBC.",
+    "target": "PD-L1",
+    "biomarker": "PD-L1 expression",
+    "sample_size": "",
+    "model_system": "",
+    "key_findings": "Resistance mechanisms include PD-L1 downregulation, loss of antigen presentation, suppressive TME.",
+    "result_value": "",
+    "conclusion": "Overcoming immunotherapy resistance in TNBC requires combination strategies targeting multiple resistance mechanisms.",
+    "figures_summary": "Figure 1: Mechanisms of resistance schematic",
+    "limitations": "Review article; no primary data; hypotheses not clinically validated",
+    "study_design_type": "systematic_review",
+    "drug_class": "mAb",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "35108059",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/35108059/",
+  "gold_fields": {
+    "objective": "To report 5-year survival outcomes of durvalumab consolidation therapy after chemoradiotherapy in stage III NSCLC.",
+    "method": "Phase III RCT, 713 patients with unresectable stage III NSCLC, durvalumab 10mg/kg Q2W vs placebo for 12 months after chemoradiotherapy.",
+    "target": "PD-L1",
+    "biomarker": "",
+    "sample_size": "713 patients (durvalumab: 476, placebo: 237)",
+    "model_system": "",
+    "key_findings": "5-year OS rate 42.9% vs 33.4% (HR=0.72, 95% CI 0.59-0.89); 5-year PFS rate 33.1% vs 19.0% (HR=0.55, 95% CI 0.45-0.68).",
+    "result_value": "OS HR=0.72; PFS HR=0.55; 5-year OS=42.9% vs 33.4%",
+    "conclusion": "Durvalumab after chemoradiotherapy provides robust and sustained OS and PFS benefit in unresectable stage III NSCLC.",
+    "figures_summary": "Figure 1: OS Kaplan-Meier; Figure 2: PFS Kaplan-Meier; Figure 3: Landmark analysis",
+    "limitations": "Exploratory analysis; patients with EGFR/ALK mutations excluded; limited to patients without progression after chemoradiotherapy",
+    "study_design_type": "rct",
+    "drug_class": "mAb",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "35432352",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/35432352/",
+  "gold_fields": {
+    "objective": "To evaluate anti-CD30 CAR-T therapy combined with PD-1 inhibitor in relapsed/refractory CD30+ lymphoma.",
+    "method": "Phase II multicenter trial, 12 patients with r/r CD30+ lymphoma, anti-CD30 CAR-T ± anti-PD-1 antibody.",
+    "target": "CD30, PD-1",
+    "biomarker": "CD30 expression",
+    "sample_size": "12 patients",
+    "model_system": "",
+    "key_findings": "ORR 91.7% (11/12), CR 50% (6/12); combination cohort achieved 100% ORR and 80% CR.",
+    "result_value": "ORR=91.7%, CR=50%, median follow-up=21.5 months, PFS=45%, OS=70%",
+    "conclusion": "Anti-PD-1 antibody enhances CD30 CAR-T therapy efficacy in r/r CD30+ lymphoma with minimal toxicity.",
+    "figures_summary": "Figure 1: Consort diagram; Figure 2: Response waterfall plot; Figure 3: Cytokine dynamics",
+    "limitations": "Small sample size; single-arm; limited to CD30+ lymphomas",
+    "study_design_type": "rct",
+    "drug_class": "CAR-T, mAb",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "40768895",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/40768895/",
+  "gold_fields": {
+    "objective": "To evaluate the prognostic utility of the Lung Immune Prognostic Index (LIPI) in urological malignancies treated with ICIs.",
+    "method": "Meta-analysis of 7 retrospective cohort studies, 2,498 patients with urological malignancies receiving ICIs.",
+    "target": "",
+    "biomarker": "Lung Immune Prognostic Index (LIPI)",
+    "sample_size": "2,498 patients",
+    "model_system": "",
+    "key_findings": "Good LIPI associated with significantly better OS (good vs poor: HR=0.15, p<0.001) and PFS (HR=0.23, p<0.001).",
+    "result_value": "OS HR=0.15 (good vs poor), PFS HR=0.23 (good vs poor), p<0.001",
+    "conclusion": "LIPI is a valuable prognostic biomarker in urological malignancies treated with ICIs.",
+    "figures_summary": "Figure 1: PRISMA flow diagram; Figure 2: OS forest plot; Figure 3: PFS forest plot",
+    "limitations": "Limited to retrospective studies; heterogeneity across studies; limited to urological malignancies",
+    "study_design_type": "meta_analysis",
+    "drug_class": "mAb",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "42352924",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/42352924/",
+  "gold_fields": {
+    "objective": "To review resistance mechanisms to EGFR inhibitors in NSCLC and emerging therapeutic strategies.",
+    "method": "Comprehensive review of EGFR-TKI resistance mechanisms and emerging therapies.",
+    "target": "EGFR",
+    "biomarker": "T790M, C797S, MET amplification",
+    "sample_size": "",
+    "model_system": "",
+    "key_findings": "Resistance mechanisms include T790M (~50% after 1st/2nd-gen TKIs), C797S, MET/HER2 amplification, and histologic transformation.",
+    "result_value": "",
+    "conclusion": "Understanding resistance mechanisms is critical for optimizing patient outcomes and guiding personalized therapeutic approaches.",
+    "figures_summary": "Figure 1: Resistance mechanisms schematic; Figure 2: Emerging therapeutic strategies",
+    "limitations": "Review article; no primary data; emerging therapies not clinically validated",
+    "study_design_type": "systematic_review",
+    "drug_class": "TKI",
+    "mutation_types": "point mutation, amplification"
+  }
+},
+{
+  "pubmed_id": "41300938",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/41300938/",
+  "gold_fields": {
+    "objective": "To investigate whether delta-radiomics features from contrast-enhanced CT predict survival in mCRC liver metastases treated with cetuximab rechallenge plus avelumab.",
+    "method": "Retrospective substudy of CAVE phase II trial, 42 patients with mCRC liver metastases, radiomic feature analysis.",
+    "target": "EGFR",
+    "biomarker": "Delta-GLCM Homogeneity (radiomic feature)",
+    "sample_size": "42 patients",
+    "model_system": "",
+    "key_findings": "Decrease in homogeneity independently correlated with longer PFS (HR=0.32, p=0.003) and OS (HR=0.41, p=0.021).",
+    "result_value": "PFS HR=0.32, p=0.003; OS HR=0.41, p=0.021; AUC=0.94 training, 0.74 validation",
+    "conclusion": "Delta-radiomics may serve as a reproducible imaging biomarker of response and survival in mCRC patients receiving cetuximab plus avelumab.",
+    "figures_summary": "Figure 1: ROC curves; Figure 2: Decision curve analysis; Figure 3: PFS/OS Kaplan-Meier",
+    "limitations": "Small sample size; exploratory study; requires prospective validation; potential for overfitting",
+    "study_design_type": "cohort",
+    "drug_class": "mAb",
+    "mutation_types": "KRAS, NRAS, BRAF"
+  }
+},
+{
+  "pubmed_id": "41930298",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/41930298/",
+  "gold_fields": {
+    "objective": "To evaluate biomarker-driven non-standard targeted treatment outcomes in advanced cancer patients in routine care.",
+    "method": "Multicenter non-interventional cohort study, 499 patients with advanced solid/hematological malignancies, biomarker-informed NSTT.",
+    "target": "",
+    "biomarker": "PD-(L)1 expression (30.7%), HER2 aberrations (9.8%), BRAF mutations (9.0%)",
+    "sample_size": "499 patients",
+    "model_system": "",
+    "key_findings": "ORR 27.3%, 31.7% of patients had PFS ratio ≥1.3; checkpoint inhibitors were most common treatment.",
+    "result_value": "ORR=27.3%, PFS ratio≥1.3=31.7%",
+    "conclusion": "Biomarker-informed NSTT provides clinical benefit in 31.7% of patients, supporting precision oncology implementation in routine practice.",
+    "figures_summary": "Figure 1: Study flow diagram; Figure 2: PFS distribution; Figure 3: Biomarker breakdown",
+    "limitations": "Non-interventional design; heterogeneous patient population; no control group",
+    "study_design_type": "cohort",
+    "drug_class": "mAb, TKI, ADC, PARP inhibitor",
+    "mutation_types": "missense, amplification, fusion, SNV, INDEL"
+  }
+},
+{
+  "pubmed_id": "37861399",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/37861399/",
+  "gold_fields": {
+    "objective": "To correlate CAR-T infusion product characteristics with clinical response using single-cell RNA sequencing.",
+    "method": "Phase II trial, 24 patients with B-cell lymphoma/leukemia, third-generation CD19 CAR-T, targeted scRNA-seq.",
+    "target": "CD19",
+    "biomarker": "Effector CD8+ CAR-T polyfunctionality",
+    "sample_size": "24 patients",
+    "model_system": "",
+    "key_findings": "Effector-like CD8+ CAR-Ts with high polyfunctionality and low dysfunctional signature were associated with clinical response.",
+    "result_value": "",
+    "conclusion": "Cell-intrinsic characteristics of effector CD8+ CAR-Ts correlate with response and can guide CAR-T manufacturing practices.",
+    "figures_summary": "Figure 1: Single-cell transcriptomic landscape; Figure 2: Response-associated CAR-T signatures; Figure 3: Manufacturing impact analysis",
+    "limitations": "Small sample size; correlative study; limited to CD19 CAR-T",
+    "study_design_type": "rct",
+    "drug_class": "CAR-T",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "36696741",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/36696741/",
+  "gold_fields": {
+    "objective": "To evaluate long-term efficacy and safety of sotorasib in KRAS G12C-mutated advanced NSCLC.",
+    "method": "Phase II single-arm trial, 126 patients with KRAS G12C-mutated advanced NSCLC, sotorasib 960mg QD.",
+    "target": "KRAS",
+    "biomarker": "KRAS G12C mutation",
+    "sample_size": "126 patients",
+    "model_system": "",
+    "key_findings": "ORR 37.1%, median PFS 6.8 months, median OS 12.5 months; 2-year OS rate 30.9%.",
+    "result_value": "ORR=37.1%, median PFS=6.8 months, median OS=12.5 months",
+    "conclusion": "Sotorasib demonstrates durable clinical benefit in heavily pretreated KRAS G12C-mutated NSCLC.",
+    "figures_summary": "Figure 1: Waterfall plot; Figure 2: PFS Kaplan-Meier; Figure 3: OS Kaplan-Meier",
+    "limitations": "Single-arm; small sample size; limited to KRAS G12C mutation",
+    "study_design_type": "rct",
+    "drug_class": "KRAS inhibitor",
+    "mutation_types": "missense"
+  }
+},
+{
+  "pubmed_id": "38290577",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/38290577/",
+  "gold_fields": {
+    "objective": "To report 5-year outcomes of nivolumab plus ipilimumab in advanced NSCLC.",
+    "method": "Phase III RCT, patients with advanced NSCLC, nivolumab+ipilimumab vs chemotherapy.",
+    "target": "PD-1, CTLA-4",
+    "biomarker": "TMB, PD-L1",
+    "sample_size": "1,730 patients",
+    "model_system": "",
+    "key_findings": "5-year OS rate 24% for nivolumab+ipilimumab vs 14% for chemotherapy in PD-L1≥1% patients.",
+    "result_value": "5-year OS=24% vs 14% (PD-L1≥1%); HR=0.77, p<0.001",
+    "conclusion": "Nivolumab plus ipilimumab provides durable long-term survival benefit in advanced NSCLC.",
+    "figures_summary": "Figure 1: OS Kaplan-Meier by PD-L1; Figure 2: Subgroup analysis; Figure 3: Landmark analysis",
+    "limitations": "Limited to PD-L1 subgroups; high toxicity with combination",
+    "study_design_type": "rct",
+    "drug_class": "mAb",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "32821904",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/32821904/",
+  "gold_fields": {
+    "objective": "To evaluate ceritinib versus chemotherapy in ALK-positive advanced NSCLC.",
+    "method": "Phase III RCT, 376 patients with ALK-positive advanced NSCLC, ceritinib vs platinum-based chemotherapy.",
+    "target": "ALK",
+    "biomarker": "ALK rearrangement",
+    "sample_size": "376 patients",
+    "model_system": "",
+    "key_findings": "Ceritinib significantly improved PFS vs chemotherapy (16.6 vs 8.1 months, HR=0.55, p<0.001).",
+    "result_value": "PFS HR=0.55, p<0.001; ORR=72.5% vs 26.7%",
+    "conclusion": "Ceritinib is an effective first-line therapy for ALK-positive advanced NSCLC.",
+    "figures_summary": "Figure 1: PFS Kaplan-Meier; Figure 2: OS interim analysis; Figure 3: Subgroup analysis",
+    "limitations": "Limited to ALK-positive patients; OS data immature at analysis",
+    "study_design_type": "rct",
+    "drug_class": "TKI",
+    "mutation_types": "fusion, rearrangement"
+  }
+},
+{
+  "pubmed_id": "39441873",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/39441873/",
+  "gold_fields": {
+    "objective": "To determine the efficacy of an intensive multidisciplinary rehabilitation program in improving biomolecular and functional parameters in Parkinson's disease.",
+    "method": "Phase III RCT protocol, 72 participants randomized to experimental (n=36) or home-based control (n=36), 6-week rehabilitation program.",
+    "target": "alpha-synuclein",
+    "biomarker": "Oligomeric alpha-synuclein and neurotrophic factors in peripheral neural derived extracellular vesicles",
+    "sample_size": "72 participants",
+    "model_system": "",
+    "key_findings": "Study will evaluate effects on molecular biomarkers (oligomeric alpha-synuclein and neurotrophic factors) and secondary outcomes including motor/non-motor symptoms.",
+    "result_value": "",
+    "conclusion": "This rehabilitation program is expected to provide evidence on impact of aerobic/intensive rehabilitation on brain plasticity in Parkinson's disease.",
+    "figures_summary": "",
+    "limitations": "Study protocol; results pending; small sample size",
+    "study_design_type": "rct",
+    "drug_class": "",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "41282486",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/41282486/",
+  "gold_fields": {
+    "objective": "To assess the clinical relevance of lncRNA ST8SIA6-AS1 across malignancies and elucidate its functions in prostate cancer.",
+    "method": "Meta-analysis of 11 studies (2,392 patients) plus in vitro/in vivo experiments (prostate cancer cell lines and xenograft).",
+    "target": "ST8SIA6-AS1",
+    "biomarker": "ST8SIA6-AS1 expression",
+    "sample_size": "2,392 patients (meta-analysis) + in vitro/in vivo data",
+    "model_system": "Prostate cancer cell lines, xenograft tumor model",
+    "key_findings": "High ST8SIA6-AS1 expression correlated with reduced OS (HR=1.48, 95% CI:1.31-1.65), increased tumor size (OR=2.07), and advanced TNM stage (OR=2.83).",
+    "result_value": "OS HR=1.48, p<0.001; tumor size OR=2.07; TNM stage OR=2.83",
+    "conclusion": "ST8SIA6-AS1 is a significant oncogenic lncRNA and prognostic marker for adverse outcomes in cancer.",
+    "figures_summary": "",
+    "limitations": "Limited to retrospective studies; heterogeneity across cancer types",
+    "study_design_type": "meta_analysis",
+    "drug_class": "",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "40836026",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/40836026/",
+  "gold_fields": {
+    "objective": "To evaluate safety and efficacy of humanized CD19 CAR-T cells (hCART19) in relapsed/refractory B-cell non-Hodgkin lymphoma.",
+    "method": "Clinical trial, 26 patients with R/R B-NHL, hCART19 infusion.",
+    "target": "CD19",
+    "biomarker": "CD19 expression",
+    "sample_size": "26 patients",
+    "model_system": "",
+    "key_findings": "ORR 80.8% (CR 69.2%, PR 11.5%); 1-year OS 65.8%, PFS 54.8%; no ICANS observed.",
+    "result_value": "ORR=80.8%, CR=69.2%, 1-year OS=65.8%, 1-year PFS=54.8%",
+    "conclusion": "Humanized CD19 CAR-T demonstrates favorable efficacy and manageable toxicity in R/R B-NHL.",
+    "figures_summary": "",
+    "limitations": "Single-arm; small sample size; single-center",
+    "study_design_type": "rct",
+    "drug_class": "CAR-T",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "40287170",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/40287170/",
+  "gold_fields": {
+    "objective": "To review biomarkers for predicting immune-related adverse events (irAEs) from immune checkpoint inhibitors.",
+    "method": "Comprehensive review of mechanisms of ICIs, irAEs, and predictive biomarkers.",
+    "target": "PD-1, CTLA-4",
+    "biomarker": "Cytokines, chemokines, autoantibodies, microbiome",
+    "sample_size": "",
+    "model_system": "",
+    "key_findings": "ICIs are associated with life-threatening irAEs; biomarkers including cytokines, chemokines, autoantibodies, and microbiome composition may predict irAE development.",
+    "result_value": "",
+    "conclusion": "Biomarkers for predicting irAEs are emerging but require further validation for clinical implementation.",
+    "figures_summary": "",
+    "limitations": "Review article; no primary data",
+    "study_design_type": "systematic_review",
+    "drug_class": "mAb",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "42418739",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/42418739/",
+  "gold_fields": {
+    "objective": "To develop and validate an AI-based computational histology biomarker for risk stratification in metastatic hormone-sensitive prostate cancer.",
+    "method": "Phase III RCT data from CHAARTED (development, n=507) and ENZAMET (validation, n=684), AI-powered digital pathology.",
+    "target": "",
+    "biomarker": "CHAI computational histology risk score",
+    "sample_size": "1,191 participants (507 development + 684 validation)",
+    "model_system": "",
+    "key_findings": "Unfavorable-risk group had worse OS (HR=2.6, 95% CI:2.0-3.4) and PFS (HR=2.2, 95% CI:1.7-2.7); 5-year OS 39% vs 69%.",
+    "result_value": "OS HR=2.6, p<0.001; PFS HR=2.2, p<0.001; 5-year OS 39% vs 69%",
+    "conclusion": "Image-only AI biomarker predicts clinical outcomes and potential benefit from treatment escalation in mHSPC.",
+    "figures_summary": "",
+    "limitations": "Retrospective analysis of trial data; requires prospective validation",
+    "study_design_type": "rct",
+    "drug_class": "ARPI, docetaxel",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "40650392",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/40650392/",
+  "gold_fields": {
+    "objective": "To examine the prognostic value of fibrinogen-to-albumin ratio (FAR) in colorectal cancer.",
+    "method": "Meta-analysis of 10 studies, 4,704 patients, pooled HRs for OS and PFS.",
+    "target": "",
+    "biomarker": "Fibrinogen-to-albumin ratio (FAR)",
+    "sample_size": "4,704 patients",
+    "model_system": "",
+    "key_findings": "Elevated FAR associated with worse OS (HR=1.59, 95% CI:1.38-1.83) and PFS (HR=1.65, 95% CI:1.44-1.90).",
+    "result_value": "OS HR=1.59, p<0.001; PFS HR=1.65, p<0.001",
+    "conclusion": "Elevated FAR is strongly associated with poor OS and PFS in colorectal cancer, suggesting its potential as a prognostic marker.",
+    "figures_summary": "",
+    "limitations": "Heterogeneity across studies; retrospective design",
+    "study_design_type": "meta_analysis",
+    "drug_class": "",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "40948517",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/40948517/",
+  "gold_fields": {
+    "objective": "To investigate safety and feasibility of axicabtagene ciloleucel (axi-cel) CAR-T administered in outpatient setting for R/R large B-cell lymphoma.",
+    "method": "Phase II open-label multicenter study, 30 patients, outpatient axi-cel with prophylactic steroids.",
+    "target": "CD19",
+    "biomarker": "CD19 expression",
+    "sample_size": "30 patients",
+    "model_system": "",
+    "key_findings": "ORR 93% (CR 76%); grade ≥3 CRS 0%; grade ≥3 neurologic events 23%; 93% hospitalized with median stay 8 days.",
+    "result_value": "ORR=93%, CR=76%, median follow-up=13 months",
+    "conclusion": "Outpatient administration of axi-cel is feasible with manageable safety profile in R/R LBCL.",
+    "figures_summary": "",
+    "limitations": "Single-arm; small sample size; highly selected outpatient population",
+    "study_design_type": "rct",
+    "drug_class": "CAR-T",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "40555997",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/40555997/",
+  "gold_fields": {
+    "objective": "To review the role of exosomes and circulating exosomal biomarkers in predicting response to immune checkpoint inhibitors.",
+    "method": "Comprehensive review of exosomal biomarkers in cancer immunotherapy.",
+    "target": "PD-1, PD-L1",
+    "biomarker": "Exosomal cargo (molecular composition, immune-modulatory functions)",
+    "sample_size": "",
+    "model_system": "",
+    "key_findings": "Exosomal biomarkers can reflect dynamic changes in tumor and immune system and may serve as reliable indicators of immunotherapy response.",
+    "result_value": "",
+    "conclusion": "Exosomal biomarkers show promise for predicting ICI response but require standardization and validation for clinical practice.",
+    "figures_summary": "",
+    "limitations": "Review article; no primary data",
+    "study_design_type": "systematic_review",
+    "drug_class": "mAb",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "41108912",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/41108912/",
+  "gold_fields": {
+    "objective": "To consolidate evidence on diagnostic, prognostic, and therapeutic value of ctDNA in non-viral head and neck squamous cell carcinoma.",
+    "method": "Systematic review and meta-analysis of 47 studies, 3,574 patients, pooled HRs for OS/PFS/RFS.",
+    "target": "",
+    "biomarker": "ctDNA",
+    "sample_size": "3,574 patients",
+    "model_system": "",
+    "key_findings": "ctDNA detection associated with worse OS (HR=10.26, 95% CI:3.58-29.40); residual ctDNA correlated with worse PFS (HR=7.32) and RFS (HR=7.33).",
+    "result_value": "OS HR=10.26, p<0.0001; PFS HR=7.32; RFS HR=7.33",
+    "conclusion": "ctDNA holds potential for improving diagnostic accuracy, monitoring progression, and predicting survival in non-viral HNSCC.",
+    "figures_summary": "",
+    "limitations": "Heterogeneous methodologies; small studies; requires standardization",
+    "study_design_type": "meta_analysis",
+    "drug_class": "",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "42341302",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/42341302/",
+  "gold_fields": {
+    "objective": "To evaluate long-term outcomes and curative potential of CAR-T cell therapy in B-cell non-Hodgkin lymphomas.",
+    "method": "Long-term follow-up of 38 patients treated with CTL019 (tisagenlecleucel), median follow-up 10.1 years.",
+    "target": "CD19",
+    "biomarker": "CD19 expression, CAR-transgene persistence",
+    "sample_size": "38 patients (24 large B-cell lymphoma, 14 follicular lymphoma)",
+    "model_system": "",
+    "key_findings": "10-year lymphoma-free survival: 32% in large B-cell lymphoma, 47% in follicular lymphoma; no relapses beyond 5.4 years.",
+    "result_value": "10-year LFS: 32% (LBCL) vs 47% (FL); 10-year OS: 17% (LBCL) vs 50% (FL)",
+    "conclusion": "A single CAR-T infusion led to decade-long remissions in approximately one third of large B-cell lymphoma and nearly half of follicular lymphoma patients.",
+    "figures_summary": "",
+    "limitations": "Small sample size; single-arm; early CAR-T construct",
+    "study_design_type": "cohort",
+    "drug_class": "CAR-T",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "38347153",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/38347153/",
+  "gold_fields": {
+    "objective": "To evaluate the association between baseline circulating tumor DNA (ctDNA) gene alterations and survival outcomes in patients with RAS wild-type metastatic colorectal cancer treated with panitumumab plus chemotherapy.",
+    "method": "Prespecified exploratory biomarker analysis of the phase 3 PARADIGM trial (n=802), focusing on ctDNA alterations in KRAS, NRAS, PTEN, EGFR, HER2, MET, ALK, RET, and NTRK1.",
+    "target": "EGFR",
+    "biomarker": "ctDNA gene alterations (KRAS, NRAS, PTEN, EGFR, HER2, MET, ALK, RET, NTRK1)",
+    "sample_size": "733 patients",
+    "model_system": "",
+    "key_findings": "Overall survival was prolonged with panitumumab plus FOLFOX6 vs bevacizumab plus FOLFOX6 in patients with ctDNA lacking alterations (HR 0.76, 95% CI 0.62-0.92), but not in patients with ctDNA alterations.",
+    "result_value": "OS HR=0.76 (negative hyperselected) vs HR=1.13 (ctDNA alterations)",
+    "conclusion": "Negative hyperselection using ctDNA may guide optimal treatment selection in patients with metastatic colorectal cancer [citation:3].",
+    "figures_summary": "",
+    "limitations": "Exploratory analysis, limited to RAS wild-type patients, requires prospective validation",
+    "study_design_type": "rct",
+    "drug_class": "mAb",
+    "mutation_types": "missense, amplification, fusion"
+  }
+},
+{
+  "pubmed_id": "41137502",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/41137502/",
+  "gold_fields": {
+    "objective": "To review the mechanistic synergy and clinical evidence for integrating autologous stem cell transplantation with CAR-T therapy in B-cell lymphoma.",
+    "method": "Comprehensive review of ASCT and CAR-T combination strategies in B-cell lymphoma.",
+    "target": "CD19",
+    "biomarker": "",
+    "sample_size": "",
+    "model_system": "",
+    "key_findings": "Integration of ASCT with CAR-T may leverage ASCT-induced immune reconstitution to enhance CAR-T persistence and reprogram the tumor microenvironment, with early clinical evidence suggesting improved disease control and progression-free survival.",
+    "result_value": "",
+    "conclusion": "The combination of ASCT and CAR-T therapy represents a synergistic strategy for B-cell lymphoma, though challenges remain in toxicity, sequencing, and CAR-T longevity [citation:6].",
+    "figures_summary": "",
+    "limitations": "Review article; no primary data; preliminary clinical evidence",
+    "study_design_type": "systematic_review",
+    "drug_class": "CAR-T",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "39894784",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/39894784/",
+  "gold_fields": {
+    "objective": "To explore the role of single nucleotide polymorphisms (SNPs) in cancer immunotherapy, focusing on genes involved in immune checkpoint regulation.",
+    "method": "Systematic review of 29 studies across PubMed and Cochrane databases (2000-2024), assessing SNPs in CTLA-4, PD-1, and PD-L1 genes.",
+    "target": "CTLA-4, PD-1, PD-L1",
+    "biomarker": "SNPs in CTLA-4, PD-1, PD-L1 genes",
+    "sample_size": "",
+    "model_system": "",
+    "key_findings": "Specific SNPs in CTLA-4, PD-1, and PD-L1 genes influence both treatment outcomes and risk of immune-related adverse events; CTLA-4 SNPs such as -1722T>C and CT60G>A correlate with toxicity risk and survival.",
+    "result_value": "",
+    "conclusion": "SNPs in immune checkpoint genes show promise as predictive biomarkers for immunotherapy, but further validation is needed for clinical implementation [citation:4].",
+    "figures_summary": "",
+    "limitations": "Review article; no primary data; heterogeneity across studies",
+    "study_design_type": "systematic_review",
+    "drug_class": "mAb",
+    "mutation_types": "SNP"
+  }
+},
+{
+  "pubmed_id": "41346592",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/41346592/",
+  "gold_fields": {
+    "objective": "To consolidate data from systematic reviews and meta-analyses on the efficacy and safety of CAR-T therapy in hematologic malignancies.",
+    "method": "Umbrella review of 105 meta-analyses, systematic search of PubMed, Embase, Web of Science, and Cochrane up to May 2024.",
+    "target": "CD19",
+    "biomarker": "",
+    "sample_size": "",
+    "model_system": "",
+    "key_findings": "CD19-targeted CAR-T therapies demonstrated superior efficacy in ALL and DLBCL; combination with HSCT improved CR rates but increased severe adverse events; axi-cel carries higher risk of ICANS and neutropenia compared to tisa-cel.",
+    "result_value": "",
+    "conclusion": "CAR-T therapy shows promising outcomes in ALL and DLBCL, but significant safety concerns remain; future research should optimize constructs and identify predictive biomarkers [citation:9].",
+    "figures_summary": "",
+    "limitations": "Umbrella review; heterogeneity across primary studies",
+    "study_design_type": "meta_analysis",
+    "drug_class": "CAR-T",
+    "mutation_types": ""
+  }
+},
+{
+  "pubmed_id": "39907894",
+  "_paper_url": "https://pubmed.ncbi.nlm.nih.gov/39907894/",
+  "gold_fields": {
+    "objective": "To evaluate the impact of monocyte-related markers on immune checkpoint inhibitor efficacy and immune-related adverse events in cancer patients.",
+    "method": "Systematic review and Bayesian meta-analysis of 155 eligible studies, searching PubMed, Web of Science, and Embase (2000-2023).",
+    "target": "PD-1, CTLA-4",
+    "biomarker": "Monocyte/lymphocyte ratio (MLR), absolute monocyte count (AMC), monocytic myeloid-derived suppressor cells (m-MDSCs)",
+    "sample_size": "",
+    "model_system": "",
+    "key_findings": "High MLR was a prognostic biomarker for short PFS (HR=1.5, 95% CI 1.21-1.88) and OS (HR=1.52, 95% CI 1.13-2.08); increased classical monocytes were unfavorable predictors of survival.",
+    "result_value": "PFS HR=1.5; OS HR=1.52",
+    "conclusion": "Baseline monocyte phenotyping may serve as a composite biomarker of response to ICI; monocyte-related variables may aid in risk assessment and treatment decision strategies [citation:11].",
+    "figures_summary": "",
+    "limitations": "Heterogeneity across studies; more data needed on irAEs",
+    "study_design_type": "meta_analysis",
+    "drug_class": "mAb",
+    "mutation_types": ""
+  }
+}
+  ]
 }

@@ -51,7 +51,9 @@
       "Bash(/c/Users/49586/.local/bin/gh.exe --version)",
       "Bash(export PATH=\"/c/Users/49586/.local/bin:/c/Users/49586/anaconda3/envs/agent-reach/Scripts:$PATH\")",
       "Bash(mkdir -p \"/c/Users/49586/AppData/Roaming/yt-dlp\")",
-      "Bash(echo \"--js-runtimes node\")"
+      "Bash(echo \"--js-runtimes node\")",
+      "Bash(xxd)",
+      "Bash(python3 *)"
     ]
   }
 }
