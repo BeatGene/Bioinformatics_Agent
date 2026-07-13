@@ -98,52 +98,107 @@ class BiomedicalTerminology:
 
     # ── 突变类型识别 ──
     def detect_mutation_types(self, text: str) -> list[str]:
-        """从文本中检测提到的突变类型，返回突变类型名列表"""
+        """从文本中检测提到的突变类型，返回突变类型名列表。
+        兼容 mutations.json v2 结构：category → subtypes → {patterns, priority_patterns, synonyms}
+        """
         found = []
         for category in self.mutations.values():
             if not isinstance(category, dict):
                 continue
-            for mut_name, mut_info in category.items():
-                if not isinstance(mut_info, dict):
-                    continue
-                patterns = mut_info.get("patterns", [])
-                for pat in patterns:
-                    if re.search(pat, text, re.IGNORECASE):
+            subtypes = category.get("subtypes", {})
+            if subtypes:
+                # v2 格式：突变类型嵌套在 subtypes 下
+                for mut_name, mut_info in subtypes.items():
+                    if not isinstance(mut_info, dict):
+                        continue
+                    if self._match_entity_patterns(mut_info, text):
                         found.append(mut_name)
-                        break
+            else:
+                # v1 兼容：突变类型直接在 category 下
+                for mut_name, mut_info in category.items():
+                    if not isinstance(mut_info, dict):
+                        continue
+                    if self._match_entity_patterns(mut_info, text):
+                        found.append(mut_name)
         return list(set(found))
+
+    @staticmethod
+    def _match_entity_patterns(entity_info: dict, text: str) -> bool:
+        """按优先级匹配实体模式：priority_patterns > synonyms > patterns"""
+        for pat in entity_info.get("priority_patterns", []):
+            if re.search(pat, text, re.IGNORECASE):
+                return True
+        for syn in entity_info.get("synonyms", []):
+            if re.search(re.escape(syn), text, re.IGNORECASE):
+                return True
+        for pat in entity_info.get("patterns", []):
+            if re.search(pat, text, re.IGNORECASE):
+                return True
+        return False
 
     # ── 模型系统识别 ──
     def detect_model_type(self, text: str) -> dict:
-        """从 method/model_system 文本中识别实验模型类型。返回 {type, subtype, confidence}"""
+        """从 method/model_system 文本中识别实验模型类型。
+        兼容 model_systems.json v2 结构：按 priority_patterns → synonyms → patterns → strains 优先级匹配。
+        返回 {type, subtype, confidence}"""
         if not text:
             return {"type": "unknown", "subtype": "", "confidence": 0.0}
 
-        # 遍历 model_systems.json 的所有层级
         for category_name, category in self.model_systems.items():
             if not isinstance(category, dict):
                 continue
             for model_name, model_info in category.items():
                 if not isinstance(model_info, dict):
                     continue
-                # 有 subtypes 的情况（如 mouse_models）
+
+                # 1) priority_patterns（最高置信度）
+                for pat in model_info.get("priority_patterns", []):
+                    if re.search(pat, text, re.IGNORECASE):
+                        return {"type": category_name, "subtype": model_name, "confidence": 1.0}
+
+                # 2) synonyms
+                for syn in model_info.get("synonyms", []):
+                    if re.search(re.escape(syn), text, re.IGNORECASE):
+                        return {"type": category_name, "subtype": model_name, "confidence": 0.95}
+
+                # 3) strains（mouse/rat 品系名）
+                for strain in model_info.get("strains", []):
+                    if re.search(re.escape(strain), text, re.IGNORECASE):
+                        return {"type": category_name, "subtype": model_name, "confidence": 0.95}
+
+                # 4) examples 列表中的具体名称
+                for ex in model_info.get("examples", []):
+                    if re.search(re.escape(ex), text, re.IGNORECASE):
+                        return {"type": category_name, "subtype": model_name, "confidence": 0.85}
+
+                # 5) 兼容旧格式：嵌套 subtypes
                 subtypes = model_info.get("subtypes", {})
                 if subtypes:
                     for sub_name, sub_info in subtypes.items():
                         if not isinstance(sub_info, dict):
                             continue
+                        for pat in sub_info.get("priority_patterns", []):
+                            if re.search(pat, text, re.IGNORECASE):
+                                return {"type": model_name, "subtype": sub_name, "confidence": 1.0}
+                        for syn in sub_info.get("synonyms", []):
+                            if re.search(re.escape(syn), text, re.IGNORECASE):
+                                return {"type": model_name, "subtype": sub_name, "confidence": 0.95}
                         for pat in sub_info.get("patterns", []):
                             if re.search(pat, text, re.IGNORECASE):
-                                return {"type": model_name, "subtype": sub_name, "confidence": 0.9}
-                # 没有 subtype 的情况
+                                return {"type": model_name, "subtype": sub_name, "confidence": 0.85}
+
+                # 6) patterns（兜底）
                 for pat in model_info.get("patterns", []):
                     if re.search(pat, text, re.IGNORECASE):
-                        return {"type": model_name, "subtype": "", "confidence": 0.8}
+                        return {"type": category_name, "subtype": model_name, "confidence": 0.7}
+
         return {"type": "unknown", "subtype": "", "confidence": 0.0}
 
     # ── 药物分类识别 ──
     def detect_drug_class(self, text: str) -> list[str]:
-        """从文本中识别药物分类"""
+        """从文本中识别药物分类。
+        兼容 drug_classes.json v2 结构：按 priority_patterns → synonyms → drug_aliases → patterns 优先级匹配。
+        """
         found = []
         for category_name, category in self.drug_classes.items():
             if not isinstance(category, dict):
@@ -151,10 +206,39 @@ class BiomedicalTerminology:
             for class_name, class_info in category.items():
                 if not isinstance(class_info, dict):
                     continue
-                for pat in class_info.get("patterns", []):
-                    if re.search(pat, text, re.IGNORECASE):
+                # priority_patterns 优先
+                if any(re.search(pat, text, re.IGNORECASE) for pat in class_info.get("priority_patterns", [])):
+                    found.append(f"{category_name}/{class_name}")
+                    continue
+                # synonyms
+                if any(re.search(re.escape(syn), text, re.IGNORECASE) for syn in class_info.get("synonyms", [])):
+                    found.append(f"{category_name}/{class_name}")
+                    continue
+                # drug_aliases（具体药名匹配）
+                drug_aliases = class_info.get("drug_aliases", {})
+                for drug_name, aliases in drug_aliases.items():
+                    if re.search(re.escape(drug_name), text, re.IGNORECASE):
                         found.append(f"{category_name}/{class_name}")
                         break
+                    for alias in aliases:
+                        if re.search(re.escape(alias), text, re.IGNORECASE):
+                            found.append(f"{category_name}/{class_name}")
+                            break
+                    else:
+                        continue
+                    break
+                else:
+                    # representative_drugs 中的药名
+                    for drug in class_info.get("representative_drugs", []):
+                        if re.search(re.escape(drug), text, re.IGNORECASE):
+                            found.append(f"{category_name}/{class_name}")
+                            break
+                    else:
+                        # patterns 兜底
+                        for pat in class_info.get("patterns", []):
+                            if re.search(pat, text, re.IGNORECASE):
+                                found.append(f"{category_name}/{class_name}")
+                                break
         return found
 
     # ── 研究设计类型识别 ──
