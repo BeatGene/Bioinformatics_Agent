@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Brain, ChevronDown, CheckCircle2, Loader2 } from "lucide-react";
 
 interface Props {
@@ -7,14 +7,8 @@ interface Props {
 }
 
 export default function ThinkingProcess({ steps, isStreaming }: Props) {
-  // 流式中默认展开，结束后默认折叠
-  const [open, setOpen] = useState(isStreaming);
-
-  useEffect(() => {
-    if (isStreaming) {
-      setOpen(true);
-    }
-  }, [isStreaming]);
+  const [open, setOpen] = useState(false);
+  const visible = isStreaming || open;
 
   if (steps.length === 0) return null;
 
@@ -23,41 +17,38 @@ export default function ThinkingProcess({ steps, isStreaming }: Props) {
       {/* 头部 */}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="thinking-header w-full"
+        className="thinking-header w-full text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-cyan-700"
+        aria-expanded={visible}
       >
-        <Brain className="w-4 h-4 text-purple-500 shrink-0" />
-        <span className="text-sm font-medium text-slate-700">思考过程</span>
-        <span className="text-xs text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-full">
+        <Brain className="h-4 w-4 shrink-0 text-cyan-700" aria-hidden="true" />
+        <span className="text-sm font-semibold text-[var(--ink)]">证据处理过程</span>
+        <span className="rounded bg-[var(--surface-muted)] px-1.5 py-0.5 text-xs text-[var(--ink-muted)]">
           {steps.length} 步
         </span>
         <ChevronDown
-          className={`w-4 h-4 text-slate-400 ml-auto transition-transform duration-200 ${
-            open ? "rotate-180" : ""
+          className={`ml-auto h-4 w-4 text-[var(--ink-subtle)] transition-transform duration-200 ${
+            visible ? "rotate-180" : ""
           }`}
         />
       </button>
 
       {/* 步骤列表 */}
-      {open && (
+      {visible && (
         <div className="px-4 pb-3 space-y-1">
           {steps.map((step, i) => {
             const isLast = i === steps.length - 1;
             const isActive = isLast && isStreaming;
 
             return (
-              <div
-                key={i}
-                className="thinking-step"
-                style={{ animationDelay: `${i * 30}ms` }}
-              >
+              <div key={i} className="thinking-step">
                 {isActive ? (
-                  <Loader2 className="w-3.5 h-3.5 text-purple-500 animate-spin shrink-0 mt-0.5" />
+                  <Loader2 className="mt-0.5 h-3.5 w-3.5 shrink-0 animate-spin text-cyan-700" aria-hidden="true" />
                 ) : (
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-700" aria-hidden="true" />
                 )}
                 <span
                   className={`text-sm leading-relaxed ${
-                    isActive ? "text-purple-700" : "text-slate-600"
+                    isActive ? "text-cyan-800" : "text-[var(--ink-muted)]"
                   }`}
                 >
                   {step.replace(/^\[.*?\]\s*/, "")}

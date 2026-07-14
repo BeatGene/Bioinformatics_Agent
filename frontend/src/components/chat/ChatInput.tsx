@@ -5,9 +5,15 @@ interface Props {
   onSend: (query: string, maxPapers: number) => void;
   onAbort: () => void;
   isStreaming: boolean;
+  variant?: "docked" | "home";
 }
 
-export default function ChatInput({ onSend, onAbort, isStreaming }: Props) {
+export default function ChatInput({
+  onSend,
+  onAbort,
+  isStreaming,
+  variant = "docked",
+}: Props) {
   const [query, setQuery] = useState("");
   const [maxPapers, setMaxPapers] = useState(5);
   const [showSettings, setShowSettings] = useState(false);
@@ -41,39 +47,48 @@ export default function ChatInput({ onSend, onAbort, isStreaming }: Props) {
   const canSend = query.trim().length > 0 && !isStreaming;
 
   return (
-    <div className="border-t border-slate-100 bg-white px-6 py-4">
-      <div className="max-w-3xl mx-auto">
+    <div
+      className={
+        variant === "home"
+          ? "w-full"
+          : "border-t border-[var(--line)] bg-[var(--surface)] px-5 py-4 sm:px-8"
+      }
+    >
+      <div className={variant === "home" ? "mx-auto max-w-4xl" : "mx-auto max-w-3xl"}>
         {/* 设置栏（可折叠） */}
         {showSettings && (
-          <div className="flex items-center gap-3 mb-3 px-1">
-            <span className="text-xs text-slate-500 shrink-0">最大文献数</span>
+          <div id="research-settings" className="flex items-center gap-3 mb-3 px-1">
+            <label htmlFor="max-papers" className="text-xs font-medium text-slate-600 shrink-0">最大文献数</label>
             <input
               type="range"
               min={2}
               max={20}
               value={maxPapers}
               onChange={(e) => setMaxPapers(Number(e.target.value))}
-              className="flex-1 h-1.5 bg-slate-200 rounded-full appearance-none cursor-pointer accent-blue-600"
+              id="max-papers"
+              className="flex-1 h-1.5 bg-slate-200 rounded-full appearance-none cursor-pointer accent-cyan-700"
             />
-            <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full min-w-[3rem] text-center">
+            <span className="text-xs font-semibold text-cyan-800 bg-cyan-50 px-2 py-0.5 rounded-full min-w-[3rem] text-center">
               {maxPapers} 篇
             </span>
           </div>
         )}
 
         {/* 输入栏 */}
-        <div className="flex items-end gap-3">
+        <div className={variant === "home" ? "flex items-end gap-3 rounded-xl border border-[var(--line-strong)] bg-[var(--surface)] p-2 shadow-sm focus-within:border-cyan-700" : "flex items-end gap-3"}>
           {/* 设置按钮 */}
           <button
             onClick={() => setShowSettings((v) => !v)}
-            className={`p-2.5 rounded-xl transition-colors shrink-0 ${
+            className={`size-10 rounded-lg transition-colors shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-700 ${
               showSettings
-                ? "bg-blue-50 text-blue-600"
-                : "bg-slate-50 text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+                ? "bg-cyan-50 text-cyan-700"
+                : "bg-slate-50 text-slate-500 hover:text-slate-700 hover:bg-slate-100"
             }`}
-            title="设置"
+            aria-label="调整检索设置"
+            aria-expanded={showSettings}
+            aria-controls="research-settings"
           >
-            <Settings2 className="w-4 h-4" />
+            <Settings2 className="w-4 h-4" aria-hidden="true" />
           </button>
 
           {/* Textarea */}
@@ -86,7 +101,8 @@ export default function ChatInput({ onSend, onAbort, isStreaming }: Props) {
               placeholder="输入你的生物医学研究问题..."
               rows={1}
               disabled={isStreaming}
-              className="chat-textarea"
+              aria-label="生物医学研究问题"
+              className={`chat-textarea ${variant === "home" ? "border-0 bg-transparent px-2 py-2.5 shadow-none focus:border-0 focus:ring-0" : ""}`}
             />
           </div>
 
@@ -94,29 +110,29 @@ export default function ChatInput({ onSend, onAbort, isStreaming }: Props) {
           {isStreaming ? (
             <button
               onClick={onAbort}
-              className="w-10 h-10 rounded-xl bg-red-500 hover:bg-red-600
+              className="w-10 h-10 rounded-lg bg-rose-600 hover:bg-rose-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-700
                          flex items-center justify-center transition-colors shrink-0"
-              title="停止生成"
+              aria-label="停止生成"
             >
-              <Square className="w-4 h-4 text-white fill-white" />
+              <Square className="w-4 h-4 text-white fill-white" aria-hidden="true" />
             </button>
           ) : (
             <button
               onClick={handleSend}
               disabled={!canSend}
-              className="w-10 h-10 rounded-xl bg-blue-600 hover:bg-blue-700
+              className="w-10 h-10 rounded-lg bg-cyan-700 hover:bg-cyan-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-700
                          disabled:opacity-40 disabled:cursor-not-allowed
                          flex items-center justify-center transition-colors shrink-0"
-              title="发送"
+              aria-label="发送研究问题"
             >
-              <ArrowUp className="w-4 h-4 text-white" />
+              <ArrowUp className="w-4 h-4 text-white" aria-hidden="true" />
             </button>
           )}
         </div>
 
         {/* 底部提示 */}
-        <p className="text-[11px] text-slate-400 text-center mt-2">
-          Enter 发送，Shift + Enter 换行 · AI 生成内容仅供参考
+        <p className={`text-[11px] text-slate-500 ${variant === "home" ? "mt-3 px-1" : "mt-2 text-center"}`}>
+          Enter 发送，Shift + Enter 换行 · 结果附带 PubMed 来源，供研究决策参考
         </p>
       </div>
     </div>

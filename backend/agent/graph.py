@@ -30,6 +30,7 @@ from backend.agent.nodes import (
     review_results_node,
     report_node,
 )
+from backend.tools.literature_quality import quality_scorer
 
 
 def _route_after_search(state: ResearchState) -> str:
@@ -165,6 +166,7 @@ async def run_research(
         "query": query,
         "max_papers": max_papers,
         "plan_summary": "",
+        "pubmed_query": "",
         "search_results": [],
         "selected_papers": [],
         "user_action": "",
@@ -172,6 +174,7 @@ async def run_research(
         "user_selected_ids": [],
         "user_feedback": "",
         "user_adjusted_query": "",
+        "interaction_history": [],
         "parsed_papers": {},
         "pdf_available": {},
         "comparison_report": "",
@@ -185,7 +188,7 @@ async def run_research(
     config = {"configurable": {"thread_id": tid}}
 
     try:
-        async for event in graph.astream(initial_state, config, stream_mode="values"):
+        for event in graph.stream(initial_state, config, stream_mode="values"):
             # event 是完整的 ResearchState dict
             yield _to_snapshot(event)
     except Exception as e:
@@ -207,7 +210,7 @@ async def run_research(
 
 async def resume_research(
     thread_id: str,
-    user_action: str,  # "approve" | "retry" | "select"
+    user_action: str,  # "approve" | "retry" | "select" | "revise"
     feedback: str = "",
     adjusted_query: str = "",
     selected_ids: list[str] | None = None,
@@ -220,7 +223,7 @@ async def resume_research(
 
     Args:
         thread_id: 对话线程 ID
-        user_action: "approve"（继续）/ "retry"（重新检索）/ "select"（手动选文献）
+        user_action: "approve"（继续）/ "retry"（重新检索）/ "select"（手动选文献）/ "revise"（调整分析）
         feedback: 用户反馈文本
         adjusted_query: 用户调整后的检索式（仅 retry 时有效）
         selected_ids: 用户手动勾选的 PMID 列表（仅 select 时有效）
@@ -249,22 +252,50 @@ async def resume_research(
         }
         return
 
+    current_values = current_state.values if hasattr(current_state, "values") else {}
+
     # 根据用户动作更新 state —— user_action 是唯一的路由决策来源
     update_values: dict[str, Any] = {"user_action": user_action}
+    history = list(current_values.get("interaction_history", []))
 
     if user_action == "retry":
         update_values["user_feedback"] = feedback
         update_values["user_adjusted_query"] = adjusted_query
+        history.append({
+            "stage": "review_search",
+            "action": "retry",
+            "feedback": feedback,
+            "adjusted_query": adjusted_query,
+        })
+    elif user_action == "revise":
+        update_values["user_feedback"] = feedback
+        history.append({
+            "stage": "review_results",
+            "action": "revise",
+            "feedback": feedback,
+        })
     elif user_action == "select":
         update_values["user_selected_ids"] = selected_ids or []
-    # approve 不需要额外字段
+        history.append({
+            "stage": "review_search",
+            "action": "select",
+            "selected_ids": selected_ids or [],
+        })
+    elif user_action == "approve":
+        pause_point = current_values.get("next_node", "")
+        history.append({
+            "stage": pause_point or "unknown",
+            "action": "approve",
+        })
+
+    update_values["interaction_history"] = history
 
     # 更新 checkpoint
     graph.update_state(config, update_values)
 
     # 恢复执行
     try:
-        async for event in graph.astream(None, config, stream_mode="values"):
+        for event in graph.stream(None, config, stream_mode="values"):
             yield _to_snapshot(event)
     except Exception as e:
         yield {
@@ -301,6 +332,7 @@ def _to_snapshot(state: dict) -> dict[str, Any]:
     sub_tasks = _build_sub_tasks(state)
 
     papers = _build_papers_list(state)
+    candidate_papers = _build_candidate_papers_list(state)
 
     return {
         "thread_id": state.get("thread_id", ""),
@@ -315,6 +347,7 @@ def _to_snapshot(state: dict) -> dict[str, Any]:
         "final_report": state.get("final_report", ""),
         "errors": state.get("errors", []),
         "papers": papers,
+        "candidate_papers": candidate_papers,
         # HITL 相关字段
         "is_paused": state.get("next_node", "") in ("review_search", "review_results"),
         "pause_point": state.get("next_node", ""),
@@ -410,6 +443,66 @@ def _build_papers_list(state: dict) -> list[dict[str, Any]]:
             seen_ids.add(pid)
 
     return papers
+
+
+def _build_candidate_papers_list(state: dict) -> list[dict[str, Any]]:
+    """构建检索审核用的完整候选文献列表。"""
+    search_results = state.get("search_results", [])
+    if not search_results:
+        return []
+
+    selected_ids = [
+        paper.get("pubmed_id", "")
+        for paper in state.get("selected_papers", [])
+        if paper.get("pubmed_id", "")
+    ]
+    selected_id_set = set(selected_ids)
+
+    scored_by_id = {
+        paper.get("pubmed_id", ""): paper
+        for paper in quality_scorer.rank_papers(search_results)
+    }
+
+    def to_candidate(paper: dict) -> dict[str, Any]:
+        pid = paper.get("pubmed_id", "")
+        scored = scored_by_id.get(pid, paper)
+        return {
+            "pubmed_id": paper.get("pubmed_id", ""),
+            "title": paper.get("title", ""),
+            "abstract": paper.get("abstract", ""),
+            "authors": _as_list(paper.get("authors", [])),
+            "journal": paper.get("journal", ""),
+            "publication_date": paper.get("publication_date", ""),
+            "doi": paper.get("doi", ""),
+            "url": paper.get("url", f"https://pubmed.ncbi.nlm.nih.gov/{paper.get('pubmed_id', '')}/"),
+            "objective": "", "method": "", "target": "",
+            "key_findings": "", "conclusion": "",
+            "quality": scored.get("quality", {}),
+            "is_default_selected": pid in selected_id_set,
+            "validation_warnings": 0,
+            "validation_corrections": 0,
+        }
+
+    search_by_id = {
+        paper.get("pubmed_id", ""): paper
+        for paper in search_results
+    }
+
+    # 先展示 LLM 相关性筛出的默认推荐文献；其内部顺序已在 search_node 中按质量重排。
+    selected_candidates = [
+        to_candidate(search_by_id[pid])
+        for pid in selected_ids
+        if pid in search_by_id
+    ]
+
+    # 其他候选再按项目质量评分排序，方便用户追加选择。
+    remaining_ranked = quality_scorer.rank_papers([
+        paper for paper in search_results
+        if paper.get("pubmed_id", "") not in selected_id_set
+    ])
+    remaining_candidates = [to_candidate(paper) for paper in remaining_ranked]
+
+    return selected_candidates + remaining_candidates
 
 
 def _as_list(val: Any) -> list[str]:

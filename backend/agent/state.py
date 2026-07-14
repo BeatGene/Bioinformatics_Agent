@@ -21,6 +21,7 @@ class ResearchState(TypedDict):
     plan_summary: str                   # 规划摘要
 
     # ── 检索结果 ──
+    pubmed_query: str                       # 本轮实际使用的 PubMed 检索式
     search_results: list[dict[str, Any]]    # PubMed 检索返回的文献列表
     selected_papers: list[dict[str, Any]]   # 筛选后的文献
 
@@ -30,6 +31,7 @@ class ResearchState(TypedDict):
     user_selected_ids: list[str]        # 用户手动勾选的 PMID 列表
     user_feedback: str                  # 用户反馈指令（如 "重新搜索，关键词换成XX"）
     user_adjusted_query: str            # 用户调整后的检索式
+    interaction_history: list[dict[str, Any]]  # HITL 交互历史，用于后续分析和报告保留上下文
 
     # ── 解析结果 ──
     parsed_papers: dict[str, dict[str, Any]]    # {pubmed_id: {structured, paper_info, validation}}

@@ -4,7 +4,9 @@ import ReactFlow, {
   type Edge,
   Background,
   Controls,
+  MarkerType,
 } from "reactflow";
+import { Circle, CircleCheck, FileSearch, FileText, LoaderCircle, Scale, Search, Workflow, type LucideIcon } from "lucide-react";
 import type { SubTask } from "../types/research";
 
 interface Props {
@@ -13,12 +15,12 @@ interface Props {
 
 const TYPE_CONFIG: Record<
   string,
-  { label: string; color: string; bg: string; border: string }
+  { label: string; color: string; bg: string; border: string; icon: LucideIcon }
 > = {
-  search: { label: "检索", color: "#2563eb", bg: "#eff6ff", border: "#bfdbfe" },
-  parse: { label: "解析", color: "#7c3aed", bg: "#f5f3ff", border: "#ddd6fe" },
-  compare: { label: "对比", color: "#ea580c", bg: "#fff7ed", border: "#fed7aa" },
-  report: { label: "报告", color: "#059669", bg: "#ecfdf5", border: "#a7f3d0" },
+  search: { label: "检索", color: "#0e7490", bg: "#ecfeff", border: "#a5f3fc", icon: Search },
+  parse: { label: "解析", color: "#0e7490", bg: "#ecfeff", border: "#a5f3fc", icon: FileSearch },
+  compare: { label: "对比", color: "#0e7490", bg: "#ecfeff", border: "#a5f3fc", icon: Scale },
+  report: { label: "报告", color: "#0e7490", bg: "#ecfeff", border: "#a5f3fc", icon: FileText },
 };
 
 const STATUS_STYLE: Record<string, string> = {
@@ -29,8 +31,6 @@ const STATUS_STYLE: Record<string, string> = {
 };
 
 const NODE_W = 220;
-const NODE_H = 100;
-const LEVEL_GAP_X = 260;
 const LEVEL_GAP_Y = 140;
 
 /** 拓扑排序 → 按层级分组，水平分布 */
@@ -87,6 +87,7 @@ function computeLayout(tasks: SubTask[]) {
 
   for (const task of tasks) {
     const config = TYPE_CONFIG[task.type] || TYPE_CONFIG.search;
+    const TaskIcon = config.icon;
     const borderColor = STATUS_STYLE[task.status] || STATUS_STYLE.pending;
     const isRunning = task.status === "running";
     const isDone = task.status === "done";
@@ -100,9 +101,8 @@ function computeLayout(tasks: SubTask[]) {
         label: (
           <div
             className={`
-              px-4 py-3 rounded-xl text-left border-2 transition-all duration-300
-              ${isRunning ? "animate-pulse shadow-lg" : ""}
-              ${isDone ? "shadow-sm" : ""}
+              px-4 py-3 rounded-xl text-left border-2 transition-colors duration-200
+              ${isRunning ? "" : ""}
             `}
             style={{
               width: NODE_W,
@@ -111,22 +111,24 @@ function computeLayout(tasks: SubTask[]) {
             }}
           >
             <span
-              className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
+              className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded"
               style={{
                 color: config.color,
                 backgroundColor: `${config.color}18`,
               }}
             >
+              <TaskIcon className="h-3 w-3" aria-hidden="true" />
               {config.label}
             </span>
             <p className="text-xs text-slate-700 mt-1.5 leading-snug line-clamp-2">
               {task.description}
             </p>
             <span
-              className="text-[11px] mt-1.5 block font-medium"
+              className="mt-1.5 flex items-center gap-1 text-[11px] font-medium"
               style={{ color: borderColor }}
             >
-              {isRunning ? "● 执行中" : isDone ? "✓ 已完成" : "○ 等待中"}
+              {isRunning ? <LoaderCircle className="h-3 w-3 animate-spin" aria-hidden="true" /> : isDone ? <CircleCheck className="h-3 w-3" aria-hidden="true" /> : <Circle className="h-3 w-3" aria-hidden="true" />}
+              {isRunning ? "执行中" : isDone ? "已完成" : "等待中"}
             </span>
           </div>
         ),
@@ -147,7 +149,7 @@ function computeLayout(tasks: SubTask[]) {
             strokeWidth: 2.5,
           },
           markerEnd: {
-            type: "arrowclosed",
+            type: MarkerType.ArrowClosed,
             color: task.status === "done" ? "#22c55e" : "#cbd5e1",
           },
         });
@@ -169,7 +171,7 @@ export default function DAGFlow({ subTasks }: Props) {
       <div className="flex items-center justify-center h-64 text-sm text-slate-400 bg-white rounded-xl border border-slate-200">
         <div className="text-center">
           <div className="w-10 h-10 mx-auto mb-3 rounded-full bg-slate-100 flex items-center justify-center">
-            <span className="text-slate-300 text-lg">?</span>
+            <Workflow className="h-5 w-5 text-slate-400" aria-hidden="true" />
           </div>
           等待任务规划...
         </div>

@@ -10,21 +10,16 @@ interface Props {
   onPmidClick?: (pmid: string) => void;
 }
 
-/** 自定义 Markdown 渲染，PMID 标签可点击 */
-function MarkdownRenderer({
-  content,
-  onPmidClick,
-}: {
-  content: string;
-  onPmidClick?: (pmid: string) => void;
-}) {
-  // 预处理：将 [PMID:xxxxx] 替换为 Markdown 链接（由自定义 a 组件渲染为可点击标签）
+/** 统一报告中的 PubMed 引用为直接可读的纯文本。 */
+function MarkdownRenderer({ content }: { content: string }) {
   const processed = useMemo(() => {
-    return content.replace(
-      /\[PMID:(\d+)\]/g,
-      (_match, pmid: string) =>
-        `[PMID: ${pmid}](https://pubmed.ncbi.nlm.nih.gov/${pmid}/)`,
-    );
+    return content
+      // 有编号的各种写法，统一为直接显示的 PMID 文本。
+      .replace(/(?:\[|【|（)?PMID\s*[:：]\s*(\d+)(?:\]|】|）)?/gi, "PMID: $1")
+      // 对比分析常用的 [12345678] 也直接写出 PMID 前缀。
+      .replace(/\[(\d{7,9})\](?!\()/g, "PMID: $1")
+      // 模型没有给出编号时，不保留无意义的空标签。
+      .replace(/^[ \t]*PMID\s*[:：][ \t]*\r?\n?/gim, "");
   }, [content]);
 
   return (
@@ -32,22 +27,14 @@ function MarkdownRenderer({
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeKatex]}
       components={{
+        h1: ({ children }) => <h1 className="report-title">{children}</h1>,
+        h2: ({ children }) => <h2 className="report-section-title">{children}</h2>,
+        table: ({ children }) => (
+          <div className="report-table-wrap" tabIndex={0} aria-label="报告数据表，可横向滚动">
+            <table>{children}</table>
+          </div>
+        ),
         a: ({ href, children, ...props }) => {
-          // PMID 标签特殊处理
-          if (href?.includes("pubmed.ncbi.nlm.nih.gov")) {
-            const pmid = href.split("/").pop() || "";
-            return (
-              <span
-                className="pmid-tag cursor-pointer"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onPmidClick?.(pmid);
-                }}
-              >
-                PMID: {pmid}
-              </span>
-            );
-          }
           return (
             <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
               {children}
@@ -61,11 +48,11 @@ function MarkdownRenderer({
   );
 }
 
-export default function ReportView({ report, loading, onPmidClick }: Props) {
+export default function ReportView({ report, loading }: Props) {
   if (!report && !loading) {
     return (
       <div className="flex flex-col items-center justify-center h-full text-slate-400 gap-4">
-        <FileText className="w-16 h-16 text-slate-200" />
+        <FileText className="w-16 h-16 text-slate-200" aria-hidden="true" />
         <div className="text-center">
           <p className="text-lg font-medium text-slate-500">准备开始研究</p>
           <p className="text-sm mt-1">
@@ -79,21 +66,23 @@ export default function ReportView({ report, loading, onPmidClick }: Props) {
   if (loading && !report) {
     return (
       <div className="flex flex-col items-center justify-center h-full gap-4">
-        <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
-        <p className="text-sm text-slate-500">正在生成报告...</p>
+        <Loader2 className="w-8 h-8 text-cyan-700 animate-spin" aria-hidden="true" />
+        <p className="text-sm text-[var(--ink-muted)]" role="status">正在生成报告…</p>
       </div>
     );
   }
 
   return (
-    <div className="report-content px-1">
-      <MarkdownRenderer content={report} onPmidClick={onPmidClick} />
+    <article className="report-shell" aria-label="研究报告">
+      <div className="report-content">
+        <MarkdownRenderer content={report} />
+      </div>
       {loading && (
-        <div className="flex items-center gap-2 text-blue-500 mt-4 pb-8">
-          <Loader2 className="w-4 h-4 animate-spin" />
-          <span className="text-sm">更新中...</span>
+        <div className="mt-4 flex items-center gap-2 pb-8 text-cyan-700" role="status" aria-live="polite">
+          <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
+          <span className="text-sm">更新中…</span>
         </div>
       )}
-    </div>
+    </article>
   );
 }

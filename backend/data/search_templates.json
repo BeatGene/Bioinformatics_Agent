@@ -20,7 +20,7 @@
         "targeted therapy"
       ],
       "description": "某靶点的临床试验进展",
-      "pubmed_template": "({target}[MeSH Terms] OR {target}[Title/Abstract]) AND (Clinical Trial[Publication Type] OR clinical trial[Title/Abstract] OR phase I[Title/Abstract] OR phase II[Title/Abstract] OR phase III[Title/Abstract] OR targeted therapy[Title/Abstract])",
+      "pubmed_template": "({target}[MeSH Terms] OR {target}[Title/Abstract]) AND (Clinical Trial[Publication Type] OR \"clinical trial\"[Title/Abstract] OR \"phase I\"[Title/Abstract] OR \"phase II\"[Title/Abstract] OR \"phase III\"[Title/Abstract] OR \"targeted therapy\"[Title/Abstract])",
       "slots": {
         "target": "靶点名称，如 EGFR、PD-L1、HER2、KRAS"
       },

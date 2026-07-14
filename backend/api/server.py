@@ -61,7 +61,7 @@ class ResearchRequest(BaseModel):
 
 class ResumeRequest(BaseModel):
     thread_id: str = Field(..., description="对话线程 ID")
-    user_action: str = Field(..., description="approve / retry / select")
+    user_action: str = Field(..., description="approve / retry / select / revise")
     feedback: str = Field(default="", description="用户反馈文本")
     adjusted_query: str = Field(default="", description="调整后的检索式")
     selected_ids: list[str] = Field(default_factory=list, description="用户手动选择的 PMID 列表")
@@ -201,7 +201,6 @@ async def research_resume(request: ResumeRequest, db: Session = Depends(get_db))
                     record.final_report = final_snapshot.get("final_report", "")
                     record.state_snapshot = final_snapshot
                     record.status = "paused" if final_snapshot.get("is_paused") else "completed"
-                    record.updated_at = None  # 触发 onupdate
                     db.commit()
 
             yield "data: [DONE]\n\n"

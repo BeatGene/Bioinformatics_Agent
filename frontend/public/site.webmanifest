@@ -1,0 +1,16 @@
+{
+  "name": "BioAgent｜生物医学文献研究工作台",
+  "short_name": "BioAgent",
+  "lang": "zh-CN",
+  "display": "standalone",
+  "background_color": "#f8fafb",
+  "theme_color": "#0b1726",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

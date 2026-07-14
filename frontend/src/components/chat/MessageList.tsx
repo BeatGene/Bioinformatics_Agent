@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import type { ChatMessage } from "../../types/chat";
+import type { ResumeResearchPayload } from "../../types/research";
 import UserMessage from "./UserMessage";
 import AssistantMessage from "./AssistantMessage";
 
@@ -7,9 +8,15 @@ interface Props {
   messages: ChatMessage[];
   isStreaming: boolean;
   onPmidClick?: (pmid: string) => void;
+  onResume?: (payload: ResumeResearchPayload) => void;
 }
 
-export default function MessageList({ messages, isStreaming, onPmidClick }: Props) {
+export default function MessageList({
+  messages,
+  isStreaming,
+  onPmidClick,
+  onResume,
+}: Props) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -22,14 +29,14 @@ export default function MessageList({ messages, isStreaming, onPmidClick }: Prop
     const isNearBottom =
       container.scrollHeight - container.scrollTop - container.clientHeight < 100;
 
-    if (isNearBottom || isStreaming) {
-      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (isNearBottom) {
+      bottomRef.current?.scrollIntoView({ behavior: "auto" });
     }
   }, [messages, isStreaming]);
 
   return (
-    <div ref={containerRef} className="message-list flex-1 px-6">
-      <div className="max-w-3xl mx-auto">
+    <div ref={containerRef} className="message-list flex-1 px-5 sm:px-8">
+      <div className="mx-auto max-w-[860px]">
         {messages.map((msg) =>
           msg.role === "user" ? (
             <UserMessage key={msg.id} message={msg} />
@@ -38,6 +45,7 @@ export default function MessageList({ messages, isStreaming, onPmidClick }: Prop
               key={msg.id}
               message={msg}
               onPmidClick={onPmidClick}
+              onResume={onResume}
             />
           ),
         )}
