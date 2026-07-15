@@ -5,10 +5,10 @@ uvicorn[standard]>=0.30.0
 # LLM 调用（DeepSeek 兼容 OpenAI SDK）
 openai>=1.0.0
 
-# Agent 编排
-langgraph>=0.3.0
-langgraph-checkpoint-sqlite>=2.0.10,<3.0
-langchain-core>=0.3.0
+# Agent 编排（版本锁定，避免 JsonPlusSerializer 兼容性问题）
+langgraph>=0.2.50,<0.3.0
+langgraph-checkpoint-sqlite>=2.0.0,<2.1.0
+langchain-core>=0.3.0,<0.4.0
 
 # 文献检索
 pymed>=0.8.0

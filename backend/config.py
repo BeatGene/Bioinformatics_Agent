@@ -29,16 +29,12 @@ class Config:
 
     # 数据路径
     DATA_DIR: Path = PROJECT_ROOT / "data"
-    PDF_DIR: Path = DATA_DIR / "pdfs"
-    CACHE_DIR: Path = DATA_DIR / "cache"
     DB_PATH: Path = DATA_DIR / "bioinformatics_agent.db"
 
     @classmethod
     def ensure_dirs(cls):
         """确保数据目录存在"""
         cls.DATA_DIR.mkdir(parents=True, exist_ok=True)
-        cls.PDF_DIR.mkdir(parents=True, exist_ok=True)
-        cls.CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
     @classmethod
     def validate(cls) -> bool:

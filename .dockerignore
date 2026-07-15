@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+*.egg
+
+# Node
+frontend/node_modules/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.idea/
+.vscode/
+
+# Env (不要打进镜像，通过 docker run --env-file 或 compose 注入)
+.env
+
+# Data (通过 volume 挂载)
+data/
+
+# Agent skills (前端 UI 技能，Docker 里用不到)
+.agents/
+
+# Docs / misc
+PPT/
+*.md
+!backgroud.md
+中期材料/
+AI Agent中期材料模板/
+任务清单.md
+skills-lock.json
+
+# OS
+.DS_Store
+Thumbs.db

@@ -5,16 +5,18 @@ v2.0: 支持多轮对话、人工干预（HITL）、对话持久化。
 import json
 import asyncio
 import logging
+from pathlib import Path
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator, Optional
 
 from fastapi import FastAPI, Request, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse, JSONResponse
+from fastapi.responses import StreamingResponse, JSONResponse, FileResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
-from backend.config import config
+from backend.config import config, PROJECT_ROOT
 from backend.agent.executor import execute_research, resume_research
 from backend.agent.graph import get_thread_state, new_thread_id
 from backend.db.database import SessionLocal, get_db, init_db
@@ -120,11 +122,7 @@ async def research(request: ResearchRequest, db: Session = Depends(get_db)):
     async def event_stream() -> AsyncGenerator[str, None]:
         final_snapshot = None
         try:
-            async for snapshot in execute_research(
-                query=request.query,
-                max_papers=request.max_papers,
-                thread_id=tid,
-            ):
+            async for snapshot in execute_research(query=request.query,max_papers=request.max_papers,thread_id=tid,):
                 final_snapshot = snapshot
                 data = json.dumps(snapshot, ensure_ascii=False)
                 yield f"data: {data}\n\n"
@@ -360,3 +358,28 @@ def _save_research_result(
         conv.title = query[:80] if query else "未命名研究"
 
     db.commit()
+
+
+# ═══════════════════════════════════════════════════════════════
+# 前端静态文件服务（Docker 单容器部署）
+# ═══════════════════════════════════════════════════════════════
+
+_FRONTEND_DIST = PROJECT_ROOT / "frontend" / "dist"
+
+if _FRONTEND_DIST.exists():
+    _dist = _FRONTEND_DIST.resolve()
+    _assets = _dist / "assets"
+    if _assets.exists():
+        app.mount("/assets", StaticFiles(directory=str(_assets)), name="assets")
+
+    @app.get("/{rest:path}")
+    async def _spa_fallback(rest: str):
+        # 先检查是否为 dist 中的真实文件（favicon.svg 等）
+        requested = (_dist / rest).resolve()
+        if str(requested).startswith(str(_dist)) and requested.is_file():
+            return FileResponse(requested)
+        # SPA 兜底
+        index = _dist / "index.html"
+        if index.is_file():
+            return FileResponse(index)
+        return HTMLResponse("Frontend not built. Run: cd frontend && npm run build", status_code=404)
