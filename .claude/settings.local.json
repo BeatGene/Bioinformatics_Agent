@@ -69,7 +69,10 @@
       "Read(//c/Users/49586/**)",
       "Bash(/c/Users/49586/anaconda3/envs/BioAgent/python.exe -m pytest backend/tests/ -v --tb=short)",
       "Bash(/c/Users/49586/anaconda3/envs/BioAgent/python.exe -m pip install langgraph-checkpoint-sqlite)",
-      "Bash(/c/Users/49586/anaconda3/envs/BioAgent/python.exe -m pip install \"langgraph-checkpoint-sqlite>=2.0.10,<3.0\")"
+      "Bash(/c/Users/49586/anaconda3/envs/BioAgent/python.exe -m pip install \"langgraph-checkpoint-sqlite>=2.0.10,<3.0\")",
+      "Bash(docker info *)",
+      "Bash(docker compose up *)",
+      "Bash(docker compose ps *)"
     ]
   }
 }
